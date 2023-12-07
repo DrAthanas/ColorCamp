@@ -20,3 +20,6 @@ class Config:
         return self._default_color_type
     
     project_paths : List[Union[str,Path]] = PROJECT_PATHS
+
+
+config = Config()

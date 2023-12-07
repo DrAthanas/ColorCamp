@@ -14,7 +14,6 @@ DIV_TEMPLATE = """
 """
 
 class Scale(tuple):
-
     def __init__(self, 
         colors:Iterable[WebColor],
         stops:Iterable[Union[float, int]]=None,

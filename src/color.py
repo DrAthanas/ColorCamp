@@ -14,7 +14,6 @@ import json
 # * Add other color base types (RGB_LINEAR, CMKY)
 # * Other color space -> CIELAB
 
-from .project import Project
 from .conversions import (
     hex_to_rgb,
     rgb_to_hex,
@@ -228,12 +227,10 @@ class WebColor():
             #"default_type":self.__class__.__name__,
         }
     
-    def dump_json(self, destination : Union[str, Path, Project], overwrite = False)->None:
+    def dump_json(self, destination : Union[str, Path], overwrite = False)->None:
         ## Validate path
         if isinstance(destination, Union[str, Path]):
             file_path = Path(destination)
-        elif isinstance(destination, Project):
-            raise NotImplementedError()
         
         if file_path.exists() and not overwrite:
             #? Check to see if it's writable?
@@ -257,7 +254,6 @@ class WebColor():
         #TODO: validate pathing?
         if color_type is None:
             color_type = cls.__name__
-            print(color_type)
 
         with open(source, 'r') as fio:
             color_dict = json.load(fio)
