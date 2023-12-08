@@ -1,10 +1,3 @@
-# Takes a path + name - creates directories
-# * colors
-# * Palettes
-# * Scales
-# * project.log
-
-
 from typing import Any, Union, Optional, List
 from pathlib import Path
 from .color import WebColor
@@ -13,17 +6,17 @@ from .palette import Palette
 
 
 class Bucket:
-
     def add(self, value : Union[WebColor, Scale, Palette]):
         if (name:=value.name) is None:
             raise ValueError(f"Objects need to have a name to be added to a Camp {self.__class__.__name__} Bucket")
         if hasattr(self, name):
             raise RuntimeError(f"Name '{name}' is already in use")
         self.__setattr__(name, value)
-        
 
     def remove(self, name: str):
-        ...
+        if not hasattr(self, name):
+            raise RuntimeError(f"Name '{name} is not in bucket")
+        self.__delattr__(name)
 
     def __repr__(self):
         return str(self.__dict__)
