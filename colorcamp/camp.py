@@ -6,9 +6,11 @@ from .palette import Palette
 
 
 class Bucket:
-    def add(self, value : Union[WebColor, Scale, Palette]):
-        if (name:=value.name) is None:
-            raise ValueError(f"Objects need to have a name to be added to a Camp {self.__class__.__name__} Bucket")
+    def add(self, value: Union[WebColor, Scale, Palette]):
+        if (name := value.name) is None:
+            raise ValueError(
+                f"Objects need to have a name to be added to a Camp {self.__class__.__name__} Bucket"
+            )
         if hasattr(self, name):
             raise RuntimeError(f"Name '{name}' is already in use")
         self.__setattr__(name, value)
@@ -23,13 +25,9 @@ class Bucket:
 
 
 class Camp:
-    __DIR_MAP = dict(
-        colors = WebColor,
-        scales = Scale,
-        palettes = Palette
-    )
+    __DIR_MAP = dict(colors=WebColor, scales=Scale, palettes=Palette)
 
-    def __init__(self, name:str, source:Union[str, Path]):
+    def __init__(self, name: str, source: Union[str, Path]):
         # TODO: Add property protections to these attributes & validation
         self.name = name
         self.source = Path(source)
@@ -39,7 +37,7 @@ class Camp:
         self.mappings = self.__Mappings()
 
     @classmethod
-    def load(cls, name, source:Optional[Path]=None):
+    def load(cls, name, source: Optional[Path] = None):
         # Search for matching directory in source locations
         if source is None:
             # use config to find if name is in any sources
@@ -48,14 +46,14 @@ class Camp:
         camp = cls(name, source)
 
         for sub_dir, klass in cls.__DIR_MAP.items():
-            search_dir : Path = camp.source / name / sub_dir
-            files = search_dir.glob('*.json') if search_dir.exists() else []
+            search_dir: Path = camp.source / name / sub_dir
+            files = search_dir.glob("*.json") if search_dir.exists() else []
             for file in files:
                 # TODO? what happens if there is an error loading file?
                 camp.__getattribute__(sub_dir).add(klass.load_json(file))
 
         return camp
-    
+
     def reload(self):
         raise NotImplementedError()
 
@@ -70,10 +68,9 @@ class Camp:
             sub_dest_dir.mkdir(exist_ok=True)
             for name, _ in self.__getattribute__(sub_dir).__dict__.items():
                 (
-                    self
-                    .__getattribute__(sub_dir)
+                    self.__getattribute__(sub_dir)
                     .__getattribute__(name)
-                    .dump_json(sub_dest_dir / f'{name}.json', overwrite = overwrite)
+                    .dump_json(sub_dest_dir / f"{name}.json", overwrite=overwrite)
                 )
 
     def query(self):
@@ -85,23 +82,16 @@ class Camp:
             if not isinstance(__value, WebColor):
                 raise TypeError("Colors must be of WebColor")
             super().__setattr__(__name, __value)
-    
 
     class __Scales(Bucket):
         def __setattr__(self, __name: str, __value: Scale) -> None:
             if not isinstance(__value, Scale):
                 raise TypeError("Scales must be a Scale")
 
-
     class __Palettes(Bucket):
         def __setattr__(self, __name: str, __value: Palette) -> None:
             if not isinstance(__value, Palette):
                 raise TypeError("Palettes must be a Palette")
 
-
     class __Mappings(Bucket):
         pass
-
-    
-    
-    

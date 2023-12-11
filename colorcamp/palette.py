@@ -13,57 +13,57 @@ DIV_TEMPLATE = """
 </div>
 """
 
-class Palette(tuple):
 
-    def __init__(self, 
-            colors:Iterable[WebColor],
-            name:str = None,
-            description:str = None,
-            tags:List[str] = None
-            ):
-        
+class Palette(tuple):
+    def __init__(
+        self,
+        colors: Iterable[WebColor],
+        name: str = None,
+        description: str = None,
+        tags: List[str] = None,
+    ):
         self.name = name
         self.description = description
         self.tags = tags
-        
+
         self.__current_index = 0
         super().__init__()
 
     @property
     def name(self) -> str:
         return self._name
-    
+
     @name.setter
-    def name(self, value:str):
-        if not hasattr(self, '_name'):
+    def name(self, value: str):
+        if not hasattr(self, "_name"):
             if isinstance(value, str) or value is None:
                 self._name = value
             else:
-                raise ValueError('expected a `str` for name')
+                raise ValueError("expected a `str` for name")
         else:
             raise AttributeError("can't set attribute 'name'")
 
     @property
     def description(self) -> str:
         return self._description
-    
+
     @description.setter
-    def description(self, value:str):
-        if not hasattr(self, '_description'):
+    def description(self, value: str):
+        if not hasattr(self, "_description"):
             if isinstance(value, str) or value is None:
                 self._description = value
             else:
-                raise ValueError('expected a `str` for description')
+                raise ValueError("expected a `str` for description")
         else:
             raise AttributeError("can't set attribute 'description'")
-    
+
     @property
     def tags(self) -> List[AnyStr]:
         return self._tags
-    
+
     @tags.setter
-    def tags(self, value:List[AnyStr]):
-        if not hasattr(self, '_tags'):
+    def tags(self, value: List[AnyStr]):
+        if not hasattr(self, "_tags"):
             # TODO: Validate
             self._tags = value
         else:
@@ -80,18 +80,17 @@ class Palette(tuple):
         return self[index]
 
     def __repr__(self) -> str:
-        return f'Palette{super().__repr__()}'
+        return f"Palette{super().__repr__()}"
 
     def _repr_html_(self):
         # TODO: Add name if needed
         html_string = "\n".join(
-                [
-                    DIV_TEMPLATE.format(css = color.css(), height = 60, width = 60)
-                    for color in self
-                ]
-            )
-        
+            [
+                DIV_TEMPLATE.format(css=color.css(), height=60, width=60)
+                for color in self
+            ]
+        )
+
         html_string = f'<div style="display: flex">{html_string}</div>'
 
         return html_string
-        
