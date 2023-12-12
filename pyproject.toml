@@ -1,0 +1,18 @@
+[tool.black]
+line-length = 88
+target-version = ['py310']
+include = '\.pyi?$'
+exclude = '''
+/(
+  \.toml
+  |\.sh
+  |\.git
+  |\.ini
+  |\.ipynb
+)/
+'''
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "."
+]

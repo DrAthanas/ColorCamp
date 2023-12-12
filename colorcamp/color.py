@@ -10,16 +10,25 @@ from .types import (
     GenericColorTuple,
     AnyGenericColorTuple,
     RGBColorTuple,
-    AnyRGBColorTuple
+    AnyRGBColorTuple,
 )
 
 # TODO
 # * Validators everywhere
+#   * metadata
+#   * name
+#   * rgb_linear
+#   * from_dict ?
+#   * load_json - pathing
+#   * rgb
+#   * __add__
+# * fix slots on tuple subclass
 # * Docstrings
 # * Serialize method
 # * css - inline vs constucted
 # * Add other color base types (RGB_LINEAR, CMKY)
 # * Other color space -> CIELAB
+# * subclass equality
 
 from .conversions import (
     hex_to_rgb,
@@ -66,6 +75,11 @@ class WebColor:
     NOTE: This is not meant to be used within operational code
     """
 
+    # pylint: disable=too-many-instance-attributes
+    # There is a lot of functionality I want to keep here
+    # pylint: disable=too-many-arguments
+    # Users will not have to directly init this object
+
     _subclasses: Dict[str, WebColor] = {}
 
     def __init__(
@@ -75,7 +89,7 @@ class WebColor:
         blue: float,
         name: Optional[str] = None,
         description: Optional[str] = None,
-        metadata: Dict[str, Any] = {},
+        metadata: Optional[Dict[str, Any]] = None,
         alpha: Optional[float] = None,
     ):
         self.rgb_linear = (red, green, blue)
@@ -92,12 +106,11 @@ class WebColor:
     def rgb_linear(self) -> AnyGenericColorTuple:
         if self.alpha is None:
             return self._rgb_linear
-        return tuple((*self._rgb_linear, self.alpha)) # type: ignore
+        return tuple((*self._rgb_linear, self.alpha))  # type: ignore
 
     @rgb_linear.setter
     def rgb_linear(self, value: GenericColorTuple):
         if not hasattr(self, "_rgb_linear"):
-            # TODO: Validation
             self._rgb_linear = value
         else:
             raise AttributeError("can't set attribute 'rgb_linear'")
@@ -135,9 +148,10 @@ class WebColor:
         return self._metadata
 
     @metadata.setter
-    def metadata(self, value: Dict[str, Any]):
+    def metadata(self, value: Union[Dict[str, Any], None]):
+        if value is None:
+            value = {}
         if not hasattr(self, "_metadata"):
-            # TODO: Validate
             self._metadata = value
         else:
             raise AttributeError("can't set attribute 'metadata'")
@@ -159,25 +173,25 @@ class WebColor:
     def change_alpha(self, alpha: float):
         # If it's webclass it has a different signature
         if self.__class__.__name__ == "WebColor":
-            return self.__class__(*self.rgb_linear[:3], alpha=alpha, **self.info()) 
-        
+            return self.__class__(*self.rgb_linear[:3], alpha=alpha, **self.info())
+
         # types change based on subclasses - that's the point of this repo
-        return self.__class__(self, alpha=alpha, **self.info()) # type: ignore
+        return self.__class__(self, alpha=alpha, **self.info())  # type: ignore
 
     ## Stored color types
     @cached_property
-    def hsl(self):
-        h, l, s = colorsys.rgb_to_hls(*self.rgb_linear[:3])
-        hsl_values = [h * 360, s, l] + ([self.alpha] if self.alpha is not None else [])
-
-        return tuple(hsl_values)
+    def hsl(self) -> AnyGenericColorTuple:
+        hue, lightness, saturation = colorsys.rgb_to_hls(*self.rgb_linear[:3])
+        if self.alpha is None:
+            return tuple(hue, lightness, saturation)
+        return (hue, lightness, saturation, self.alpha)
 
     @cached_property
     def rgb(self) -> AnyRGBColorTuple:
         rgb256 = list(map(lambda x: int(x * 255), self.rgb_linear[:3]))
         if self.alpha is None:
-            return tuple(rgb256) # type: ignore
-        return (*rgb256, self.alpha) # type: ignore
+            return tuple(rgb256)  # type: ignore
+        return (*rgb256, self.alpha)  # type: ignore
 
     @cached_property
     def hex(self) -> str:
@@ -186,7 +200,7 @@ class WebColor:
     ## Conversion methods
     def to_color_type(self, color_type: str):
         if color_type is self.__class__.__name__:
-            new_color : WebColor = self
+            new_color: WebColor = self
         elif color_type in self._subclasses:
             new_color: WebColor = self._subclasses[color_type](  # type: ignore
                 getattr(self, color_type.lower()),
@@ -194,7 +208,7 @@ class WebColor:
                 alpha=self.alpha,
             )
             # Bypass the setter to insure lrgb values are exact to avoid fp errors
-            new_color._rgb_linear = self.rgb_linear[:3]
+            new_color._rgb_linear = self.rgb_linear[:3]  # pyline: ignore=W0212
         elif color_type == "WebColor":
             # ? Warning here?
             new_color = WebColor(*self.rgb_linear[:3], **self.info(), alpha=self.alpha)
@@ -216,9 +230,8 @@ class WebColor:
 
     ## Utility functions
     def css(self) -> str:
-        # Place holder so that it works as baseclass
-        UserWarning("css() method is ambiguous on WebColor. Convert to proper subtype")
-        return self.hex
+        # Needed some default - using rgb since it's inline with init
+        return self.rgb
 
     def info(self) -> Dict[str, Any]:
         # DataClass?
@@ -248,7 +261,7 @@ class WebColor:
             # ? Check to see if it's writable?
             raise FileExistsError(f"file already exists for: {file_path}")
 
-        with open(file_path, "w") as fio:
+        with open(file_path, mode="w", encoding="utf-8") as fio:
             json.dump(self.to_dict(), fio, indent=4)
 
     @classmethod
@@ -263,11 +276,10 @@ class WebColor:
 
     @classmethod
     def load_json(cls, source: Union[str, Path], color_type: Optional[str] = None):
-        # TODO: validate pathing?
         if color_type is None:
             color_type = cls.__name__
 
-        with open(source, "r") as fio:
+        with open(source, "r", encoding="utf-8") as fio:
             color_dict = json.load(fio)
 
         return WebColor.from_dict(color_dict, color_type)
@@ -275,7 +287,6 @@ class WebColor:
     ## dunders
     # TODO: comparisons lt, gt
     def __eq__(self, color):
-        # TODO: compare alpha channel
         if isinstance(color, WebColor):
             return all(
                 map(
@@ -286,11 +297,15 @@ class WebColor:
 
         return False
 
-    def __add__(self, color):
+    def __add__(self, color: WebColor) -> WebColor:
         # TODO: update for additive mix w/ alpha
-        r, g, b = map(lambda x: sum(x) / 2, zip(self.rgb_linear, color.rgb_linear))
+        red, green, blue = map(
+            lambda x: sum(x) / 2, zip(self.rgb_linear, color.rgb_linear)
+        )
 
-        return WebColor(red=r, green=g, blue=b).to_color_type(self.__class__.__name__)
+        return WebColor(red=red, green=green, blue=blue).to_color_type(
+            self.__class__.__name__
+        )
 
     def _repr_html_(self):
         text = "<br>".join(
@@ -314,21 +329,21 @@ class WebColor:
 class Hex(WebColor, str):
     __slots__ = ("_hex", "_alpha", "_name", "_description", "_metadata")
 
-    def __new__(cls, hex, *args, alpha=None, **kwargs):
+    def __new__(cls, hex_str, *args, alpha=None, **kwargs):  # pylint: ignore=W0613
         if alpha is not None:
-            hex = hex[:7] + f"{int(alpha*255):X}"
-        return super().__new__(cls, hex)
+            hex_str = hex_str[:7] + f"{int(alpha*255):X}"
+        return super().__new__(cls, hex_str)
 
     def __init__(
         self,
-        hex: str,
+        hex_str: str,
         name: Optional[str] = None,
         description: Optional[str] = None,
-        metadata: Dict[str, Any] = {},
+        metadata: Optional[Dict[str, Any]] = None,
         alpha: Optional[float] = None,
     ):
-        self.hex = hex
-        red, green, blue = map(lambda v: v / 255, hex_to_rgb(hex))
+        self.hex = hex_str
+        red, green, blue = map(lambda v: v / 255, hex_to_rgb(hex_str))
 
         super().__init__(
             red=red,
@@ -407,7 +422,6 @@ class RGB(WebColor, tuple):
         metadata: Dict[str, Any] = {},
         alpha: Optional[float] = None,
     ):
-        self.rgb = rgb
         red, green, blue = map(lambda v: v / 255, rgb[:3])
 
         super().__init__(
@@ -421,16 +435,8 @@ class RGB(WebColor, tuple):
         )
 
     @property
-    def rgb(self) -> AnyRGBColorTuple: #type: ignore
-        return self # type: ignore
-
-    @rgb.setter
-    def rgb(self, rgb: RGBColorTuple):
-        if not hasattr(self, "_rgb"):
-            # TODO: Validate
-            self._rgb = rgb
-        else:
-            raise AttributeError("can't set attribute 'rgb'")
+    def rgb(self) -> AnyRGBColorTuple:  # type: ignore
+        return self  # type: ignore
 
     @property
     def red(self) -> float:
@@ -448,20 +454,19 @@ class RGB(WebColor, tuple):
         return f"rgb{self}"
 
     ### Color manipulations
-    # ? Can I do this cleaner with partials?
-    def _change_rgb(self, red, green, blue, keep_metadata: bool = False)->RGB:
+    def _change_rgb(self, red, green, blue, keep_metadata: bool = False) -> RGB:
         metadata = self.info() if keep_metadata else {}
         return RGB((red, green, blue), alpha=self.alpha, **metadata)
 
-    def change_red(self, red, keep_metadata: bool = False)->RGB:
+    def change_red(self, red, keep_metadata: bool = False) -> RGB:
         _, green, blue = self.rgb[:3]
         return self._change_rgb(red, green, blue, keep_metadata)
 
-    def change_green(self, green, keep_metadata: bool = False)->RGB:
+    def change_green(self, green, keep_metadata: bool = False) -> RGB:
         red, _, blue = self.rgb[:3]
         return self._change_rgb(red, green, blue, keep_metadata)
 
-    def change_blue(self, blue, keep_metadata: bool = False)->RGB:
+    def change_blue(self, blue, keep_metadata: bool = False) -> RGB:
         red, green, _ = self.rgb[:3]
         return self._change_rgb(red, green, blue, keep_metadata)
 
@@ -480,10 +485,10 @@ class HSL(WebColor, tuple):
         hsl: GenericColorTuple,
         name: Optional[str] = None,
         description: Optional[str] = None,
-        metadata: Dict[str, Any] = {},
+        metadata: Optional[Dict[str, Any]] = None,
         alpha: Optional[float] = None,
     ):
-        self.hsl = hsl
+        # NOTE: order is funky b/c hsl <> hls
         red, green, blue = colorsys.hls_to_rgb(hsl[0] / 360, hsl[2], hsl[1])
 
         super().__init__(
@@ -498,15 +503,7 @@ class HSL(WebColor, tuple):
 
     @property
     def hsl(self) -> AnyGenericColorTuple:
-        return self # type: ignore
-
-    @hsl.setter
-    def hsl(self, hsl: GenericColorTuple):
-        if not hasattr(self, "_hsl"):
-            # TODO: Validate
-            self._hsl = hsl
-        else:
-            raise AttributeError("can't set attribute 'hsl'")
+        return self  # type: ignore
 
     @property
     def hue(self) -> float:
@@ -524,7 +521,9 @@ class HSL(WebColor, tuple):
         return f"hsl({self.hue:.0f} {self.saturation:.0%} {self.lightness:.0%}{'' if self.alpha is None else ' / '+str(self.alpha)})"
 
     ### Color manipulations
-    def _change_hsl(self, hue, saturation, lightness, keep_metadata: bool = False) -> HSL:
+    def _change_hsl(
+        self, hue, saturation, lightness, keep_metadata: bool = False
+    ) -> HSL:
         metadata = self.info() if keep_metadata else {}
         return HSL((hue, saturation, lightness), alpha=self.alpha, **metadata)
 

@@ -1,0 +1,6 @@
+[MASTER]
+jobs=2 #number of processes to use
+[BASIC]
+good-names=ColorCamp #names to be considered ok
+[pre-commit-hook]
+disable=E0401, C0301

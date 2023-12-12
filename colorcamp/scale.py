@@ -1,4 +1,4 @@
-from typing import List, Iterable, AnyStr, Union
+from typing import Sequence, Union, Optional, Dict, Any, Tuple
 from .color import WebColor
 
 DIV_TEMPLATE = """
@@ -14,18 +14,18 @@ DIV_TEMPLATE = """
 """
 
 
-class Scale(tuple):
+class Scale(Tuple[WebColor]):
     def __init__(
         self,
-        colors: Iterable[WebColor],
-        stops: Iterable[Union[float, int]] = None,
-        name: str = None,
-        description: str = None,
-        tags: List[str] = None,
+        colors: Sequence[WebColor],
+        stops: Optional[Sequence[Union[float, int]]] = None,
+        name: Optional[str] = None,
+        description: Optional[str] = None,
+        metadata: Dict[str, Any] = {},
     ):
         self.name = name
         self.description = description
-        self.tags = tags
+        self.metadata = metadata
 
         if stops is None:
             n_colors = len(colors)
@@ -52,19 +52,34 @@ class Scale(tuple):
             self.stops[max_idx] - self.stops[max_idx - 1]
         )
 
-        r1, g1, b1 = map(lambda x: x * relative_value, color1.rgb)
-        r2, g2, b2 = map(lambda x: x * relative_value, color2.rgb)
+        red_1, green_1, blue_1 = map(lambda x: x * relative_value, color1.rgb)
+        red_2, green_2, blue_2 = map(lambda x: x * relative_value, color2.rgb)
 
         # TODO: Return type!
-        return WebColor(r1 + r2, g1 + g2, b1 + b2)
+        return WebColor(
+            red=red_1 + red_2, green=green_1 + green_2, blue=blue_1 + blue_2
+        )
 
     @property
     def len(self):
-        return self.__len__()
+        return len(self)
+
+    @property
+    def name(self) -> Union[str, None]:
+        return self._name
+
+    @name.setter
+    def name(self, value: Union[str, None]):
+        if not hasattr(self, "_name"):
+            if isinstance(value, str) or value is None:
+                self._name = value
+            else:
+                raise ValueError("expected a `str` for name")
+        else:
+            raise AttributeError("can't set attribute 'name'")
 
     def __repr__(self):
-        # TODO: Fix this
-        return f"Scale{super().__repr__()}"
+        return f"Scale{tuple(zip(super().__repr__(), self.stops))}"
 
     def _repr_html_(self):
         grad = ", ".join(

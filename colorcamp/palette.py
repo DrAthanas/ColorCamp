@@ -1,4 +1,4 @@
-from typing import List, Iterable, AnyStr
+from typing import List, Sequence, Optional, Dict, Any, Union
 from .color import WebColor
 
 DIV_TEMPLATE = """
@@ -17,24 +17,24 @@ DIV_TEMPLATE = """
 class Palette(tuple):
     def __init__(
         self,
-        colors: Iterable[WebColor],
-        name: str = None,
-        description: str = None,
-        tags: List[str] = None,
+        colors: Sequence[WebColor],
+        name: Optional[str] = None,
+        description: Optional[str] = None,
+        metadata: Dict[str, Any] = {},
     ):
         self.name = name
         self.description = description
-        self.tags = tags
+        self.metadata = metadata
 
         self.__current_index = 0
         super().__init__()
 
     @property
-    def name(self) -> str:
+    def name(self) -> Union[str, None]:
         return self._name
 
     @name.setter
-    def name(self, value: str):
+    def name(self, value: Union[str, None]):
         if not hasattr(self, "_name"):
             if isinstance(value, str) or value is None:
                 self._name = value
@@ -44,11 +44,11 @@ class Palette(tuple):
             raise AttributeError("can't set attribute 'name'")
 
     @property
-    def description(self) -> str:
+    def description(self) -> Union[str, None]:
         return self._description
 
     @description.setter
-    def description(self, value: str):
+    def description(self, value: Union[str, None]):
         if not hasattr(self, "_description"):
             if isinstance(value, str) or value is None:
                 self._description = value
@@ -58,11 +58,11 @@ class Palette(tuple):
             raise AttributeError("can't set attribute 'description'")
 
     @property
-    def tags(self) -> List[AnyStr]:
+    def metadata(self) -> Dict[str, Any]:
         return self._tags
 
-    @tags.setter
-    def tags(self, value: List[AnyStr]):
+    @metadata.setter
+    def metadata(self, value: Dict[str, Any]):
         if not hasattr(self, "_tags"):
             # TODO: Validate
             self._tags = value
@@ -71,7 +71,7 @@ class Palette(tuple):
 
     @property
     def len(self):
-        return self.__len__()
+        return len(self)
 
     def next(self):
         index = self.__current_index
