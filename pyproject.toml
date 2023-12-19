@@ -16,3 +16,6 @@ exclude = '''
 pythonpath = [
   "."
 ]
+
+[project.optional-dependencies]
+test = ['pytest==7.4.3', 'pytest-cov==4.1.0', 'beautifulsoup4-4.12.2']

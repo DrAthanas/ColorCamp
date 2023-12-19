@@ -1,5 +1,6 @@
 from typing import Sequence, Union, Optional, Dict, Any, Tuple
 from .color import WebColor
+from ._color_metadata import ColorMetadata
 
 DIV_TEMPLATE = """
 <div style="
@@ -14,7 +15,7 @@ DIV_TEMPLATE = """
 """
 
 
-class Scale(Tuple[WebColor]):
+class Scale(ColorMetadata, Tuple[WebColor]):
     def __init__(
         self,
         colors: Sequence[WebColor],
@@ -63,20 +64,6 @@ class Scale(Tuple[WebColor]):
     @property
     def len(self):
         return len(self)
-
-    @property
-    def name(self) -> Union[str, None]:
-        return self._name
-
-    @name.setter
-    def name(self, value: Union[str, None]):
-        if not hasattr(self, "_name"):
-            if isinstance(value, str) or value is None:
-                self._name = value
-            else:
-                raise ValueError("expected a `str` for name")
-        else:
-            raise AttributeError("can't set attribute 'name'")
 
     def __repr__(self):
         return f"Scale{tuple(zip(super().__repr__(), self.stops))}"

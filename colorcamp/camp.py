@@ -3,10 +3,10 @@ from pathlib import Path
 from .color import WebColor
 from .scale import Scale
 from .palette import Palette
+from ._color_metadata import ColorMetadata
 
 ColorObjectType = Union[type[WebColor], type[Palette], type[Scale]]
 ColorObject = Union[WebColor, Scale, Palette]
-
 
 class Bucket:
     def __init__(self, bucket_type: ColorObjectType):
@@ -45,16 +45,24 @@ class Bucket:
         return str(self.__dict__)
 
 
-class Camp:
+class Camp(ColorMetadata):
     __DIR_MAP: Dict[str, ColorObjectType] = {
         "colors": WebColor,
         "scales": Scale,
         "palettes": Palette,
     }
 
-    def __init__(self, name: str, source: Union[str, Path]):
+    def __init__(
+            self,
+            name: str, 
+            description:Optional[str] = None,
+            metadata:Optional[Dict[str, Any]] = None,
+            source: Union[str, Path, None] = None,
+        ):
         # TODO: Add property protections to these attributes & validation
         self.name = name
+        self.description = description
+        self.metadata = metadata
         self.source = Path(source)
         self.colors = Bucket(bucket_type=WebColor)
         self.scales = Bucket(bucket_type=Scale)

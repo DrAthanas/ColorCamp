@@ -1,3 +1,5 @@
+"""ColorCamp Version"""
+
 __title__ = "ColorCamp"
 __description__ = "ColorCamp - something cute"
 __version__ = "0.1.0"
