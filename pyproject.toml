@@ -1,3 +1,11 @@
+[project.optional-dependencies]
+
+dev = [
+  'pytest==7.4.3', 
+  'pytest-cov==4.1.0', 
+  'beautifulsoup4-4.12.2'
+]
+
 [tool.black]
 line-length = 88
 target-version = ['py310']
@@ -17,5 +25,34 @@ pythonpath = [
   "."
 ]
 
-[project.optional-dependencies]
-test = ['pytest==7.4.3', 'pytest-cov==4.1.0', 'beautifulsoup4-4.12.2']
+[tool.coverage.run]
+omit = [
+  'colorcamp/__version__.py',
+  'common_doc.py',
+  'colorcamp/tests/*',
+]
+# branch = true
+
+[tool.coverage.report]
+# Regexes for lines to exclude from consideration
+exclude_also = [
+    # Don't complain about missing debug-only code:
+    "def __repr__",
+    "if self\\.debug",
+
+    # Don't complain if tests don't hit defensive assertion code:
+    "raise AssertionError",
+    "raise NotImplementedError",
+
+    # Don't complain if non-runnable code isn't run:
+    "if 0:",
+    "if __name__ == .__main__.:",
+
+    # Don't complain about abstract methods, they aren't run:
+    "@(abc\\.)?abstractmethod",
+    ]
+
+ignore_errors = true
+
+[tool.coverage.html]
+directory = "coverage_html_report"
