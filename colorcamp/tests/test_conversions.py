@@ -21,6 +21,7 @@ from colorcamp.conversions import (
 def test_hex_to_rgb(hex_string, rgb_tuple):
     assert hex_to_rgb(hex_string) == rgb_tuple
 
+
 # fmt: off
 @pytest.mark.parametrize(
     "rgb_tuple,hex_string",
