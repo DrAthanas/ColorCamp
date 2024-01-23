@@ -20,6 +20,9 @@ exclude = '''
 )/
 '''
 
+[tool.mypy]
+exclude = "colorcamp/tests/"
+
 [tool.pytest.ini_options]
 pythonpath = [
   "."

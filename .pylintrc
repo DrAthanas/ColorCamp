@@ -2,5 +2,7 @@
 jobs=2 #number of processes to use
 [BASIC]
 good-names=ColorCamp #names to be considered ok
+[DESIGN]
+max-args=6
 [pre-commit-hook]
-disable=E0401, C0301
+disable=E0401, C0301, W0221, 

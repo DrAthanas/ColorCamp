@@ -1,6 +1,6 @@
 #!/bin/bash
 
-hook_path="./.git/hooks/pre-commit2"
+hook_path="./.git/hooks/pre-commit"
 
 if ! [ -f $hook_path ]; then
   echo "pre-commit does not exist."
