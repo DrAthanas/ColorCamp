@@ -1,51 +1,128 @@
 """Mapping of hashes to Colors"""
-from typing import Dict, Optional, Any, Hashable
 
-from .color import WebColor
+from __future__ import annotations
+from typing import Dict, Optional, Any, Hashable
+from collections import UserDict
+
+from .color import Color
 from ._color_metadata import ColorMetadata
+from .common.types import ColorObject
+from ._settings import settings
 
 DIV_TEMPLATE = """
-<div style="
-    float: left;
-    width: {width}px; 
-    height: {height}px; 
-    background-color: {css};
-    border: 1px solid black;
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-">
-</div>
+<tr>
+    <td>{text}</td>
+    <td style="
+        width: {width}px; 
+        height: {height}px; 
+        background-color: {css};
+        align-items: center; 
+        justify-content: center;
+    "></td>
+</tr>
 """
 
-class Map(ColorMetadata, dict):
+
+class Map(UserDict, ColorMetadata):
+    """A color object to represent color Mappings"""
+
     def __init__(
-            self, 
-            cmap:Dict[Hashable, WebColor],
-            name: Optional[str] = None,
-            description: Optional[str] = None,
-            metadata: Optional[Dict[str, Any]] = None,
-        ):
+        self,
+        color_map: Dict[Hashable, Color],
+        name: Optional[str] = None,
+        description: Optional[str] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+    ):
+        """color Maps are used for explicit categorical data
+
+        Parameters
+        ----------
+        color_map : Dict[Hashable, Color]
+            A dictionary with colors as values
+        name : Optional[str], optional
+            descriptive name, cannot contain special characters, by default None
+        description : Optional[str], optional
+            short descriptive text to provide additional context (max 255 char), by default None
+        metadata : Optional[Dict[str, Any]], optional
+            unstructured metadata used for querying and additional context, by default None
+        """
 
         self.name = name
         self.description = description
         self.metadata = metadata
 
-        super().__init__()
+        super().__init__(color_map)
+
+    def to_dict(self):
+        """create a dictionary of all Map attributes
+
+        Returns
+        -------
+        Dict[str, Any]
+            dictionary with the underlying Map representation
+        """
+
+        return {
+            "type": "Map",
+            "name": self.name,
+            "description": self.description,
+            "metadata": self.metadata,
+            "color_map": {name: color.to_dict() for name, color in self.items()},
+        }
+
+    @classmethod
+    def from_dict(
+        cls, map_dict: Dict[str, Any], color_type: Optional[ColorObject] = None
+    ) -> Map:
+        """create a new Map object from a Map dictionary
+
+        Parameters
+        ----------
+        map_dict : Dict[str, Any]
+            a Map dictionary
+        color_type : Literal['Color', 'Hex', 'RGB', 'HSL']
+            the new color representation (Color subclass). If None is supplied the default representation is used, by default None
+
+        Returns
+        -------
+        Map
+            A new Map object
+        """
+
+        if color_type is None:
+            color_type = settings.default_color_type
+
+        ## init colors
+        color_map = {
+            name: Color.from_dict(color, color_type)
+            for name, color in map_dict["color_map"].items()
+        }
+
+        return cls(
+            color_map=color_map,
+            name=map_dict.get("name"),
+            description=map_dict.get("description"),
+            metadata=map_dict.get("metadata"),
+        )
+
+    def __setitem__(self, key, value):
+        if not isinstance(value, Color):
+            raise TypeError("colors must by a Color or proper subclass")
+
+        super().__setitem__(key, value)
 
     def __repr__(self) -> str:
         return f"Map{super().__repr__()}"
-    
+
     def _repr_html_(self) -> str:
-        # TODO: Fix here
-        html_string = "\n".join(
+        html_string = '<table class="table">\n'
+
+        html_string += "\n".join(
             [
-                DIV_TEMPLATE.format(css=color.css(), height=60, width=60)
-                for value, color in self.items()
+                DIV_TEMPLATE.format(text=key, css=color.css(), height=15, width=15)
+                for key, color in self.items()
             ]
         )
-
-        html_string = f'<div style="display: flex">{html_string}</div>'
+        html_string += "</table>"
 
         return html_string
-    

@@ -1,6 +1,12 @@
-from typing import Sequence, Union, Optional, Dict, Any, Tuple
-from .color import WebColor
+"""Linear gradients of Colors"""
+
+from typing import Sequence, Optional, Dict, Any
+
+from .color import Color
 from ._color_metadata import ColorMetadata
+from ._settings import settings
+from .common.types import ColorObject, Numeric
+
 
 DIV_TEMPLATE = """
 <div style="
@@ -15,65 +21,132 @@ DIV_TEMPLATE = """
 """
 
 
-class Scale(ColorMetadata, Tuple[WebColor]):
+class Scale(ColorMetadata, tuple):
+    """An object to represent continuous color Scales"""
+
+    # pylint: disable=W0613
+    def __new__(cls, colors, *args, **kwargs):
+        if not all((isinstance(color, Color) for color in colors)):
+            raise TypeError("colors must by a Color or proper subclass")
+        return super().__new__(cls, colors)
+
     def __init__(
         self,
-        colors: Sequence[WebColor],
-        stops: Optional[Sequence[Union[float, int]]] = None,
+        colors: Sequence[Color],
+        stops: Optional[Sequence[Numeric]] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,
-        metadata: Dict[str, Any] = {},
+        metadata: Optional[Dict[str, Any]] = None,
     ):
-        self.name = name
-        self.description = description
-        self.metadata = metadata
+        """Color Scales are used for continuous data and color gradients
 
-        if stops is None:
-            n_colors = len(colors)
-            stops = [i / (n_colors - 1) for i in range(n_colors - 1)] + [1]
-        elif len(stops) != len(colors) or sorted(stops) != stops:
+        Parameters
+        ----------
+        colors : Sequence[Color]
+            A sequence of Colors
+        stops : Optional[Sequence[Numeric]], optional
+            Relative numeric stops which correspond to color transitions. must be the same length as `colors` and sorted ascending, by default None
+        name : Optional[str], optional
+            Descriptive name, cannot contain special characters, by default None
+        description : Optional[str], optional
+            Short descriptive text to provide additional context (max 255 char), by default None
+        metadata : Optional[Dict[str, Any]], optional
+            Unstructured metadata used for querying and additional context, by default None
+        """
+
+        super().__init__(
+            colors,
+            name=name,
+            description=description,
+            metadata=metadata,
+        )
+        # Set stops after super().init to set up colors attr
+        self.stops = stops
+
+    @property
+    def stops(self):
+        """Color stops in the Scale"""
+
+        return self._stops
+
+    @stops.setter
+    def stops(self, values):
+        # TODO: better validation
+        if values is None:
+            n_colors = len(self.colors)
+            values = [i / (n_colors - 1) for i in range(n_colors - 1)] + [1]
+        elif len(values) != len(self.colors) or sorted(values) != values:
             # What type of validation do I want here. e.g. Should it always be between 0 and 1?!?
             raise ValueError()
 
-        self.stops = stops
-
-        super().__init__()
-
-    def get_color(
-        self, value, min_val: Union[float, int] = 0, max_val: Union[float, int] = 1
-    ):
-        # TODO: Vectorize this
-        # Finds color that falls within scale
-        norm_value = (value - min_val) / (max_val - min_val)
-        # Find which two colors this sits between
-        max_idx = sum([stop < norm_value for stop in self.stops])
-
-        color1, color2 = self[max_idx - 1], self[max_idx]
-        relative_value = (norm_value - self.stops[max_idx - 1]) / (
-            self.stops[max_idx] - self.stops[max_idx - 1]
-        )
-
-        red_1, green_1, blue_1 = map(lambda x: x * relative_value, color1.rgb)
-        red_2, green_2, blue_2 = map(lambda x: x * relative_value, color2.rgb)
-
-        # TODO: Return type!
-        return WebColor(
-            red=red_1 + red_2, green=green_1 + green_2, blue=blue_1 + blue_2
-        )
+        self._stops = values
 
     @property
-    def len(self):
-        return len(self)
+    def colors(self):
+        """Sequence of Colors"""
+
+        return tuple(self)
+
+    def to_dict(self):
+        """Create a dictionary of all Scale attributes
+
+        Returns
+        -------
+        Dict[str, Any]
+            Dictionary with the underlying Scale representation
+        """
+
+        return {
+            "type": "Scale",
+            "name": self.name,
+            "description": self.description,
+            "metadata": self.metadata,
+            "colors": [color.to_dict() for color in self],
+            "stops": self.stops,
+        }
+
+    @classmethod
+    def from_dict(
+        cls, scale_dict: Dict[str, Any], color_type: Optional[ColorObject] = None
+    ):
+        """Create a new Scale object from a Scale dictionary
+
+        Parameters
+        ----------
+        scale_dict : Dict[str, Any]
+            A Scale dictionary
+        color_type : Literal['Color', 'Hex', 'RGB', 'HSL']
+            The new color representation (Color subclass). If None is supplied the default representation is used, by default None
+
+        Returns
+        -------
+        Scale
+            A new Scale object
+        """
+
+        if color_type is None:
+            color_type = settings.default_color_type
+
+        ## init colors?
+        colors = [Color.from_dict(color, color_type) for color in scale_dict["colors"]]
+
+        return cls(
+            colors=colors,
+            stops=scale_dict.get("stops"),
+            name=scale_dict.get("name"),
+            description=scale_dict.get("description"),
+            metadata=scale_dict.get("metadata"),
+        )
 
     def __repr__(self):
-        return f"Scale{tuple(zip(super().__repr__(), self.stops))}"
+        return f"Scale{tuple(zip(self, self.stops))}"
 
     def _repr_html_(self):
         grad = ", ".join(
-            [f"{color.hex} {stop:.0%}" for color, stop in zip(self, self.stops)]
+            [f"{color.css()} {stop:.0%}" for color, stop in zip(self, self.stops)]
         )
         html_string = DIV_TEMPLATE.format(
-            grad=grad, height=60, width=max(60 * self.len, 180)
+            grad=grad, height=60, width=max(60 * len(self), 180)
         )
 
         return html_string

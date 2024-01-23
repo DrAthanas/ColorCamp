@@ -1,30 +1,33 @@
-import pytest
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
+import pytest
 from bs4 import BeautifulSoup
 
-from colorcamp import Color, Scale
+from colorcamp.color import Color
+from colorcamp.scale import Scale
 
 # TODO:
-# * test print
 # * test get_color
 # * test exceptions
 
+
 @pytest.fixture(scope="class")
 def cls_scale(request):
-    sky_hex: Color = request.getfixturevalue('sky_Color').to_hex()
+    sky_hex: Color = request.getfixturevalue("sky_Color").to_hex()
     pink_hex: Color = request.getfixturevalue("pink_hex")
     mustard_hex: Color = request.getfixturevalue("mustard_rgb").to_hex()
     lime_hex: Color = request.getfixturevalue("lime_hsl").to_hex()
 
     request.cls.scale: Scale = Scale(
-        colors = [sky_hex, pink_hex, mustard_hex, lime_hex],
-        name = 'example',
-        description = 'A beautiful color palette',
-        metadata = {'categoral':'four colors'},
+        colors=[sky_hex, pink_hex, mustard_hex, lime_hex],
+        name="example",
+        description="A beautiful color scale",
+        metadata={"continuous ": "four color stops"},
     )
 
 
-@pytest.mark.usefixtures('cls_scale')
+@pytest.mark.usefixtures("cls_scale")
 class TestScale:
     """test scale"""
 
@@ -38,4 +41,26 @@ class TestScale:
     def test_repr_html(self):
         assert bool(BeautifulSoup(self.scale._repr_html_(), "html.parser").find())
 
+    def test_save_and_load(self):
+        with TemporaryDirectory() as temp_dir:
+            temp_dir = Path(temp_dir)
+            scale_path = temp_dir / f"{self.scale.name}"
+            self.scale.dump_json(scale_path)
+            reloaded_scale = Scale.load_json(scale_path)
 
+        assert self.scale == reloaded_scale
+
+
+def test_not_color_objects(request):
+    sky_hex: Color = request.getfixturevalue("sky_Color").to_hex()
+    pink_hex: str = "#FF15AA"
+    mustard_hex: Color = request.getfixturevalue("mustard_rgb").to_hex()
+    lime_hex: Color = request.getfixturevalue("lime_hsl").to_hex()
+
+    with pytest.raises(TypeError):
+        test_scale = Scale(
+            colors=[sky_hex, pink_hex, mustard_hex, lime_hex],
+            name="example",
+            description="A beautiful color scale",
+            metadata={"continuous ": "four color stops"},
+        )

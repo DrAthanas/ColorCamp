@@ -1,12 +1,18 @@
+"""Camp organizes colors into frame work for projects"""
+
 from typing import Any, Union, Optional, Dict
 from pathlib import Path
-from .color import WebColor
+
+from ._color_metadata import ColorMetadata
+from .color import Color
 from .scale import Scale
 from .palette import Palette
-from ._color_metadata import ColorMetadata
+from .map import Map
 
-ColorObjectType = Union[type[WebColor], type[Palette], type[Scale]]
-ColorObject = Union[WebColor, Scale, Palette]
+
+ColorObjectType = Union[type[Color], type[Palette], type[Scale]]
+ColorObject = Union[Color, Scale, Palette, Map]
+
 
 class Bucket:
     def __init__(self, bucket_type: ColorObjectType):
@@ -23,7 +29,7 @@ class Bucket:
 
         Parameters
         ----------
-        item : Union[WebColor, Scale, Palette]
+        item : Union[Color, Scale, Palette]
             Item to add to the
 
         """
@@ -32,13 +38,16 @@ class Bucket:
                 f"Objects need to have a name to be added to a Camp {self.__class__.__name__} Bucket"
             )
         if hasattr(self, name):
-            raise RuntimeError(f"Name '{name}' is already in use")
+            raise RuntimeError(f"name '{name}' is already in use")
         setattr(self, name, item)
 
     def remove(self, name: str):
         if not hasattr(self, name):
-            raise RuntimeError(f"Name '{name} is not in bucket")
+            raise RuntimeError(f"name '{name} is not in bucket")
         delattr(self, name)
+
+    def to_dict(self):
+        return self.__dict__
 
     def __repr__(self):
         # TODO: re-think what I want the print of this to look like
@@ -47,41 +56,27 @@ class Bucket:
 
 class Camp(ColorMetadata):
     __DIR_MAP: Dict[str, ColorObjectType] = {
-        "colors": WebColor,
+        "colors": Color,
         "scales": Scale,
         "palettes": Palette,
     }
 
     def __init__(
-            self,
-            name: str, 
-            description:Optional[str] = None,
-            metadata:Optional[Dict[str, Any]] = None,
-            source: Union[str, Path, None] = None,
-        ):
+        self,
+        name: str,
+        description: Optional[str] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+        source: Union[str, Path, None] = None,
+    ):
         # TODO: Add property protections to these attributes & validation
         self.name = name
         self.description = description
         self.metadata = metadata
         self.source = Path(source)
-        self.colors = Bucket(bucket_type=WebColor)
+        self.colors = Bucket(bucket_type=Color)
         self.scales = Bucket(bucket_type=Scale)
         self.palettes = Bucket(bucket_type=Palette)
-        # self.mappings = self._Mappings()
-
-    @property
-    def name(self) -> Union[str, None]:
-        return self._name
-
-    @name.setter
-    def name(self, value: Union[str, None]):
-        if not hasattr(self, "_name"):
-            if isinstance(value, str) or value is None:
-                self._name = value
-            else:
-                raise ValueError("expected a `str` for name")
-        else:
-            raise AttributeError("can't set attribute 'name'")
+        self.map = Bucket(bucket_type=Map)
 
     @classmethod
     def load(cls, name: str, source: Optional[Path] = None):
@@ -123,22 +118,3 @@ class Camp(ColorMetadata):
     def query(self):
         # search for colors & palettes
         raise NotImplementedError()
-
-    # class _Colors(Bucket):
-    #     def __setattr__(self, __name: str, __value: WebColor) -> None:
-    #         if not isinstance(__value, WebColor):
-    #             raise TypeError("Colors must be of WebColor")
-    #         super().__setattr__(__name, __value)
-
-    # class _Scales(Bucket):
-    #     def __setattr__(self, __name: str, __value: Scale) -> None:
-    #         if not isinstance(__value, Scale):
-    #             raise TypeError("Scales must be a Scale")
-
-    # class _Palettes(Bucket):
-    #     def __setattr__(self, __name: str, __value: Palette) -> None:
-    #         if not isinstance(__value, Palette):
-    #             raise TypeError("Palettes must be a Palette")
-
-    # class _Mappings(Bucket):
-    #     pass

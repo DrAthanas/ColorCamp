@@ -17,21 +17,18 @@ from conftest import (
     param_hsl_values,
 )
 
-# TODO:
-# * alpha
-# * Subclasses
-#   * registration
-# * add
 
 @param_colors
 def test_attr_name(color, request):
     color_obj: Color = request.getfixturevalue(color)
     assert color_obj.name == color
 
+
 @param_color_init
 def test_fractional_interval_validator(params):
     with pytest.raises(NumericIntervalError):
         Color(**params)
+
 
 @pytest.mark.usefixtures("cls_sky_Color")
 class TestColor:
@@ -58,14 +55,14 @@ class TestColor:
         assert self.color.alpha is None
 
     def test_change_alpha(self):
-        new_color : Color = self.color.change_alpha(0.7)
+        new_color: Color = self.color.change_alpha(0.7)
         assert new_color != self.color
         assert new_color.alpha == 0.7
         ## a bit funky of an assert
         assert new_color.rgb[3] == 0.7
         assert new_color.fractional_rgb[3] == 0.7
         assert new_color.hsl[3] == 0.7
-        assert new_color.hex[-2:] == 'B2'
+        assert new_color.hex[-2:] == "B2"
 
     def test_rgb(self):
         assert all([isinstance(channel, int) for channel in self.color.rgb])
@@ -86,11 +83,11 @@ class TestColor:
     def test_repr_html(self):
         # Use beautiful soup to validate HTML
         assert bool(BeautifulSoup(self.color._repr_html_(), "html.parser").find())
-            
+
     def test_alpha_setter(self):
         with pytest.raises(AttributeError):
             self.color.alpha = 0.9
-    
+
     def test_rgb_setter(self):
         with pytest.raises(AttributeError):
             self.color.fractional_rgb = (0.1, 0.4, 0.5)
@@ -129,7 +126,10 @@ class TestHex(TestColor):
 
     def test_hex_setter(self):
         with pytest.raises(AttributeError):
-            self.color.hex = '#FFFFFF'
+            self.color.hex = "#FFFFFF"
+
+    def test_hex_4bit(self):
+        assert Hex("#FFF", alpha=1) == "#FFFF"
 
 
 @pytest.mark.usefixtures("cls_mustard_rgb")
@@ -160,7 +160,6 @@ class TestRGB(TestColor):
     def test_rgb_setter(self):
         with pytest.raises(AttributeError):
             self.color.rgb = (200, 123, 23)
-
 
 
 @pytest.mark.usefixtures("cls_lime_hsl")
@@ -196,18 +195,33 @@ def test_conversion(color_type, color, request):
     color_obj: Color = request.getfixturevalue(color)
     new_color = color_obj.to_color_type(color_type)
     assert new_color.__class__.__name__ == color_type
-
-@param_colors
-@param_color_types
-def test_conversion_equality(color_type, color, request):
-    color_obj: Color = request.getfixturevalue(color)
-    new_color = color_obj.to_color_type(color_type)
     assert new_color == color_obj
 
 
+@param_colors
+def test_conversion_bad_type(color, request):
+    color_obj: Color = request.getfixturevalue(color)
+    with pytest.raises(ValueError):
+        color_obj.to_color_type("guyton")
+
+
 # use some standard Web conversion tools to validate
-def test_addition():
-    pass
+@pytest.mark.parametrize(
+    # Used: https://colorkit.io/
+    ["color1", "color2", "expected"],
+    (
+        (RGB((255, 0, 0)), RGB((0, 0, 255)), RGB((128, 0, 128))),
+        (RGB((255, 0, 0)), Hex("#0000FF"), RGB((128, 0, 128))),
+        (Hex("#0000FFFF"), RGB((255, 0, 0)), Hex("#800080")),
+        pytest.param(
+            RGB((255, 0, 0)), (0, 0, 255), RGB((128, 0, 128)), marks=[pytest.mark.xfail]
+        ),
+    ),
+)
+def test_addition(color1, color2, expected):
+    new_color = color1 + color2
+    assert new_color == expected
+    assert isinstance(new_color, color1.__class__)
 
 
 # fmt: off

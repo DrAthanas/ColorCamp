@@ -10,6 +10,7 @@ from colorcamp.common.exceptions import NumericIntervalError
 # Test w/ coverage:
 # python -m pytest --cov=colorcamp colorcamp/tests/
 
+
 @pytest.fixture(scope="session")
 def sky_Color():
     sky = Color(
@@ -23,9 +24,11 @@ def sky_Color():
 
     return sky
 
+
 @pytest.fixture(scope="class")
 def cls_sky_Color(request):
     request.cls.color: Color = request.getfixturevalue("sky_Color")
+
 
 @pytest.fixture(scope="session")
 def pink_hex():
@@ -38,9 +41,11 @@ def pink_hex():
 
     return pink
 
+
 @pytest.fixture(scope="class")
 def cls_pink_hex(request):
     request.cls.color: Color = request.getfixturevalue("pink_hex")
+
 
 @pytest.fixture(scope="session")
 def mustard_rgb():
@@ -53,9 +58,11 @@ def mustard_rgb():
 
     return mustard
 
+
 @pytest.fixture(scope="class")
 def cls_mustard_rgb(request):
     request.cls.color: Color = request.getfixturevalue("mustard_rgb")
+
 
 @pytest.fixture(scope="session")
 def lime_hsl():
@@ -68,25 +75,27 @@ def lime_hsl():
 
     return lime
 
+
 @pytest.fixture(scope="class")
 def cls_lime_hsl(request):
     request.cls.color: Color = request.getfixturevalue("lime_hsl")
 
+
 #####################
-### common params ### 
+### common params ###
 #####################
 
 param_color_init = partial(
     pytest.mark.parametrize(
-        'params',
+        "params",
         [
-            {'red':0, 'green':1, 'blue':1.2},
-            {'red':0, 'green':1, 'blue':-1},
-            {'red':0, 'green':-1, 'blue':0.5},
-            {'red':255, 'green':0.3, 'blue':0.4},
-            {'red':0, 'green':1, 'blue':0.2, 'alpha':-0.1},
-            {'red':0, 'green':1, 'blue':0.2, 'alpha':1.1},
-        ]
+            {"red": 0, "green": 1, "blue": 1.2},
+            {"red": 0, "green": 1, "blue": -1},
+            {"red": 0, "green": -1, "blue": 0.5},
+            {"red": 255, "green": 0.3, "blue": 0.4},
+            {"red": 0, "green": 1, "blue": 0.2, "alpha": -0.1},
+            {"red": 0, "green": 1, "blue": 0.2, "alpha": 1.1},
+        ],
     )
 )
 
@@ -116,41 +125,73 @@ param_color_types = partial(
 
 param_hex_codes = partial(
     pytest.mark.parametrize(
-        'hex_code',
+        "hex_code",
         [
-            '#000000',
-            '#000',
-            '#FFFFFFFF',
-            '#ffff',
-            '#1a5500',
-            pytest.param('000', marks = pytest.mark.xfail(ValueError,reason="Doesn't start with #")),
-            pytest.param('#GGggGG', marks = pytest.mark.xfail(ValueError,reason="Invalid hex")),
-            pytest.param('#FF', marks = pytest.mark.xfail(ValueError,reason="Wrong length")),
-        ]
+            "#000000",
+            "#000",
+            "#FFFFFFFF",
+            "#ffff",
+            "#1a5500",
+            pytest.param(
+                "000",
+                marks=pytest.mark.xfail(ValueError, reason="Doesn't start with #"),
+            ),
+            pytest.param(
+                "#GGggGG", marks=pytest.mark.xfail(ValueError, reason="Invalid hex")
+            ),
+            pytest.param(
+                "#FF", marks=pytest.mark.xfail(ValueError, reason="Wrong length")
+            ),
+        ],
     )
 )
 
 param_rgb_values = partial(
     pytest.mark.parametrize(
-        'rgb',
+        "rgb",
         [
             (0, 255, 123),
             (0, 255, 123, 0.5),
-            pytest.param((-1, 255, 123), marks = pytest.mark.xfail(NumericIntervalError,reason="negative RGB values")),
-            pytest.param((0, 255, 256), marks = pytest.mark.xfail(NumericIntervalError,reason="above max RGB value")),
-            pytest.param((0, 255, 256, 1.1), marks = pytest.mark.xfail(NumericIntervalError,reason="above alpha value")),
-        ]
+            pytest.param(
+                (-1, 255, 123),
+                marks=pytest.mark.xfail(
+                    NumericIntervalError, reason="negative RGB values"
+                ),
+            ),
+            pytest.param(
+                (0, 255, 256),
+                marks=pytest.mark.xfail(
+                    NumericIntervalError, reason="above max RGB value"
+                ),
+            ),
+            pytest.param(
+                (0, 255, 256, 1.1),
+                marks=pytest.mark.xfail(
+                    NumericIntervalError, reason="above alpha value"
+                ),
+            ),
+        ],
     )
 )
 
 param_hsl_values = partial(
     pytest.mark.parametrize(
-        'hsl',
+        "hsl",
         [
             (0, 0.8, 0.1),
             (360, 0, 1, 0.5),
-            pytest.param((361, 0.8, 0.1), marks = pytest.mark.xfail(NumericIntervalError,reason="above max hue value")),
-            pytest.param((360, -0.1, 1), marks = pytest.mark.xfail(NumericIntervalError,reason="below min saturation value")),
-        ]
+            pytest.param(
+                (361, 0.8, 0.1),
+                marks=pytest.mark.xfail(
+                    NumericIntervalError, reason="above max hue value"
+                ),
+            ),
+            pytest.param(
+                (360, -0.1, 1),
+                marks=pytest.mark.xfail(
+                    NumericIntervalError, reason="below min saturation value"
+                ),
+            ),
+        ],
     )
 )

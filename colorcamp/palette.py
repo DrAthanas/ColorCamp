@@ -1,6 +1,11 @@
-from typing import Sequence, Optional, Dict, Any, Union
-from .color import WebColor
+"""Collections of Colors"""
+
+from typing import Sequence, Optional, Dict, Any
+
+from .common.types import ColorObject
+from .color import Color
 from ._color_metadata import ColorMetadata
+from ._settings import settings
 
 DIV_TEMPLATE = """
 <div style="
@@ -16,35 +21,118 @@ DIV_TEMPLATE = """
 
 
 class Palette(ColorMetadata, tuple):
+    """An object to represent discrete color Palettes"""
+
+    # pylint: disable=W0613
+    def __new__(cls, colors, *args, **kwargs):
+        if not all((isinstance(color, Color) for color in colors)):
+            raise TypeError("colors must by a Color or proper subclass")
+        return super().__new__(cls, colors)
+
     def __init__(
         self,
-        colors: Sequence[WebColor],
+        colors: Sequence[Color],
         name: Optional[str] = None,
         description: Optional[str] = None,
-        metadata: Dict[str, Any] = {},
+        metadata: Optional[Dict[str, Any]] = None,
     ):
-        self.name = name
-        self.description = description
-        self.metadata = metadata
+        """color Palettes are used for categorical data, themes, and branding
+
+        Parameters
+        ----------
+        colors : Sequence[Color]
+            a sequence of Colors
+        name : Optional[str], optional
+            descriptive name, cannot contain special characters, by default None
+        description : Optional[str], optional
+            short descriptive text to provide additional context (max 255 char), by default None
+        metadata : Optional[Dict[str, Any]], optional
+            unstructured metadata used for querying and additional context, by default None
+        """
 
         self.__current_index = 0
-        super().__init__()
+
+        super().__init__(
+            colors,
+            name=name,
+            description=description,
+            metadata=metadata,
+        )
 
     @property
-    def len(self):
-        return len(self)
+    def colors(self):
+        """sequence of Colors"""
+
+        return tuple(self)
 
     def next(self):
+        """returns the current color in the palette and iterates to the next. If at the end will move to the beginning
+
+        Returns
+        -------
+        Color
+        """
+
         index = self.__current_index
         self.__current_index = (self.__current_index + 1) % len(self)
 
         return self[index]
 
+    def to_dict(self):
+        """create a dictionary of all Palette attributes
+
+        Returns
+        -------
+        Dict[str, Any]
+            dictionary with the underlying Palette representation
+        """
+
+        return {
+            "type": "Palette",
+            "name": self.name,
+            "description": self.description,
+            "metadata": self.metadata,
+            "colors": [color.to_dict() for color in self],
+        }
+
+    @classmethod
+    def from_dict(
+        cls, palette_dict: Dict[str, Any], color_type: Optional[ColorObject] = None
+    ):
+        """create a new Palette object from a Palette dictionary
+
+        Parameters
+        ----------
+        palette_dict : Dict[str, Any]
+            a Palette dictionary
+        color_type : Literal['Color', 'Hex', 'RGB', 'HSL']
+            the new color representation (Color subclass). If None is supplied the default representation is used, by default None
+
+        Returns
+        -------
+        Palette
+            A new Palette object
+        """
+
+        if color_type is None:
+            color_type = settings.default_color_type
+
+        ## init colors?
+        colors = [
+            Color.from_dict(color, color_type) for color in palette_dict["colors"]
+        ]
+
+        return cls(
+            colors=colors,
+            name=palette_dict.get("name"),
+            description=palette_dict.get("description"),
+            metadata=palette_dict.get("metadata"),
+        )
+
     def __repr__(self) -> str:
         return f"Palette{super().__repr__()}"
 
-    def _repr_html_(self):
-        # TODO: Add name if needed
+    def _repr_html_(self) -> str:
         html_string = "\n".join(
             [
                 DIV_TEMPLATE.format(css=color.css(), height=60, width=60)

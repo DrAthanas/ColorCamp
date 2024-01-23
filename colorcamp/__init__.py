@@ -4,23 +4,22 @@ ColorCamp consists of several submodules designed to add additional context and 
 
 """
 
-from .color import WebColor, Hex, RGB, HSL
+from .color import Color, Hex, RGB, HSL
 from .palette import Palette
 from .scale import Scale
+from .map import Map
 from .camp import Camp
 
-from ._settings import Settings
-
-settings = Settings()
-
+from ._settings import settings
 
 __all__ = [
-    'WebColor',
-    'Hex',
-    'RGB',
-    'HSL',
-    'Palette',
-    'Scale',
-    'Camp',
-    'settings',
+    "Color",
+    "Hex",
+    "RGB",
+    "HSL",
+    "Palette",
+    "Map",
+    "Scale",
+    "Camp",
+    "settings",
 ]
