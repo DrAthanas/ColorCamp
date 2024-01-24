@@ -98,9 +98,7 @@ class Scale(ColorMetadata, tuple):
 
         return {
             "type": "Scale",
-            "name": self.name,
-            "description": self.description,
-            "metadata": self.metadata,
+            **self.info(),
             "colors": [color.to_dict() for color in self],
             "stops": self.stops,
         }

@@ -64,9 +64,7 @@ class Map(UserDict, ColorMetadata):
 
         return {
             "type": "Map",
-            "name": self.name,
-            "description": self.description,
-            "metadata": self.metadata,
+            **self.info(),
             "color_map": {name: color.to_dict() for name, color in self.items()},
         }
 

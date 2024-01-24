@@ -89,9 +89,7 @@ class Palette(ColorMetadata, tuple):
 
         return {
             "type": "Palette",
-            "name": self.name,
-            "description": self.description,
-            "metadata": self.metadata,
+            **self.info(),
             "colors": [color.to_dict() for color in self],
         }
 

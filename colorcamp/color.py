@@ -277,13 +277,11 @@ class Color(ColorMetadata):
         """
 
         return {
+            "type": "Color",
+            **self.info(),
             "red": self.fractional_rgb[0],
             "green": self.fractional_rgb[1],
             "blue": self.fractional_rgb[2],
-            "type": "Color",
-            "name": self.name,
-            "description": self.description,
-            "metadata": self.metadata,
             "alpha": self.alpha,
             "color_formats": {ct: self.to_color_type(ct) for ct in self._subclasses},
         }
@@ -292,14 +290,14 @@ class Color(ColorMetadata):
     def from_dict(
         cls, color_dict: Dict[str, Any], color_type: Optional[ColorObject] = None
     ) -> Color:
-        """create a new color object from a color dictionary
+        """Create a new color object from a color dictionary
 
         Parameters
         ----------
         color_dict : Dict[str, Any]
-            a Color dictionary
+            A Color dictionary
         color_type : Literal['Color', 'Hex', 'RGB', 'HSL']
-            the new color representation (Color subclass). If None is supplied the current representation is used, by default None
+            The new color representation (Color subclass). If None is supplied the current representation is used, by default None
 
         Returns
         -------
@@ -326,26 +324,6 @@ class Color(ColorMetadata):
 
         return Color(**color_dict).to_color_type(color_type)
 
-    @classmethod
-    def load_json(
-        cls, file_path: Union[str, Path], color_type: Optional[ColorObject] = None
-    ) -> Color:
-        """create a new Color object from a json file
-
-        Parameters
-        ----------
-        file_path : Union[str, Path]
-            path to color json
-        color_type : Literal['Color', 'Hex', 'RGB', 'HSL']
-            the new color representation (Color subclass). If None is supplied the current representation is used, by default None
-
-        Returns
-        -------
-        Color
-            a new Color object
-        """
-
-        return super().load_json(file_path, color_type)
 
     ## dunders
     def __eq__(self, color):
