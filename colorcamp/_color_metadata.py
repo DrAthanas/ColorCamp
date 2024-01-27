@@ -12,8 +12,8 @@ from .common.validators import (
 )
 from .common.types import ColorSpace
 
+
 class ColorInfo:
-    
     def __init__(
         self,
         name: Optional[str] = None,
@@ -93,7 +93,7 @@ class ColorInfo:
             "description": self.description,
             "metadata": self.metadata,
         }
-    
+
 
 class ColorSerializer:
     """Serialization of Colors and Color Objects"""
@@ -184,9 +184,9 @@ class MetaColor(ColorInfo, ColorSerializer):
             unstructured metadata used for querying and additional context, by default None
         """
         super().__init__(
-            name = name,
-            description = description,
-            metadata = metadata,
+            name=name,
+            description=description,
+            metadata=metadata,
         )
 
     # pylint: enable=W0613

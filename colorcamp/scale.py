@@ -77,7 +77,9 @@ class Scale(MetaColor, tuple):
             values = [i / (n_colors - 1) for i in range(n_colors - 1)] + [1]
         elif len(values) != len(self.colors) or sorted(values) != values:
             # What type of validation do I want here. e.g. Should it always be between 0 and 1?!?
-            raise ValueError('stops must be sorted in ascending order and be of the same length as colors')
+            raise ValueError(
+                "stops must be sorted in ascending order and be of the same length as colors"
+            )
 
         self._stops = values
 
@@ -126,7 +128,9 @@ class Scale(MetaColor, tuple):
             color_type = settings.default_color_type
 
         ## init colors?
-        colors = [BaseColor.from_dict(color, color_type) for color in scale_dict["colors"]]
+        colors = [
+            BaseColor.from_dict(color, color_type) for color in scale_dict["colors"]
+        ]
 
         return cls(
             colors=colors,

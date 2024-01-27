@@ -23,7 +23,7 @@ DIV_TEMPLATE = """
 """
 
 
-class Map(UserDict,MetaColor):
+class Map(UserDict, MetaColor):
     """A color object to represent color Mappings"""
 
     def __init__(

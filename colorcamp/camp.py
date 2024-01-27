@@ -32,8 +32,8 @@ class Bucket:
         self._bucket_type = bucket_type
 
     def __setattr__(self, __name: str, __value: Any) -> None:
-        if __name == '_bucket_type':
-            #? Validate
+        if __name == "_bucket_type":
+            # ? Validate
             pass
         elif not isinstance(__value, self._bucket_type):
             raise TypeError(f"Colors must be of {self._bucket_type.__class__.__name__}")
@@ -135,7 +135,7 @@ class Camp(ColorInfo):
         return dir_map
 
     @classmethod
-    def load(cls, name: str, directory: Optional[Union[str,Path]] = None):
+    def load(cls, name: str, directory: Optional[Union[str, Path]] = None):
         # Search for matching directory in source locations
         if directory is None:
             # use config to find if name is in any sources
@@ -146,7 +146,7 @@ class Camp(ColorInfo):
         camp_dir = directory / name
         PathValidator().validate(camp_dir)
 
-        with open(camp_dir / 'camp_info.json', "r", encoding="utf-8") as fio:
+        with open(camp_dir / "camp_info.json", "r", encoding="utf-8") as fio:
             camp_info: dict = json.load(fio)
 
         camp = cls(**camp_info)
@@ -161,12 +161,12 @@ class Camp(ColorInfo):
 
         return camp
 
-    def save(self, directory:Union[str, Path], overwrite=False):
+    def save(self, directory: Union[str, Path], overwrite=False):
         PathValidator.validate(directory)
-        dest : Path = Path(directory) / self.name
+        dest: Path = Path(directory) / self.name
         dest.mkdir(exist_ok=True)
 
-        info_path = dest / 'camp_info.json'
+        info_path = dest / "camp_info.json"
         if info_path.exists() and not overwrite:
             # TODO: Check if they are same instead
             raise FileExistsError(f"file already exists for: {info_path}")
@@ -182,15 +182,15 @@ class Camp(ColorInfo):
                 color_object.dump_json(
                     sub_dest_dir / f"{name}.json", overwrite=overwrite
                 )
-    
+
     def query_metadata(
         self,
         pattern: str,
-        metadata_scope = ['keys', 'values'],
-        color_object_scope : List[str] = ['colors', 'palettes', 'scales', 'maps'],
+        metadata_scope=["keys", "values"],
+        color_object_scope: List[str] = ["colors", "palettes", "scales", "maps"],
         regex: bool = True,
-    )->Dict[str, Dict[str, ColorObjectType]]:
-        #TODO: Arg Validation
+    ) -> Dict[str, Dict[str, ColorObjectType]]:
+        # TODO: Arg Validation
 
         def matcher(text):
             if regex:
@@ -201,9 +201,9 @@ class Camp(ColorInfo):
         def finder(key, value):
             found = False
             # Can optimize this...
-            scope_map = {'keys':key, 'values':value}
+            scope_map = {"keys": key, "values": value}
             search_in = [scope_map[scope] for scope in metadata_scope]
-        
+
             for text in search_in:
                 if matcher(text):
                     found = True
@@ -212,12 +212,15 @@ class Camp(ColorInfo):
 
         query_results = {}
         for color_object in color_object_scope:
-            bucket : Bucket = getattr(self, color_object)
+            bucket: Bucket = getattr(self, color_object)
 
-            bucket_res = {key:value for key, value in bucket.to_dict().items() if finder(key, value)}
+            bucket_res = {
+                key: value
+                for key, value in bucket.to_dict().items()
+                if finder(key, value)
+            }
 
             if bucket_res:
                 query_results[color_object] = bucket_res
 
         return query_results
-

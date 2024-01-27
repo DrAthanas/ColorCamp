@@ -244,7 +244,9 @@ class BaseColor(MetaColor):
             # Bypass the setter to insure frgb values are exact to avoid fp errors
             new_color._fractional_rgb = self.fractional_rgb[:3]  # pylint: disable=W0212
         elif color_type == "BaseColor":
-            new_color = BaseColor(*self.fractional_rgb[:3], **self.info(), alpha=self.alpha)
+            new_color = BaseColor(
+                *self.fractional_rgb[:3], **self.info(), alpha=self.alpha
+            )
         else:
             raise ValueError(
                 f'Color type "{color_type}" is not in {list(self._subclasses.keys())}'

@@ -8,6 +8,7 @@ from .common.validators import PathValidator, ColorTypeValidator
 
 PROJECT_PATHS = Path(__file__).parent.parent / "data"
 
+
 class Settings:
     """Container for package 'colorcamp' universal settings"""
 
