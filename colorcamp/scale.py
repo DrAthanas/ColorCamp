@@ -2,10 +2,10 @@
 
 from typing import Sequence, Optional, Dict, Any
 
-from .color import Color
-from ._color_metadata import ColorMetadata
+from .color import BaseColor
+from ._color_metadata import MetaColor
 from ._settings import settings
-from .common.types import ColorObject, Numeric
+from .common.types import ColorSpace, Numeric
 
 
 DIV_TEMPLATE = """
@@ -21,18 +21,18 @@ DIV_TEMPLATE = """
 """
 
 
-class Scale(ColorMetadata, tuple):
+class Scale(MetaColor, tuple):
     """An object to represent continuous color Scales"""
 
     # pylint: disable=W0613
     def __new__(cls, colors, *args, **kwargs):
-        if not all((isinstance(color, Color) for color in colors)):
+        if not all((isinstance(color, BaseColor) for color in colors)):
             raise TypeError("colors must by a Color or proper subclass")
         return super().__new__(cls, colors)
 
     def __init__(
         self,
-        colors: Sequence[Color],
+        colors: Sequence[BaseColor],
         stops: Optional[Sequence[Numeric]] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,
@@ -42,7 +42,7 @@ class Scale(ColorMetadata, tuple):
 
         Parameters
         ----------
-        colors : Sequence[Color]
+        colors : Sequence[BaseColor]
             A sequence of Colors
         stops : Optional[Sequence[Numeric]], optional
             Relative numeric stops which correspond to color transitions. must be the same length as `colors` and sorted ascending, by default None
@@ -77,7 +77,7 @@ class Scale(ColorMetadata, tuple):
             values = [i / (n_colors - 1) for i in range(n_colors - 1)] + [1]
         elif len(values) != len(self.colors) or sorted(values) != values:
             # What type of validation do I want here. e.g. Should it always be between 0 and 1?!?
-            raise ValueError()
+            raise ValueError('stops must be sorted in ascending order and be of the same length as colors')
 
         self._stops = values
 
@@ -105,7 +105,7 @@ class Scale(ColorMetadata, tuple):
 
     @classmethod
     def from_dict(
-        cls, scale_dict: Dict[str, Any], color_type: Optional[ColorObject] = None
+        cls, scale_dict: Dict[str, Any], color_type: Optional[ColorSpace] = None
     ):
         """Create a new Scale object from a Scale dictionary
 
@@ -113,7 +113,7 @@ class Scale(ColorMetadata, tuple):
         ----------
         scale_dict : Dict[str, Any]
             A Scale dictionary
-        color_type : Literal['Color', 'Hex', 'RGB', 'HSL']
+        color_type : Literal['BaseColor', 'Hex', 'RGB', 'HSL']
             The new color representation (Color subclass). If None is supplied the default representation is used, by default None
 
         Returns
@@ -126,7 +126,7 @@ class Scale(ColorMetadata, tuple):
             color_type = settings.default_color_type
 
         ## init colors?
-        colors = [Color.from_dict(color, color_type) for color in scale_dict["colors"]]
+        colors = [BaseColor.from_dict(color, color_type) for color in scale_dict["colors"]]
 
         return cls(
             colors=colors,

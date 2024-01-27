@@ -2,9 +2,9 @@
 
 from typing import Sequence, Optional, Dict, Any
 
-from .common.types import ColorObject
-from .color import Color
-from ._color_metadata import ColorMetadata
+from .common.types import ColorSpace
+from .color import BaseColor
+from ._color_metadata import MetaColor
 from ._settings import settings
 
 DIV_TEMPLATE = """
@@ -20,18 +20,18 @@ DIV_TEMPLATE = """
 """
 
 
-class Palette(ColorMetadata, tuple):
+class Palette(MetaColor, tuple):
     """An object to represent discrete color Palettes"""
 
     # pylint: disable=W0613
     def __new__(cls, colors, *args, **kwargs):
-        if not all((isinstance(color, Color) for color in colors)):
+        if not all((isinstance(color, BaseColor) for color in colors)):
             raise TypeError("colors must by a Color or proper subclass")
         return super().__new__(cls, colors)
 
     def __init__(
         self,
-        colors: Sequence[Color],
+        colors: Sequence[BaseColor],
         name: Optional[str] = None,
         description: Optional[str] = None,
         metadata: Optional[Dict[str, Any]] = None,
@@ -40,7 +40,7 @@ class Palette(ColorMetadata, tuple):
 
         Parameters
         ----------
-        colors : Sequence[Color]
+        colors : Sequence[BaseColor]
             a sequence of Colors
         name : Optional[str], optional
             descriptive name, cannot contain special characters, by default None
@@ -95,7 +95,7 @@ class Palette(ColorMetadata, tuple):
 
     @classmethod
     def from_dict(
-        cls, palette_dict: Dict[str, Any], color_type: Optional[ColorObject] = None
+        cls, palette_dict: Dict[str, Any], color_type: Optional[ColorSpace] = None
     ):
         """create a new Palette object from a Palette dictionary
 
@@ -103,7 +103,7 @@ class Palette(ColorMetadata, tuple):
         ----------
         palette_dict : Dict[str, Any]
             a Palette dictionary
-        color_type : Literal['Color', 'Hex', 'RGB', 'HSL']
+        color_type : Literal['BaseColor', 'Hex', 'RGB', 'HSL']
             the new color representation (Color subclass). If None is supplied the default representation is used, by default None
 
         Returns
@@ -117,7 +117,7 @@ class Palette(ColorMetadata, tuple):
 
         ## init colors?
         colors = [
-            Color.from_dict(color, color_type) for color in palette_dict["colors"]
+            BaseColor.from_dict(color, color_type) for color in palette_dict["colors"]
         ]
 
         return cls(

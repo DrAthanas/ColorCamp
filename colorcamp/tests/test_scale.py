@@ -4,20 +4,15 @@ from tempfile import TemporaryDirectory
 import pytest
 from bs4 import BeautifulSoup
 
-from colorcamp.color import Color
+from colorcamp.color import BaseColor
 from colorcamp.scale import Scale
-
-# TODO:
-# * test get_color
-# * test exceptions
-
 
 @pytest.fixture(scope="class")
 def cls_scale(request):
-    sky_hex: Color = request.getfixturevalue("sky_Color").to_hex()
-    pink_hex: Color = request.getfixturevalue("pink_hex")
-    mustard_hex: Color = request.getfixturevalue("mustard_rgb").to_hex()
-    lime_hex: Color = request.getfixturevalue("lime_hsl").to_hex()
+    sky_hex: BaseColor = request.getfixturevalue("sky_Color").to_hex()
+    pink_hex: BaseColor = request.getfixturevalue("pink_hex")
+    mustard_hex: BaseColor = request.getfixturevalue("mustard_rgb").to_hex()
+    lime_hex: BaseColor = request.getfixturevalue("lime_hsl").to_hex()
 
     request.cls.scale: Scale = Scale(
         colors=[sky_hex, pink_hex, mustard_hex, lime_hex],
@@ -52,14 +47,36 @@ class TestScale:
 
 
 def test_not_color_objects(request):
-    sky_hex: Color = request.getfixturevalue("sky_Color").to_hex()
+    sky_hex: BaseColor = request.getfixturevalue("sky_Color").to_hex()
     pink_hex: str = "#FF15AA"
-    mustard_hex: Color = request.getfixturevalue("mustard_rgb").to_hex()
-    lime_hex: Color = request.getfixturevalue("lime_hsl").to_hex()
+    mustard_hex: BaseColor = request.getfixturevalue("mustard_rgb").to_hex()
+    lime_hex: BaseColor = request.getfixturevalue("lime_hsl").to_hex()
 
     with pytest.raises(TypeError):
         test_scale = Scale(
             colors=[sky_hex, pink_hex, mustard_hex, lime_hex],
+            name="example",
+            description="A beautiful color scale",
+            metadata={"continuous ": "four color stops"},
+        )
+
+@pytest.mark.parametrize(
+    'stops',
+    [
+        (0,0.5,1), # wrong number of stops
+        (0,0.25,1,0.5), # not in order
+    ]
+)
+def test_invalid_stops(request, stops):
+    sky_hex: BaseColor = request.getfixturevalue("sky_Color").to_hex()
+    pink_hex: BaseColor = request.getfixturevalue("pink_hex")
+    mustard_hex: BaseColor = request.getfixturevalue("mustard_rgb").to_hex()
+    lime_hex: BaseColor = request.getfixturevalue("lime_hsl").to_hex()
+
+    with pytest.raises(ValueError):
+        Scale(
+            colors=[sky_hex, pink_hex, mustard_hex, lime_hex],
+            stops=stops,
             name="example",
             description="A beautiful color scale",
             metadata={"continuous ": "four color stops"},

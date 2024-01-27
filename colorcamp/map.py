@@ -4,9 +4,9 @@ from __future__ import annotations
 from typing import Dict, Optional, Any, Hashable
 from collections import UserDict
 
-from .color import Color
-from ._color_metadata import ColorMetadata
-from .common.types import ColorObject
+from .color import BaseColor
+from ._color_metadata import MetaColor
+from .common.types import ColorSpace
 from ._settings import settings
 
 DIV_TEMPLATE = """
@@ -23,12 +23,12 @@ DIV_TEMPLATE = """
 """
 
 
-class Map(UserDict, ColorMetadata):
+class Map(UserDict,MetaColor):
     """A color object to represent color Mappings"""
 
     def __init__(
         self,
-        color_map: Dict[Hashable, Color],
+        color_map: Dict[Hashable, BaseColor],
         name: Optional[str] = None,
         description: Optional[str] = None,
         metadata: Optional[Dict[str, Any]] = None,
@@ -37,7 +37,7 @@ class Map(UserDict, ColorMetadata):
 
         Parameters
         ----------
-        color_map : Dict[Hashable, Color]
+        color_map : Dict[Hashable, BaseColor]
             A dictionary with colors as values
         name : Optional[str], optional
             descriptive name, cannot contain special characters, by default None
@@ -70,7 +70,7 @@ class Map(UserDict, ColorMetadata):
 
     @classmethod
     def from_dict(
-        cls, map_dict: Dict[str, Any], color_type: Optional[ColorObject] = None
+        cls, map_dict: Dict[str, Any], color_type: Optional[ColorSpace] = None
     ) -> Map:
         """create a new Map object from a Map dictionary
 
@@ -78,7 +78,7 @@ class Map(UserDict, ColorMetadata):
         ----------
         map_dict : Dict[str, Any]
             a Map dictionary
-        color_type : Literal['Color', 'Hex', 'RGB', 'HSL']
+        color_type : Literal['BaseColor', 'Hex', 'RGB', 'HSL']
             the new color representation (Color subclass). If None is supplied the default representation is used, by default None
 
         Returns
@@ -92,7 +92,7 @@ class Map(UserDict, ColorMetadata):
 
         ## init colors
         color_map = {
-            name: Color.from_dict(color, color_type)
+            name: BaseColor.from_dict(color, color_type)
             for name, color in map_dict["color_map"].items()
         }
 
@@ -104,7 +104,7 @@ class Map(UserDict, ColorMetadata):
         )
 
     def __setitem__(self, key, value):
-        if not isinstance(value, Color):
+        if not isinstance(value, BaseColor):
             raise TypeError("colors must by a Color or proper subclass")
 
         super().__setitem__(key, value)

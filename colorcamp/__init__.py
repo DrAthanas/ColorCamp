@@ -4,7 +4,7 @@ ColorCamp consists of several submodules designed to add additional context and 
 
 """
 
-from .color import Color, Hex, RGB, HSL
+from .color import BaseColor, Hex, RGB, HSL
 from .palette import Palette
 from .scale import Scale
 from .map import Map
@@ -13,7 +13,7 @@ from .camp import Camp
 from ._settings import settings
 
 __all__ = [
-    "Color",
+    "BaseColor",
     "Hex",
     "RGB",
     "HSL",

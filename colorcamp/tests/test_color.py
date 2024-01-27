@@ -5,7 +5,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 import pytest
 
-from colorcamp.color import Color, Hex, RGB, HSL
+from colorcamp.color import BaseColor, Hex, RGB, HSL
 from colorcamp.common.validators import HexStringValidator
 from colorcamp.common.exceptions import NumericIntervalError
 from conftest import (
@@ -20,14 +20,14 @@ from conftest import (
 
 @param_colors
 def test_attr_name(color, request):
-    color_obj: Color = request.getfixturevalue(color)
+    color_obj: BaseColor = request.getfixturevalue(color)
     assert color_obj.name == color
 
 
 @param_color_init
 def test_fractional_interval_validator(params):
     with pytest.raises(NumericIntervalError):
-        Color(**params)
+        BaseColor(**params)
 
 
 @pytest.mark.usefixtures("cls_sky_Color")
@@ -55,7 +55,7 @@ class TestColor:
         assert self.color.alpha is None
 
     def test_change_alpha(self):
-        new_color: Color = self.color.change_alpha(0.7)
+        new_color: BaseColor = self.color.change_alpha(0.7)
         assert new_color != self.color
         assert new_color.alpha == 0.7
         ## a bit funky of an assert
@@ -192,7 +192,7 @@ class TestHSL(TestColor):
 @param_colors
 @param_color_types
 def test_conversion(color_type, color, request):
-    color_obj: Color = request.getfixturevalue(color)
+    color_obj: BaseColor = request.getfixturevalue(color)
     new_color = color_obj.to_color_type(color_type)
     assert new_color.__class__.__name__ == color_type
     assert new_color == color_obj
@@ -200,7 +200,7 @@ def test_conversion(color_type, color, request):
 
 @param_colors
 def test_conversion_bad_type(color, request):
-    color_obj: Color = request.getfixturevalue(color)
+    color_obj: BaseColor = request.getfixturevalue(color)
     with pytest.raises(ValueError):
         color_obj.to_color_type("guyton")
 
@@ -242,12 +242,12 @@ def test_addition(color1, color2, expected):
     ]
 ) # fmt: on
 def test_equality(color, other_color, request):
-    color_obj: Color = request.getfixturevalue(color) 
+    color_obj: BaseColor = request.getfixturevalue(color) 
     assert color_obj == other_color    
 
 @param_colors
 def test_save_and_load(color, request):
-    color_obj: Color = request.getfixturevalue(color)
+    color_obj: BaseColor = request.getfixturevalue(color)
     with TemporaryDirectory() as temp_dir:
         temp_dir = Path(temp_dir)
         color_path = temp_dir / f"{color_obj.name}"

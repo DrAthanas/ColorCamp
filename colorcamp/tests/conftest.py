@@ -2,7 +2,7 @@ from functools import partial
 
 import pytest
 
-from colorcamp.color import Color, Hex, RGB, HSL
+from colorcamp.color import BaseColor, Hex, RGB, HSL
 from colorcamp.common.exceptions import NumericIntervalError
 
 # Standard test:
@@ -13,7 +13,7 @@ from colorcamp.common.exceptions import NumericIntervalError
 
 @pytest.fixture(scope="session")
 def sky_Color():
-    sky = Color(
+    sky = BaseColor(
         red=15 / 255,
         green=182 / 255,
         blue=255 / 255,
@@ -27,7 +27,7 @@ def sky_Color():
 
 @pytest.fixture(scope="class")
 def cls_sky_Color(request):
-    request.cls.color: Color = request.getfixturevalue("sky_Color")
+    request.cls.color: BaseColor = request.getfixturevalue("sky_Color")
 
 
 @pytest.fixture(scope="session")
@@ -44,7 +44,7 @@ def pink_hex():
 
 @pytest.fixture(scope="class")
 def cls_pink_hex(request):
-    request.cls.color: Color = request.getfixturevalue("pink_hex")
+    request.cls.color: BaseColor = request.getfixturevalue("pink_hex")
 
 
 @pytest.fixture(scope="session")
@@ -61,7 +61,7 @@ def mustard_rgb():
 
 @pytest.fixture(scope="class")
 def cls_mustard_rgb(request):
-    request.cls.color: Color = request.getfixturevalue("mustard_rgb")
+    request.cls.color: BaseColor = request.getfixturevalue("mustard_rgb")
 
 
 @pytest.fixture(scope="session")
@@ -78,7 +78,7 @@ def lime_hsl():
 
 @pytest.fixture(scope="class")
 def cls_lime_hsl(request):
-    request.cls.color: Color = request.getfixturevalue("lime_hsl")
+    request.cls.color: BaseColor = request.getfixturevalue("lime_hsl")
 
 
 #####################
@@ -115,7 +115,7 @@ param_color_types = partial(
     pytest.mark.parametrize(
         "color_type",
         [
-            "Color",
+            "BaseColor",
             "Hex",
             "RGB",
             "HSL",

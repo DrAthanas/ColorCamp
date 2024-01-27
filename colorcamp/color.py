@@ -6,17 +6,16 @@ from types import MethodType
 import colorsys
 import math
 from functools import cached_property
-from pathlib import Path
 from itertools import zip_longest
 
-from ._color_metadata import ColorMetadata
+from ._color_metadata import MetaColor
 from .common.types import (
     GenericColorTuple,
     AnyGenericColorTuple,
     RGBColorTuple,
     AnyRGBColorTuple,
     Numeric,
-    ColorObject,
+    ColorSpace,
 )
 from .conversions import (
     hex_to_rgb,
@@ -31,7 +30,6 @@ from .common.validators import (
 
 # TODO
 # * fix slots on tuple subclass
-# ? rename Color yet again
 # ? __sub__
 # ? implement lt / gt
 # * Add other color base types (fractional_rgb, CMKY)
@@ -67,7 +65,7 @@ HTML_REPR_TEMPLATE = """<!DOCTYPE html>
 
 
 # pylint: disable=W0613
-def make_to_color_type(self: Color, name):
+def make_to_color_type(self: BaseColor, name):
     """A function factory to make short cut methods to quickly convert color subtypes"""
 
     def changer(self):
@@ -79,15 +77,15 @@ def make_to_color_type(self: Color, name):
 # pylint: enable=W0613
 
 
-class Color(ColorMetadata):
-    """Color is a foundation for all other color formats. It uses the
+class BaseColor(MetaColor):
+    """BaseColor is a foundation for all other color formats. It uses the
     RGB color notation as its foundation as it is not bound to a colorspace.
     More importantly, it can represent any other color format, but not vice-versa.
 
     NOTE: This is not meant to be used within operational code
     """
 
-    _subclasses: Dict[str, Color] = {}
+    _subclasses: Dict[str, BaseColor] = {}
 
     # pylint: disable=too-many-arguments
     # Users will not have to directly init this object
@@ -189,7 +187,7 @@ class Color(ColorMetadata):
         """
 
         # If it's base color it has a different signature
-        if self.__class__.__name__ == "Color":
+        if self.__class__.__name__ == "BaseColor":
             return self.__class__(*self.fractional_rgb[:3], alpha=alpha, **self.info())
 
         # types change based on subclasses - that's the point of this repo
@@ -221,12 +219,12 @@ class Color(ColorMetadata):
         return rgb_to_hex(self.rgb)
 
     ## Conversion methods
-    def to_color_type(self, color_type: ColorObject):
+    def to_color_type(self, color_type: ColorSpace):
         """convert current color object to a new representation
 
         Parameters
         ----------
-        color_type : Literal['Color', 'Hex', 'RGB', 'HSL']
+        color_type : Literal['BaseColor', 'Hex', 'RGB', 'HSL']
             the new color representation (Color subclass)
 
         Returns
@@ -236,17 +234,17 @@ class Color(ColorMetadata):
         """
 
         if color_type is self.__class__.__name__:
-            new_color: Color = self
+            new_color: BaseColor = self
         elif color_type in self._subclasses:
-            new_color: Color = self._subclasses[color_type](  # type: ignore
+            new_color: BaseColor = self._subclasses[color_type](  # type: ignore
                 getattr(self, color_type.lower()),
                 **self.info(),
                 alpha=self.alpha,
             )
             # Bypass the setter to insure frgb values are exact to avoid fp errors
             new_color._fractional_rgb = self.fractional_rgb[:3]  # pylint: disable=W0212
-        elif color_type == "Color":
-            new_color = Color(*self.fractional_rgb[:3], **self.info(), alpha=self.alpha)
+        elif color_type == "BaseColor":
+            new_color = BaseColor(*self.fractional_rgb[:3], **self.info(), alpha=self.alpha)
         else:
             raise ValueError(
                 f'Color type "{color_type}" is not in {list(self._subclasses.keys())}'
@@ -277,7 +275,7 @@ class Color(ColorMetadata):
         """
 
         return {
-            "type": "Color",
+            "type": "BaseColor",
             **self.info(),
             "red": self.fractional_rgb[0],
             "green": self.fractional_rgb[1],
@@ -288,15 +286,15 @@ class Color(ColorMetadata):
 
     @classmethod
     def from_dict(
-        cls, color_dict: Dict[str, Any], color_type: Optional[ColorObject] = None
-    ) -> Color:
+        cls, color_dict: Dict[str, Any], color_type: Optional[ColorSpace] = None
+    ) -> BaseColor:
         """Create a new color object from a color dictionary
 
         Parameters
         ----------
         color_dict : Dict[str, Any]
             A Color dictionary
-        color_type : Literal['Color', 'Hex', 'RGB', 'HSL']
+        color_type : Literal['BaseColor', 'Hex', 'RGB', 'HSL']
             The new color representation (Color subclass). If None is supplied the current representation is used, by default None
 
         Returns
@@ -322,8 +320,7 @@ class Color(ColorMetadata):
             key: value for key, value in color_dict.items() if key in init_args
         }
 
-        return Color(**color_dict).to_color_type(color_type)
-
+        return BaseColor(**color_dict).to_color_type(color_type)
 
     ## dunders
     def __eq__(self, color):
@@ -332,7 +329,7 @@ class Color(ColorMetadata):
             "Hex": 1 / (255 * 2),
             "RGB": 1 / (255 * 2),
         }
-        if isinstance(color, Color):
+        if isinstance(color, BaseColor):
             # Determine relative precision
 
             return all(
@@ -351,8 +348,8 @@ class Color(ColorMetadata):
 
         return False
 
-    def __add__(self, color: Color) -> Color:
-        if not isinstance(color, Color):
+    def __add__(self, color: BaseColor) -> BaseColor:
+        if not isinstance(color, BaseColor):
             raise TypeError(
                 "addition operator is only supported between two Color objects"
             )
@@ -361,7 +358,7 @@ class Color(ColorMetadata):
             lambda x: sum(x) / 2, zip(self.fractional_rgb[:3], color.fractional_rgb[:3])
         )
 
-        return Color(red=red, green=green, blue=blue).to_color_type(
+        return BaseColor(red=red, green=green, blue=blue).to_color_type(
             self.__class__.__name__
         )
 
@@ -384,7 +381,7 @@ class Color(ColorMetadata):
 
 # NOTE: Alternative is 'from collections import UserString'
 # # but then string methods return a Hex object, which I don't want
-class Hex(Color, str):
+class Hex(BaseColor, str):
     """Extended str class that represents RGB colors in hexadecimal format"""
 
     __slots__ = ("_hex", "_alpha", "_name", "_description", "_metadata")
@@ -559,7 +556,7 @@ class Hex(Color, str):
         return self.upper()
 
 
-class RGB(Color, tuple):
+class RGB(BaseColor, tuple):
     """Extended tuple class that represents RGB colors in 24bit [0,255] format"""
 
     # __slots__ = ('_rgb', '_alpha', '_name', '_description', '_metadata', )
@@ -718,7 +715,7 @@ class RGB(Color, tuple):
         return self._change_rgb(red, green, blue, keep_metadata)
 
 
-class HSL(Color, tuple):
+class HSL(BaseColor, tuple):
     """Extended tuple class that represents HSL color space"""
 
     # __slots__ = ('_hsl', '_alpha', '_name', '_description', '_metadata')

@@ -10,22 +10,17 @@ from .common.validators import (
     DescriptionValidator,
     PathValidator,
 )
-from .common.types import ColorObject
+from .common.types import ColorSpace
 
-
-class ColorMetadata:
-    """All Colors and Color container objects will have some common metadata and functionality"""
-
-    # pylint: disable=W0613
+class ColorInfo:
+    
     def __init__(
         self,
-        *args,
         name: Optional[str] = None,
         description: Optional[str] = None,
         metadata: Optional[Dict[str, Any]] = None,
-        **kwargs,
     ):
-        """Color metadata to be inherited by other Color objects and containers
+        """Color info to be inherited by other Color objects and containers
 
         Parameters
         ----------
@@ -38,9 +33,7 @@ class ColorMetadata:
         """
         self.name = name
         self.description = description
-        self.metadata = metadata  # type: ignore
-
-    # pylint: enable=W0613
+        self.metadata = metadata
 
     @property
     def name(self) -> Union[str, None]:
@@ -84,6 +77,27 @@ class ColorMetadata:
             value = {}
         self._metadata = value
 
+    def info(self) -> Dict[str, Any]:
+        """Get all object descriptive info
+
+        Returns
+        -------
+        Dict[str, Any]
+            A dictionary with keys: name, description, metadata
+        """
+
+        # ? Make this return a dataclass instead?
+
+        return {
+            "name": self.name,
+            "description": self.description,
+            "metadata": self.metadata,
+        }
+    
+
+class ColorSerializer:
+    """Serialization of Colors and Color Objects"""
+
     @classmethod
     @abstractmethod
     def from_dict(cls, *args, **kwargs):
@@ -92,7 +106,7 @@ class ColorMetadata:
 
     @classmethod
     def load_json(
-        cls, file_path: Union[str, Path], color_type: Optional[ColorObject] = None
+        cls, file_path: Union[str, Path], color_type: Optional[ColorSpace] = None
     ):
         """Load object from JSON file on disk
 
@@ -100,7 +114,7 @@ class ColorMetadata:
         ----------
         file_path : Union[str, Path]
             Source file path to load data from
-        color_type : Optional[ColorObject], optional
+        color_type : Optional[ColorSpace], optional
             _description_, by default None
 
         Returns
@@ -145,19 +159,34 @@ class ColorMetadata:
         with open(file_path, mode="w", encoding="utf-8") as fio:
             json.dump(self.to_dict(), fio, indent=4)
 
-    def info(self) -> Dict[str, Any]:
-        """Get all object descriptive info
 
-        Returns
-        -------
-        Dict[str, Any]
-            A dictionary with keys: name, description, metadata
+class MetaColor(ColorInfo, ColorSerializer):
+    """All Colors and Color container objects will have some common metadata and functionality"""
+
+    # pylint: disable=W0613
+    def __init__(
+        self,
+        *args,
+        name: Optional[str] = None,
+        description: Optional[str] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+        **kwargs,
+    ):
+        """Color metadata to be inherited by other Color objects and containers
+
+        Parameters
+        ----------
+        name : Optional[str], optional
+            descriptive name, cannot contain special characters, by default None
+        description : Optional[str], optional
+            short descriptive text to provide additional context (max 255 char), by default None
+        metadata : Optional[Dict[str, Any]], optional
+            unstructured metadata used for querying and additional context, by default None
         """
+        super().__init__(
+            name = name,
+            description = description,
+            metadata = metadata,
+        )
 
-        # ? Make this return a dataclass instead?
-
-        return {
-            "name": self.name,
-            "description": self.description,
-            "metadata": self.metadata,
-        }
+    # pylint: enable=W0613

@@ -2,12 +2,12 @@ from tempfile import NamedTemporaryFile
 
 import pytest
 
-from colorcamp._color_metadata import ColorMetadata
+from colorcamp._color_metadata import MetaColor
 
 
 @pytest.fixture(scope="class")
 def color_metadata(request):
-    cm = ColorMetadata(
+    cm =MetaColor(
         name="cyan_O00",
         description="This is just some plain text",
         metadata={"value": 123, "sub_desc": "blue"},
@@ -31,7 +31,7 @@ class TestColorMetadata:
             self.color_metadata.metadata = {"new_thing": 1234}
 
     def test_file_path_exists(self):
-        self.color_metadata: ColorMetadata
+        self.color_metadata:MetaColor
         with NamedTemporaryFile() as tempfile:
             with pytest.raises(FileExistsError):
                 self.color_metadata.dump_json(tempfile.name)
@@ -51,7 +51,7 @@ class TestColorMetadata:
 )
 def test_bad_names(name, exception):
     with pytest.raises(exception):
-        ColorMetadata(name=name, description="Failure")
+       MetaColor(name=name, description="Failure")
 
 
 @pytest.mark.parametrize(
@@ -63,4 +63,4 @@ def test_bad_names(name, exception):
 )
 def test_bad_names(description, exception):
     with pytest.raises(exception):
-        ColorMetadata(name="name", description=description)
+       MetaColor(name="name", description=description)

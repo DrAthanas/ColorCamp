@@ -4,16 +4,16 @@ from pathlib import Path
 import pytest
 from bs4 import BeautifulSoup
 
-from colorcamp.color import Color
+from colorcamp.color import BaseColor
 from colorcamp.palette import Palette
 
 
 @pytest.fixture(scope="class")
 def cls_palette(request):
-    sky_hex: Color = request.getfixturevalue("sky_Color").to_hex()
-    pink_hex: Color = request.getfixturevalue("pink_hex")
-    mustard_hex: Color = request.getfixturevalue("mustard_rgb").to_hex()
-    lime_hex: Color = request.getfixturevalue("lime_hsl").to_hex()
+    sky_hex: BaseColor = request.getfixturevalue("sky_Color").to_hex()
+    pink_hex: BaseColor = request.getfixturevalue("pink_hex")
+    mustard_hex: BaseColor = request.getfixturevalue("mustard_rgb").to_hex()
+    lime_hex: BaseColor = request.getfixturevalue("lime_hsl").to_hex()
 
     request.cls.palette: Palette = Palette(
         colors=[sky_hex, pink_hex, mustard_hex, lime_hex],
@@ -63,10 +63,10 @@ class TestPalette:
 
 
 def test_not_color_objects(request):
-    sky_hex: Color = request.getfixturevalue("sky_Color").to_hex()
+    sky_hex: BaseColor = request.getfixturevalue("sky_Color").to_hex()
     pink_hex: str = "#FF15AA"
-    mustard_hex: Color = request.getfixturevalue("mustard_rgb").to_hex()
-    lime_hex: Color = request.getfixturevalue("lime_hsl").to_hex()
+    mustard_hex: BaseColor = request.getfixturevalue("mustard_rgb").to_hex()
+    lime_hex: BaseColor = request.getfixturevalue("lime_hsl").to_hex()
 
     with pytest.raises(TypeError):
         test_pal = Palette(

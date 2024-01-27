@@ -1,7 +1,7 @@
 from typing import Protocol, Union
 from pathlib import Path
 
-from .types import Numeric, ColorObject
+from .types import Numeric, ColorSpace
 import re
 from .exceptions import NumericIntervalError
 
@@ -125,5 +125,5 @@ class ColorTypeValidator(IValidator):
     """Color Type Validator"""
 
     def validate(self, obj) -> None:
-        if not obj in ColorObject.__args__:  # type: ignore
-            raise TypeError(f"incorrect literal type. must be one of {ColorObject}")
+        if not obj in ColorSpace.__args__:  # type: ignore
+            raise TypeError(f"incorrect literal type. must be one of {ColorSpace}")
