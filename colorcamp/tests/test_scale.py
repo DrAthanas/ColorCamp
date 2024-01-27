@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 from colorcamp.color import BaseColor
 from colorcamp.scale import Scale
 
+
 @pytest.fixture(scope="class")
 def cls_scale(request):
     sky_hex: BaseColor = request.getfixturevalue("sky_Color").to_hex()
@@ -60,12 +61,13 @@ def test_not_color_objects(request):
             metadata={"continuous ": "four color stops"},
         )
 
+
 @pytest.mark.parametrize(
-    'stops',
+    "stops",
     [
-        (0,0.5,1), # wrong number of stops
-        (0,0.25,1,0.5), # not in order
-    ]
+        (0, 0.5, 1),  # wrong number of stops
+        (0, 0.25, 1, 0.5),  # not in order
+    ],
 )
 def test_invalid_stops(request, stops):
     sky_hex: BaseColor = request.getfixturevalue("sky_Color").to_hex()
