@@ -5,7 +5,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 import pytest
 
-from colorcamp.color import BaseColor, Hex, RGB, HSL
+from colorcamp.color_objects.color import BaseColor, Hex, RGB, HSL
 from colorcamp.common.validators import HexStringValidator
 from colorcamp.common.exceptions import NumericIntervalError
 from conftest import (

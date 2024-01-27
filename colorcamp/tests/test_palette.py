@@ -4,8 +4,8 @@ from pathlib import Path
 import pytest
 from bs4 import BeautifulSoup
 
-from colorcamp.color import BaseColor
-from colorcamp.palette import Palette
+from colorcamp.color_objects.color import BaseColor
+from colorcamp.color_objects.palette import Palette
 
 
 @pytest.fixture(scope="class")

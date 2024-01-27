@@ -5,8 +5,8 @@ from tempfile import TemporaryDirectory
 import pytest
 from bs4 import BeautifulSoup
 
-from colorcamp.color import BaseColor
-from colorcamp.map import Map
+from colorcamp.color_objects.color import BaseColor
+from colorcamp.color_objects.map import Map
 
 
 @pytest.fixture(scope="class")

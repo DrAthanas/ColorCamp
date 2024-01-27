@@ -5,9 +5,9 @@ from typing import Dict, Optional, Any, Hashable
 from collections import UserDict
 
 from .color import BaseColor
-from ._color_metadata import MetaColor
-from .common.types import ColorSpace
-from ._settings import settings
+from colorcamp._color_metadata import MetaColor
+from colorcamp.common.types import ColorSpace
+from colorcamp._settings import settings
 
 DIV_TEMPLATE = """
 <tr>

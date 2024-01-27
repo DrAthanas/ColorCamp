@@ -2,10 +2,10 @@
 
 from typing import Sequence, Optional, Dict, Any
 
-from .common.types import ColorSpace
+from ..common.types import ColorSpace
 from .color import BaseColor
-from ._color_metadata import MetaColor
-from ._settings import settings
+from .._color_metadata import MetaColor
+from .._settings import settings
 
 DIV_TEMPLATE = """
 <div style="

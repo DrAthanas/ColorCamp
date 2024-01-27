@@ -8,8 +8,8 @@ import math
 from functools import cached_property
 from itertools import zip_longest
 
-from ._color_metadata import MetaColor
-from .common.types import (
+from colorcamp._color_metadata import MetaColor
+from colorcamp.common.types import (
     GenericColorTuple,
     AnyGenericColorTuple,
     RGBColorTuple,
@@ -17,11 +17,11 @@ from .common.types import (
     Numeric,
     ColorSpace,
 )
-from .conversions import (
+from colorcamp.conversions import (
     hex_to_rgb,
     rgb_to_hex,
 )
-from .common.validators import (
+from colorcamp.common.validators import (
     FractionIntervalValidator,
     HueIntervalValidator,
     HexStringValidator,
