@@ -4,8 +4,8 @@ from __future__ import annotations
 from typing import Dict, Optional, Any, Hashable
 from collections import UserDict
 
-from .color import BaseColor
-from colorcamp._color_metadata import MetaColor
+from .color_space import BaseColor
+from colorcamp.color_objects._color_metadata import MetaColor
 from colorcamp.common.types import ColorSpace
 from colorcamp._settings import settings
 

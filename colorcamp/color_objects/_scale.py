@@ -2,10 +2,10 @@
 
 from typing import Sequence, Optional, Dict, Any
 
-from .color import BaseColor
-from .._color_metadata import MetaColor
-from .._settings import settings
-from ..common.types import ColorSpace, Numeric
+from .color_space import BaseColor
+from ._color_metadata import MetaColor
+from colorcamp._settings import settings
+from colorcamp.common.types import ColorSpace, Numeric
 
 
 DIV_TEMPLATE = """

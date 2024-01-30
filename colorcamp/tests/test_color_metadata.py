@@ -2,7 +2,7 @@ from tempfile import NamedTemporaryFile
 
 import pytest
 
-from colorcamp._color_metadata import MetaColor
+from colorcamp.color_objects._color_metadata import MetaColor
 
 
 @pytest.fixture(scope="class")
