@@ -8,7 +8,7 @@ import math
 from functools import cached_property
 from itertools import zip_longest
 
-from colorcamp._color_metadata import MetaColor
+from colorcamp.color_objects._color_metadata import MetaColor
 from colorcamp.common.types import (
     GenericColorTuple,
     AnyGenericColorTuple,

@@ -5,12 +5,12 @@ import json
 from pathlib import Path
 from abc import abstractmethod
 
-from .common.validators import (
+from colorcamp.common.validators import (
     NameValidator,
     DescriptionValidator,
     PathValidator,
 )
-from .common.types import ColorSpace
+from colorcamp.common.types import ColorSpace
 
 
 class ColorInfo:
