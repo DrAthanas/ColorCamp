@@ -124,7 +124,7 @@ class BaseColor(MetaColor):
         self.alpha = alpha
         self.name = name
         self.description = description
-        self.metadata = metadata  # type : ignore
+        self.metadata = metadata  # type: ignore
 
         # Dynamically add functions based on subclasses
         for subclass in self._subclasses:
@@ -283,7 +283,7 @@ class BaseColor(MetaColor):
             "green": self.fractional_rgb[1],
             "blue": self.fractional_rgb[2],
             "alpha": self.alpha,
-            "color_formats": {ct: self.to_color_type(ct) for ct in self._subclasses},
+            "color_formats": {ct: self.to_color_type(ct) for ct in self._subclasses}, # type: ignore
         }
 
     @classmethod
@@ -316,13 +316,13 @@ class BaseColor(MetaColor):
         }
 
         if color_type is None:
-            color_type = cls.__name__
+            color_type = cls.__name__ # type: ignore
 
         color_dict = {
             key: value for key, value in color_dict.items() if key in init_args
         }
 
-        return BaseColor(**color_dict).to_color_type(color_type)
+        return BaseColor(**color_dict).to_color_type(color_type) # type: ignore
 
     ## dunders
     def __eq__(self, color):
@@ -361,7 +361,7 @@ class BaseColor(MetaColor):
         )
 
         return BaseColor(red=red, green=green, blue=blue).to_color_type(
-            self.__class__.__name__
+            self.__class__.__name__ # type: ignore
         )
 
     def _repr_html_(self):
@@ -433,7 +433,7 @@ class Hex(BaseColor, str):
         rgb = hex_to_rgb(hex_str)
         red, green, blue = map(lambda v: v / 255, rgb[:3])
         if len(rgb) == 4:
-            alpha = rgb[3] if alpha is None else alpha
+            alpha = rgb[3] if alpha is None else alpha # type: ignore
 
         self.hex = self.__adjust_alpha(hex_str, alpha)
 
@@ -495,7 +495,7 @@ class Hex(BaseColor, str):
         self, red: Numeric, green: Numeric, blue: Numeric, keep_metadata: bool = False
     ):
         metadata = self.info() if keep_metadata else {}
-        return Hex(rgb_to_hex((red, green, blue)), alpha=self.alpha, **metadata)
+        return Hex(rgb_to_hex((red, green, blue)), alpha=self.alpha, **metadata) # type: ignore
 
     def change_red(self, red: Numeric, keep_metadata: bool = False):
         """create a new color by changing the red color channel
@@ -598,7 +598,7 @@ class RGB(BaseColor, tuple):
         self.rgb = rgb[:3]
 
         if len(rgb) == 4:
-            alpha = rgb[3] if alpha is None else alpha
+            alpha = rgb[3] if alpha is None else alpha # type: ignore
 
         super().__init__(
             red=red,
@@ -660,7 +660,7 @@ class RGB(BaseColor, tuple):
         self, red: Numeric, green: Numeric, blue: Numeric, keep_metadata: bool = False
     ) -> RGB:
         metadata = self.info() if keep_metadata else {}
-        return RGB((red, green, blue), alpha=self.alpha, **metadata)
+        return RGB((red, green, blue), alpha=self.alpha, **metadata) # type: ignore
 
     def change_red(self, red: Numeric, keep_metadata: bool = False) -> RGB:
         """create a new color by changing the red color channel
@@ -760,7 +760,7 @@ class HSL(BaseColor, tuple):
         self.hsl = hsl[:3]
 
         if len(hsl) == 4:
-            alpha = hsl[3] if alpha is None else alpha
+            alpha = hsl[3] if alpha is None else alpha # type: ignore
 
         super().__init__(
             red=red,

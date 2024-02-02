@@ -14,6 +14,8 @@ from colorcamp.common.types import ColorSpace
 
 
 class ColorInfo:
+    """Basic metadata to be attributed to all color objects"""
+
     def __init__(
         self,
         name: Optional[str] = None,
@@ -33,7 +35,7 @@ class ColorInfo:
         """
         self.name = name
         self.description = description
-        self.metadata = metadata
+        self.metadata = metadata # type: ignore
 
     @property
     def name(self) -> Union[str, None]:
@@ -131,7 +133,7 @@ class ColorSerializer:
         return cls.from_dict(color_dict, color_type)
 
     @abstractmethod
-    def to_dict(self) -> dict:
+    def to_dict(self):
         """abstract method, to dict"""
         return
 
@@ -163,7 +165,7 @@ class ColorSerializer:
 class MetaColor(ColorInfo, ColorSerializer):
     """All Colors and Color container objects will have some common metadata and functionality"""
 
-    # pylint: disable=W0613
+    # pylint: disable=W0613, disable=W0223
     def __init__(
         self,
         *args,
@@ -189,4 +191,4 @@ class MetaColor(ColorInfo, ColorSerializer):
             metadata=metadata,
         )
 
-    # pylint: enable=W0613
+    # pylint: enable=W0613, enable=W0223

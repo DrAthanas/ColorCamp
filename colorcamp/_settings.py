@@ -22,6 +22,7 @@ class Settings:
 
     @property
     def default_color_type(self) -> str:
+        """Default color type that will used when loading new colors"""
         return self._default_color_type
 
     @default_color_type.setter
@@ -31,6 +32,7 @@ class Settings:
 
     @property
     def camp_paths(self):
+        """Paths to search for camps in"""
         return self._camp_paths
 
     @camp_paths.setter

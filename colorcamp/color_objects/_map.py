@@ -4,10 +4,10 @@ from __future__ import annotations
 from typing import Dict, Optional, Any, Hashable
 from collections import UserDict
 
-from .color_space import BaseColor
 from colorcamp.color_objects._color_metadata import MetaColor
 from colorcamp.common.types import ColorSpace
 from colorcamp._settings import settings
+from .color_space import BaseColor
 
 DIV_TEMPLATE = """
 <tr>
@@ -49,11 +49,11 @@ class Map(UserDict, MetaColor):
 
         self.name = name
         self.description = description
-        self.metadata = metadata
+        self.metadata = metadata # type: ignore
 
         super().__init__(color_map)
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         """create a dictionary of all Map attributes
 
         Returns
@@ -88,7 +88,7 @@ class Map(UserDict, MetaColor):
         """
 
         if color_type is None:
-            color_type = settings.default_color_type
+            color_type = settings.default_color_type # type: ignore
 
         ## init colors
         color_map = {

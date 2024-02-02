@@ -1,12 +1,12 @@
 """Linear gradients of Colors"""
 
+from __future__ import annotations
 from typing import Sequence, Optional, Dict, Any
 
-from .color_space import BaseColor
-from ._color_metadata import MetaColor
 from colorcamp._settings import settings
 from colorcamp.common.types import ColorSpace, Numeric
-
+from .color_space import BaseColor
+from ._color_metadata import MetaColor
 
 DIV_TEMPLATE = """
 <div style="
@@ -75,7 +75,7 @@ class Scale(MetaColor, tuple):
         if values is None:
             n_colors = len(self.colors)
             values = [i / (n_colors - 1) for i in range(n_colors - 1)] + [1]
-        elif len(values) != len(self.colors) or sorted(values) != values:
+        elif len(values) != len(self.colors) or sorted(values) != list(values):
             # What type of validation do I want here. e.g. Should it always be between 0 and 1?!?
             raise ValueError(
                 "stops must be sorted in ascending order and be of the same length as colors"
@@ -108,7 +108,7 @@ class Scale(MetaColor, tuple):
     @classmethod
     def from_dict(
         cls, scale_dict: Dict[str, Any], color_type: Optional[ColorSpace] = None
-    ):
+    ) -> Scale:
         """Create a new Scale object from a Scale dictionary
 
         Parameters
@@ -125,7 +125,7 @@ class Scale(MetaColor, tuple):
         """
 
         if color_type is None:
-            color_type = settings.default_color_type
+            color_type = settings.default_color_type # type: ignore
 
         ## init colors?
         colors = [

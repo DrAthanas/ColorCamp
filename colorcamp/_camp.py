@@ -12,7 +12,7 @@ from .common.validators import PathValidator
 from .color_objects.color_space import BaseColor
 from .color_objects import Map, Scale, Palette
 
-ColorObjectType = Union[BaseColor, Scale, Palette, Map]
+ColorObjectType = Union[type[BaseColor], type[Scale], type[Palette], type[Map]]
 
 # TODO:
 #   * HTML report
@@ -41,13 +41,13 @@ class Bucket:
         elif not isinstance(__value, self._bucket_type):
             raise TypeError(f"Colors must be of {self._bucket_type.__name__}")
         elif __value.name != __name:
-            raise AttributeError(f'Names do not match: {__value.name}, {__name}')
+            raise AttributeError(f"Names do not match: {__value.name}, {__name}")
         super().__setattr__(__name, __value)
 
     def __getitem__(self, value):
         return self.__dict__[value]
 
-    def add(self, item: ColorObjectType):
+    def add(self, item: ColorObject):
         """
         Add an item of matching type to the bucket.
 
@@ -58,7 +58,7 @@ class Bucket:
 
         """
 
-        if (name := item.name) is None:
+        if (name := item.name) is None: # type: ignore
             raise AttributeError(
                 f"Objects need to have a name to be added to a Camp {self.__class__.__name__} Bucket"
             )
@@ -92,16 +92,16 @@ class Bucket:
         bucket_dict.pop("_bucket_type")
 
         return bucket_dict
-    
+
     @property
     def names(self):
         return list(self.to_dict().keys())
 
     def __repr__(self):
         bucket_type = self._bucket_type.__name__
-        if bucket_type == 'BaseColor':
-            bucket_type = 'Color'
-        return f'{bucket_type}s{self.names}'
+        if bucket_type == "BaseColor":
+            bucket_type = "Color"
+        return f"{bucket_type}s{self.names}"
 
 
 class Camp(ColorInfo):
@@ -167,7 +167,7 @@ class Camp(ColorInfo):
 
         return dir_map
 
-    def add_objects(self, color_objects:Sequence[ColorObject], exists_ok=False):
+    def add_objects(self, color_objects: Sequence[ColorObject], exists_ok=False):
         """Add any number of color objects to the Camp
 
         Parameters
@@ -178,15 +178,17 @@ class Camp(ColorInfo):
             Ignore ValueErrors if conflicting names exist, by default False
         """
 
-        map_directory = {klass.__name__:key for key, klass in self.__directory_map().items()}
+        map_directory = {
+            klass.__name__: key for key, klass in self.__directory_map().items()
+        }
 
         for color_object in list(color_objects):
             if isinstance(color_object, BaseColor):
-                co_type = 'BaseColor'
+                co_type = "BaseColor"
             else:
                 co_type = color_object.__class__.__name__
 
-            bucket : Bucket = getattr(self, map_directory[co_type])
+            bucket: Bucket = getattr(self, map_directory[co_type])
             try:
                 bucket.add(color_object)
             except ValueError as value_error:
@@ -195,7 +197,10 @@ class Camp(ColorInfo):
 
     @classmethod
     def load(
-        cls, name: str, directory: Optional[Union[str, Path]] = None, color_type: Optional[ColorSpace] = None
+        cls,
+        name: str,
+        directory: Optional[Union[str, Path]] = None,
+        color_type: Optional[ColorSpace] = None,
     ):
         """Load a saved camp
 
@@ -223,7 +228,7 @@ class Camp(ColorInfo):
             directory = Path(directory)
 
         if color_type is None:
-            color_type = settings.default_color_type
+            color_type = settings.default_color_type # type: ignore
 
         camp_dir = directory / name
         PathValidator().validate(camp_dir)
@@ -254,12 +259,12 @@ class Camp(ColorInfo):
         """
 
         PathValidator().validate(directory)
-        dest: Path = Path(directory) / self.name
+        dest: Path = Path(directory) / self.name # type: ignore
         dest.mkdir(exist_ok=True)
 
         info_path = dest / "camp_info.json"
         if info_path.exists() and not overwrite:
-            with open(info_path, mode = 'r', encoding="utf-8") as fio:
+            with open(info_path, mode="r", encoding="utf-8") as fio:
                 current = json.load(fio)
             if current != self.info():
                 raise FileExistsError(f"file already exists: {info_path}")
@@ -275,14 +280,13 @@ class Camp(ColorInfo):
                 color_object_path = sub_dest_dir / f"{name}.json"
 
                 if color_object_path.exists() and not overwrite:
-
                     current = color_object.load_json(color_object_path)
 
                     if current != color_object:
-                        raise FileExistsError(f"file already exists: {color_object_path}")
+                        raise FileExistsError(
+                            f"file already exists: {color_object_path}"
+                        )
 
                     continue
 
-                color_object.dump_json(
-                    color_object_path, overwrite=overwrite
-                )
+                color_object.dump_json(color_object_path, overwrite=overwrite)

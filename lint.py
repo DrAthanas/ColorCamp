@@ -39,23 +39,18 @@ results = Run([path], do_exit=False)
 
 final_score = results.linter.stats.global_note
 
-if final_score < threshold:
-    message = (
-        "PyLint Failed | "
-        "Score: {} | "
-        "Threshold: {} ".format(final_score, threshold)
-    )
+failed = final_score < threshold
 
+message = (
+    f"PyLint {'Failed' if failed else 'Passed'} | "
+    f"Score: {final_score:.2f} | "
+    f"Threshold: {threshold:.1f} "
+)
+
+if failed:
     logging.error(message)
     raise Exception(message)
 
 else:
-    message = (
-        "PyLint Passed | "
-        "Score: {} | "
-        "Threshold: {} ".format(final_score, threshold)
-    )
-
     logging.info(message)
-
     exit(0)

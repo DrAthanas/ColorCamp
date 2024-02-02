@@ -69,12 +69,12 @@ class TestCamp:
                 camp.save(tempdir)
 
             with pytest.raises(FileExistsError):
-                new_camp.colors.remove('pink_hex')
-                new_camp.colors.add(Hex('#FFFFFF', name = 'pink_hex'))
+                new_camp.colors.remove("pink_hex")
+                new_camp.colors.add(Hex("#FFFFFF", name="pink_hex"))
                 new_camp.save(tempdir)
 
     def test_names(self):
-        assert len(self.camp.colors.names) == (len(self.camp.colors.__dict__)-1)
+        assert len(self.camp.colors.names) == (len(self.camp.colors.__dict__) - 1)
 
     def test_no_name(self):
         with pytest.raises(AttributeError):

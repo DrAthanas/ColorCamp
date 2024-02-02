@@ -1,11 +1,12 @@
 """Collections of Colors"""
 
+from __future__ import annotations
 from typing import Sequence, Optional, Dict, Any
 
-from .color_space import BaseColor
-from ._color_metadata import MetaColor
 from colorcamp.common.types import ColorSpace
 from colorcamp._settings import settings
+from .color_space import BaseColor
+from ._color_metadata import MetaColor
 
 DIV_TEMPLATE = """
 <div style="
@@ -96,7 +97,7 @@ class Palette(MetaColor, tuple):
     @classmethod
     def from_dict(
         cls, palette_dict: Dict[str, Any], color_type: Optional[ColorSpace] = None
-    ):
+    ) -> Palette:
         """create a new Palette object from a Palette dictionary
 
         Parameters
@@ -113,7 +114,7 @@ class Palette(MetaColor, tuple):
         """
 
         if color_type is None:
-            color_type = settings.default_color_type
+            color_type = settings.default_color_type # type: ignore
 
         ## init colors?
         colors = [

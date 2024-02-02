@@ -1,3 +1,11 @@
+[project]
+name = 'colorcamp'
+version = '0.1.0'
+# dynamic = ["version"]
+description = "something cute"
+readme = "README.md"
+dynamic = ["classifiers", "keywords", "authors", "license", "requires-python"]
+
 [project.optional-dependencies]
 
 dev = [
