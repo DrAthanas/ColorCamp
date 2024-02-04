@@ -5,10 +5,6 @@ from .types import Numeric, ColorSpace
 import re
 from .exceptions import NumericIntervalError
 
-# TODO:
-# * Metadata Validator
-# * Consider Validators for RGB, HSL
-
 
 class IValidator(Protocol):
     """Generic validator"""
