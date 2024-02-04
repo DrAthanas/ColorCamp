@@ -1,10 +1,16 @@
 """ Conversions between different color formats e.g.:
     * hex -> rgb
     * rgb -> hex
+    * rgb -> hsl
+    * hsl -> rgb
 """
-# Imports
-from .common.types import AnyRGBColorTuple
+
+import colorsys
+
+from .common.types import AnyRGBColorTuple, AnyGenericColorTuple
 from .common.validators import HexStringValidator
+
+MAX_PRECISION = 6
 
 
 def hex_to_rgb(hex_str: str) -> AnyRGBColorTuple:
@@ -54,3 +60,29 @@ def rgb_to_hex(rgb: AnyRGBColorTuple) -> str:
     if len(rgb) == 4:
         hex_str += f"{int(rgb[3]*255):02X}"  # type: ignore
     return hex_str
+
+
+def rgb_to_hsl(rgb: AnyGenericColorTuple) -> AnyGenericColorTuple:
+    """Convert rgb tuples into hsl tuples
+
+    Parameters
+    ----------
+    rgb : AnyRGBColorTuple
+        Red, Green, Blue, [and alpha] channels
+
+    Returns
+    -------
+    tuple
+        HSL tuple
+    """
+    
+    hue, lightness, saturation = colorsys.rgb_to_hls(*rgb[:3])
+    ## remove floating point errors
+    hue = round(hue*360, MAX_PRECISION)
+    lightness = round(lightness, MAX_PRECISION)
+    saturation = round(saturation, MAX_PRECISION)
+
+    if len(rgb) == 4:
+         return (hue, saturation, lightness, rgb[3])
+    else:
+         return (hue, saturation, lightness)
