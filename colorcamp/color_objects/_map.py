@@ -49,7 +49,7 @@ class Map(UserDict, MetaColor):
 
         self.name = name
         self.description = description
-        self.metadata = metadata # type: ignore
+        self.metadata = metadata  # type: ignore
 
         super().__init__(color_map)
 
@@ -88,7 +88,7 @@ class Map(UserDict, MetaColor):
         """
 
         if color_type is None:
-            color_type = settings.default_color_type # type: ignore
+            color_type = settings.default_color_type  # type: ignore
 
         ## init colors
         color_map = {

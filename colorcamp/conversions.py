@@ -75,14 +75,14 @@ def rgb_to_hsl(rgb: AnyGenericColorTuple) -> AnyGenericColorTuple:
     tuple
         HSL tuple
     """
-    
+
     hue, lightness, saturation = colorsys.rgb_to_hls(*rgb[:3])
     ## remove floating point errors
-    hue = round(hue*360, MAX_PRECISION)
+    hue = round(hue * 360, MAX_PRECISION)
     lightness = round(lightness, MAX_PRECISION)
     saturation = round(saturation, MAX_PRECISION)
 
     if len(rgb) == 4:
-         return (hue, saturation, lightness, rgb[3])
+        return (hue, saturation, lightness, rgb[3])
     else:
-         return (hue, saturation, lightness)
+        return (hue, saturation, lightness)

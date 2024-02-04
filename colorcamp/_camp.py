@@ -15,9 +15,7 @@ from .color_objects import Map, Scale, Palette
 ColorObjectType = Union[type[BaseColor], type[Scale], type[Palette], type[Map]]
 
 # TODO:
-#   * HTML report
 #   * clean up saving code
-#   * Bucket names property
 
 
 class Bucket:
@@ -58,7 +56,7 @@ class Bucket:
 
         """
 
-        if (name := item.name) is None: # type: ignore
+        if (name := item.name) is None:  # type: ignore
             raise AttributeError(
                 f"Objects need to have a name to be added to a Camp {self.__class__.__name__} Bucket"
             )
@@ -95,6 +93,8 @@ class Bucket:
 
     @property
     def names(self):
+        """Names of color objects in the bucket"""
+
         return list(self.to_dict().keys())
 
     def __repr__(self):
@@ -219,19 +219,25 @@ class Camp(ColorInfo):
             A collection of colors and color objects
 
         """
+        if color_type is None:
+            color_type = settings.default_color_type  # type: ignore
 
         # Search for matching directory in source locations
         if directory is None:
             # use config to find if name is in any sources
-            raise NotImplementedError()
+            camp_paths = list(settings.camp_paths)
+            for camp_path in camp_paths:
+                camp_dir = Path(camp_path) / name
+                if camp_dir.exists():
+                    break
+            else:
+                raise FileNotFoundError(
+                    f"No camp '{name}' found in {settings.camp_paths}"
+                )
+
         else:
-            directory = Path(directory)
-
-        if color_type is None:
-            color_type = settings.default_color_type # type: ignore
-
-        camp_dir = directory / name
-        PathValidator().validate(camp_dir)
+            camp_dir = Path(directory) / name
+            PathValidator().validate(camp_dir)
 
         with open(camp_dir / "camp_info.json", "r", encoding="utf-8") as fio:
             camp_info: dict = json.load(fio)
@@ -259,7 +265,7 @@ class Camp(ColorInfo):
         """
 
         PathValidator().validate(directory)
-        dest: Path = Path(directory) / self.name # type: ignore
+        dest: Path = Path(directory) / self.name  # type: ignore
         dest.mkdir(exist_ok=True)
 
         info_path = dest / "camp_info.json"

@@ -35,7 +35,7 @@ class ColorInfo:
         """
         self.name = name
         self.description = description
-        self.metadata = metadata # type: ignore
+        self.metadata = metadata  # type: ignore
 
     @property
     def name(self) -> Union[str, None]:
@@ -87,8 +87,6 @@ class ColorInfo:
         Dict[str, Any]
             A dictionary with keys: name, description, metadata
         """
-
-        # ? Make this return a dataclass instead?
 
         return {
             "name": self.name,

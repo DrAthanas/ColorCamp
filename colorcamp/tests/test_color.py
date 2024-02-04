@@ -39,10 +39,6 @@ class TestColor:
     ):
         assert isinstance(self.color.name, str)
 
-    def test_metadata(self):
-        # TODO: Fill in actual test
-        pass
-
     def test_description(self):
         assert isinstance(self.color.description, str)
 
@@ -67,14 +63,9 @@ class TestColor:
     def test_rgb(self):
         assert all([isinstance(channel, int) for channel in self.color.rgb])
         assert all([0 <= channel <= 255 for channel in self.color.rgb])
-        # TODO: update with real validator
 
     def test_hex(self):
         assert HexStringValidator().validate(self.color.hex) is None
-
-    def test_hsl(self):
-        # TODO: update with real validator
-        pass
 
     def test_info(self):
         info = self.color.info()

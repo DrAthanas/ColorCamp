@@ -20,6 +20,7 @@ from colorcamp.common.types import (
 from colorcamp.conversions import (
     hex_to_rgb,
     rgb_to_hex,
+    rgb_to_hsl,
 )
 from colorcamp.common.validators import (
     FractionIntervalValidator,
@@ -28,17 +29,9 @@ from colorcamp.common.validators import (
     RGB256IntervalValidator,
 )
 
-# TODO
-# * fix slots on tuple subclass
-# ? __sub__
-# ? implement lt / gt
-# * Add other color base types (fractional_rgb, CMKY)
-# * Other color space -> CIELAB
-
 __all__ = ["Hex", "RGB", "HSL"]
 
 
-# ? Move this inside method? Move to assets folder?
 HTML_REPR_TEMPLATE = """<!DOCTYPE html>
 <html>
 <body>
@@ -198,10 +191,7 @@ class BaseColor(MetaColor):
     def hsl(self) -> AnyGenericColorTuple:
         """represents a color in HSL (Hue, Saturation, Lightness) color space"""
 
-        hue, lightness, saturation = colorsys.rgb_to_hls(*self.fractional_rgb[:3])
-        if self.alpha is None:
-            return (hue * 360, saturation, lightness)
-        return (hue * 360, saturation, lightness, self.alpha)
+        return rgb_to_hsl(self.fractional_rgb)
 
     @cached_property
     def rgb(self) -> AnyRGBColorTuple:
@@ -283,7 +273,7 @@ class BaseColor(MetaColor):
             "green": self.fractional_rgb[1],
             "blue": self.fractional_rgb[2],
             "alpha": self.alpha,
-            "color_formats": {ct: self.to_color_type(ct) for ct in self._subclasses}, # type: ignore
+            "color_formats": {ct: self.to_color_type(ct) for ct in self._subclasses},  # type: ignore
         }
 
     @classmethod
@@ -316,13 +306,13 @@ class BaseColor(MetaColor):
         }
 
         if color_type is None:
-            color_type = cls.__name__ # type: ignore
+            color_type = cls.__name__  # type: ignore
 
         color_dict = {
             key: value for key, value in color_dict.items() if key in init_args
         }
 
-        return BaseColor(**color_dict).to_color_type(color_type) # type: ignore
+        return BaseColor(**color_dict).to_color_type(color_type)  # type: ignore
 
     ## dunders
     def __eq__(self, color):
@@ -361,7 +351,7 @@ class BaseColor(MetaColor):
         )
 
         return BaseColor(red=red, green=green, blue=blue).to_color_type(
-            self.__class__.__name__ # type: ignore
+            self.__class__.__name__  # type: ignore
         )
 
     def _repr_html_(self):
@@ -433,7 +423,7 @@ class Hex(BaseColor, str):
         rgb = hex_to_rgb(hex_str)
         red, green, blue = map(lambda v: v / 255, rgb[:3])
         if len(rgb) == 4:
-            alpha = rgb[3] if alpha is None else alpha # type: ignore
+            alpha = rgb[3] if alpha is None else alpha  # type: ignore
 
         self.hex = self.__adjust_alpha(hex_str, alpha)
 
@@ -495,7 +485,7 @@ class Hex(BaseColor, str):
         self, red: Numeric, green: Numeric, blue: Numeric, keep_metadata: bool = False
     ):
         metadata = self.info() if keep_metadata else {}
-        return Hex(rgb_to_hex((red, green, blue)), alpha=self.alpha, **metadata) # type: ignore
+        return Hex(rgb_to_hex((red, green, blue)), alpha=self.alpha, **metadata)  # type: ignore
 
     def change_red(self, red: Numeric, keep_metadata: bool = False):
         """create a new color by changing the red color channel
@@ -561,8 +551,6 @@ class Hex(BaseColor, str):
 class RGB(BaseColor, tuple):
     """Extended tuple class that represents RGB colors in 24bit [0,255] format"""
 
-    # __slots__ = ('_rgb', '_alpha', '_name', '_description', '_metadata', )
-
     # pylint: disable=W0613
     def __new__(cls, rgb, *args, alpha=None, **kwargs):
         if alpha is not None:
@@ -598,7 +586,7 @@ class RGB(BaseColor, tuple):
         self.rgb = rgb[:3]
 
         if len(rgb) == 4:
-            alpha = rgb[3] if alpha is None else alpha # type: ignore
+            alpha = rgb[3] if alpha is None else alpha  # type: ignore
 
         super().__init__(
             red=red,
@@ -660,7 +648,7 @@ class RGB(BaseColor, tuple):
         self, red: Numeric, green: Numeric, blue: Numeric, keep_metadata: bool = False
     ) -> RGB:
         metadata = self.info() if keep_metadata else {}
-        return RGB((red, green, blue), alpha=self.alpha, **metadata) # type: ignore
+        return RGB((red, green, blue), alpha=self.alpha, **metadata)  # type: ignore
 
     def change_red(self, red: Numeric, keep_metadata: bool = False) -> RGB:
         """create a new color by changing the red color channel
@@ -720,8 +708,6 @@ class RGB(BaseColor, tuple):
 class HSL(BaseColor, tuple):
     """Extended tuple class that represents HSL color space"""
 
-    # __slots__ = ('_hsl', '_alpha', '_name', '_description', '_metadata')
-
     # pylint: disable=W0613
     def __new__(cls, hsl, *args, alpha=None, **kwargs):
         if alpha is not None:
@@ -760,7 +746,7 @@ class HSL(BaseColor, tuple):
         self.hsl = hsl[:3]
 
         if len(hsl) == 4:
-            alpha = hsl[3] if alpha is None else alpha # type: ignore
+            alpha = hsl[3] if alpha is None else alpha  # type: ignore
 
         super().__init__(
             red=red,

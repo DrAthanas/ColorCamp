@@ -3,8 +3,10 @@
 from __future__ import annotations
 from typing import Sequence, Optional, Dict, Any
 
+
 from colorcamp._settings import settings
 from colorcamp.common.types import ColorSpace, Numeric
+from colorcamp.common.validators import FractionIntervalValidator
 from .color_space import BaseColor
 from ._color_metadata import MetaColor
 
@@ -71,15 +73,15 @@ class Scale(MetaColor, tuple):
 
     @stops.setter
     def stops(self, values):
-        # TODO: better validation
         if values is None:
             n_colors = len(self.colors)
             values = [i / (n_colors - 1) for i in range(n_colors - 1)] + [1]
         elif len(values) != len(self.colors) or sorted(values) != list(values):
-            # What type of validation do I want here. e.g. Should it always be between 0 and 1?!?
             raise ValueError(
                 "stops must be sorted in ascending order and be of the same length as colors"
             )
+
+        _ = (FractionIntervalValidator().validate(val) for val in values)
 
         self._stops = values
 
@@ -125,9 +127,9 @@ class Scale(MetaColor, tuple):
         """
 
         if color_type is None:
-            color_type = settings.default_color_type # type: ignore
+            color_type = settings.default_color_type  # type: ignore
 
-        ## init colors?
+        ## init colors
         colors = [
             BaseColor.from_dict(color, color_type) for color in scale_dict["colors"]
         ]

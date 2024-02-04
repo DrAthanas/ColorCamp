@@ -10,9 +10,6 @@ from colorcamp.color_objects import Map, Scale, Palette
 from colorcamp.color_objects import Hex
 from colorcamp._settings import settings
 
-# TODO:
-# * split tests into more discrete cases
-
 
 @pytest.fixture(scope="class")
 def cls_camp(request):
@@ -118,3 +115,12 @@ class TestCamp:
 
         with pytest.raises(ValueError):
             camp_copy.add_objects([Hex("#000", name="a")])
+
+
+def test_load_predefined_camp():
+    web_colors = Camp.load("web_colors")
+
+    assert len(web_colors.colors.names) == 141
+
+    with pytest.raises(FileNotFoundError):
+        web_colors2 = Camp.load("web_colors2")

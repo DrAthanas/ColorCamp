@@ -114,9 +114,9 @@ class Palette(MetaColor, tuple):
         """
 
         if color_type is None:
-            color_type = settings.default_color_type # type: ignore
+            color_type = settings.default_color_type  # type: ignore
 
-        ## init colors?
+        ## init colors
         colors = [
             BaseColor.from_dict(color, color_type) for color in palette_dict["colors"]
         ]
