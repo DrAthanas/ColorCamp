@@ -84,5 +84,5 @@ def rgb_to_hsl(rgb: AnyGenericColorTuple) -> AnyGenericColorTuple:
 
     if len(rgb) == 4:
         return (hue, saturation, lightness, rgb[3])
-    else:
-        return (hue, saturation, lightness)
+    
+    return (hue, saturation, lightness)
