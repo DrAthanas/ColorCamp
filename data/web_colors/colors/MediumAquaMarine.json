@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "MediumAquaMarine",
+    "description": null,
+    "metadata": {},
+    "red": 0.4,
+    "green": 0.803921568627451,
+    "blue": 0.6666666666666666,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#66CDAA",
+        "RGB": [
+            102,
+            205,
+            170
+        ],
+        "HSL": [
+            159.61165,
+            0.507389,
+            0.601961
+        ]
+    }
+}

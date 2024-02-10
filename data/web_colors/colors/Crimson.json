@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "Crimson",
+    "description": null,
+    "metadata": {},
+    "red": 0.8627450980392157,
+    "green": 0.0784313725490196,
+    "blue": 0.23529411764705882,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#DC143C",
+        "RGB": [
+            220,
+            20,
+            60
+        ],
+        "HSL": [
+            348.0,
+            0.833333,
+            0.470588
+        ]
+    }
+}

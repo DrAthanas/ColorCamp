@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "Lavender",
+    "description": null,
+    "metadata": {},
+    "red": 0.9019607843137255,
+    "green": 0.9019607843137255,
+    "blue": 0.9803921568627451,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#E6E6FA",
+        "RGB": [
+            230,
+            230,
+            250
+        ],
+        "HSL": [
+            240.0,
+            0.666667,
+            0.941176
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "MediumOrchid",
+    "description": null,
+    "metadata": {},
+    "red": 0.7294117647058823,
+    "green": 0.3333333333333333,
+    "blue": 0.8274509803921568,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#BA55D3",
+        "RGB": [
+            186,
+            85,
+            211
+        ],
+        "HSL": [
+            288.095238,
+            0.588785,
+            0.580392
+        ]
+    }
+}

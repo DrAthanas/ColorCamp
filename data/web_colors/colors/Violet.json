@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "Violet",
+    "description": null,
+    "metadata": {},
+    "red": 0.9333333333333333,
+    "green": 0.5098039215686274,
+    "blue": 0.9333333333333333,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#EE82EE",
+        "RGB": [
+            238,
+            130,
+            238
+        ],
+        "HSL": [
+            300.0,
+            0.760563,
+            0.721569
+        ]
+    }
+}

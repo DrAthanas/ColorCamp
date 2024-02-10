@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "Purple",
+    "description": null,
+    "metadata": {},
+    "red": 0.5019607843137255,
+    "green": 0.0,
+    "blue": 0.5019607843137255,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#800080",
+        "RGB": [
+            128,
+            0,
+            128
+        ],
+        "HSL": [
+            300.0,
+            1.0,
+            0.25098
+        ]
+    }
+}

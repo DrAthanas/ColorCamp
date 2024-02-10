@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "LimeGreen",
+    "description": null,
+    "metadata": {},
+    "red": 0.19607843137254902,
+    "green": 0.803921568627451,
+    "blue": 0.19607843137254902,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#32CD32",
+        "RGB": [
+            50,
+            205,
+            50
+        ],
+        "HSL": [
+            120.0,
+            0.607843,
+            0.5
+        ]
+    }
+}

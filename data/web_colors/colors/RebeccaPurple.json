@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "RebeccaPurple",
+    "description": null,
+    "metadata": {},
+    "red": 0.4,
+    "green": 0.2,
+    "blue": 0.6,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#663399",
+        "RGB": [
+            102,
+            51,
+            153
+        ],
+        "HSL": [
+            270.0,
+            0.5,
+            0.4
+        ]
+    }
+}

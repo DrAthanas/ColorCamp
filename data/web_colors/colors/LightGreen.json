@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "LightGreen",
+    "description": null,
+    "metadata": {},
+    "red": 0.5647058823529412,
+    "green": 0.9333333333333333,
+    "blue": 0.5647058823529412,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#90EE90",
+        "RGB": [
+            144,
+            238,
+            144
+        ],
+        "HSL": [
+            120.0,
+            0.734375,
+            0.74902
+        ]
+    }
+}

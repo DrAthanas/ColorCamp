@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "BlanchedAlmond",
+    "description": null,
+    "metadata": {},
+    "red": 1.0,
+    "green": 0.9215686274509803,
+    "blue": 0.803921568627451,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#FFEBCD",
+        "RGB": [
+            255,
+            235,
+            205
+        ],
+        "HSL": [
+            36.0,
+            1.0,
+            0.901961
+        ]
+    }
+}

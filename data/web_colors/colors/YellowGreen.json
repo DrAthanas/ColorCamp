@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "YellowGreen",
+    "description": null,
+    "metadata": {},
+    "red": 0.6039215686274509,
+    "green": 0.803921568627451,
+    "blue": 0.19607843137254902,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#9ACD32",
+        "RGB": [
+            154,
+            205,
+            50
+        ],
+        "HSL": [
+            79.741935,
+            0.607843,
+            0.5
+        ]
+    }
+}

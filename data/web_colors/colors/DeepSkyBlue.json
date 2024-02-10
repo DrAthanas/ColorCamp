@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "DeepSkyBlue",
+    "description": null,
+    "metadata": {},
+    "red": 0.0,
+    "green": 0.7490196078431373,
+    "blue": 1.0,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#00BFFF",
+        "RGB": [
+            0,
+            191,
+            255
+        ],
+        "HSL": [
+            195.058824,
+            1.0,
+            0.5
+        ]
+    }
+}

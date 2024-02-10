@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "DarkSlateGray",
+    "description": null,
+    "metadata": {},
+    "red": 0.1843137254901961,
+    "green": 0.30980392156862746,
+    "blue": 0.30980392156862746,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#2F4F4F",
+        "RGB": [
+            47,
+            79,
+            79
+        ],
+        "HSL": [
+            180.0,
+            0.253968,
+            0.247059
+        ]
+    }
+}

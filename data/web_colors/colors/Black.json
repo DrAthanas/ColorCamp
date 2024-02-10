@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "Black",
+    "description": null,
+    "metadata": {},
+    "red": 0.0,
+    "green": 0.0,
+    "blue": 0.0,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#000000",
+        "RGB": [
+            0,
+            0,
+            0
+        ],
+        "HSL": [
+            0.0,
+            0.0,
+            0.0
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "GoldenRod",
+    "description": null,
+    "metadata": {},
+    "red": 0.8549019607843137,
+    "green": 0.6470588235294118,
+    "blue": 0.12549019607843137,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#DAA520",
+        "RGB": [
+            218,
+            165,
+            32
+        ],
+        "HSL": [
+            42.903226,
+            0.744,
+            0.490196
+        ]
+    }
+}

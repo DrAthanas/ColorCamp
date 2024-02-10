@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "SlateBlue",
+    "description": null,
+    "metadata": {},
+    "red": 0.41568627450980394,
+    "green": 0.35294117647058826,
+    "blue": 0.803921568627451,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#6A5ACD",
+        "RGB": [
+            106,
+            90,
+            205
+        ],
+        "HSL": [
+            248.347826,
+            0.534884,
+            0.578431
+        ]
+    }
+}

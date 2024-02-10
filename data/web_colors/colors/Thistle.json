@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "Thistle",
+    "description": null,
+    "metadata": {},
+    "red": 0.8470588235294118,
+    "green": 0.7490196078431373,
+    "blue": 0.8470588235294118,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#D8BFD8",
+        "RGB": [
+            216,
+            191,
+            216
+        ],
+        "HSL": [
+            300.0,
+            0.242718,
+            0.798039
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "Lime",
+    "description": null,
+    "metadata": {},
+    "red": 0.0,
+    "green": 1.0,
+    "blue": 0.0,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#00FF00",
+        "RGB": [
+            0,
+            255,
+            0
+        ],
+        "HSL": [
+            120.0,
+            1.0,
+            0.5
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "ForestGreen",
+    "description": null,
+    "metadata": {},
+    "red": 0.13333333333333333,
+    "green": 0.5450980392156862,
+    "blue": 0.13333333333333333,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#228B22",
+        "RGB": [
+            34,
+            139,
+            34
+        ],
+        "HSL": [
+            120.0,
+            0.606936,
+            0.339216
+        ]
+    }
+}

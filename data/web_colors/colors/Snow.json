@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "Snow",
+    "description": null,
+    "metadata": {},
+    "red": 1.0,
+    "green": 0.9803921568627451,
+    "blue": 0.9803921568627451,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#FFFAFA",
+        "RGB": [
+            255,
+            250,
+            250
+        ],
+        "HSL": [
+            0.0,
+            1.0,
+            0.990196
+        ]
+    }
+}

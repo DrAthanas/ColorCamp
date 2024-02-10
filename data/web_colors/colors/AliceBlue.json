@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "AliceBlue",
+    "description": null,
+    "metadata": {},
+    "red": 0.9411764705882353,
+    "green": 0.9725490196078431,
+    "blue": 1.0,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#F0F8FF",
+        "RGB": [
+            240,
+            248,
+            255
+        ],
+        "HSL": [
+            208.0,
+            1.0,
+            0.970588
+        ]
+    }
+}

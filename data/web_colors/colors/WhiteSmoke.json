@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "WhiteSmoke",
+    "description": null,
+    "metadata": {},
+    "red": 0.9607843137254902,
+    "green": 0.9607843137254902,
+    "blue": 0.9607843137254902,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#F5F5F5",
+        "RGB": [
+            245,
+            245,
+            245
+        ],
+        "HSL": [
+            0.0,
+            0.0,
+            0.960784
+        ]
+    }
+}

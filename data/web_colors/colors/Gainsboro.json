@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "Gainsboro",
+    "description": null,
+    "metadata": {},
+    "red": 0.8627450980392157,
+    "green": 0.8627450980392157,
+    "blue": 0.8627450980392157,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#DCDCDC",
+        "RGB": [
+            220,
+            220,
+            220
+        ],
+        "HSL": [
+            0.0,
+            0.0,
+            0.862745
+        ]
+    }
+}

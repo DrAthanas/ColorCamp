@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "Moccasin",
+    "description": null,
+    "metadata": {},
+    "red": 1.0,
+    "green": 0.8941176470588236,
+    "blue": 0.7098039215686275,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#FFE4B5",
+        "RGB": [
+            255,
+            228,
+            181
+        ],
+        "HSL": [
+            38.108108,
+            1.0,
+            0.854902
+        ]
+    }
+}

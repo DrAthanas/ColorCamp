@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "Azure",
+    "description": null,
+    "metadata": {},
+    "red": 0.9411764705882353,
+    "green": 1.0,
+    "blue": 1.0,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#F0FFFF",
+        "RGB": [
+            240,
+            255,
+            255
+        ],
+        "HSL": [
+            180.0,
+            1.0,
+            0.970588
+        ]
+    }
+}

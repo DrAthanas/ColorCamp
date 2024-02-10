@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "DarkOrange",
+    "description": null,
+    "metadata": {},
+    "red": 1.0,
+    "green": 0.5490196078431373,
+    "blue": 0.0,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#FF8C00",
+        "RGB": [
+            255,
+            140,
+            0
+        ],
+        "HSL": [
+            32.941176,
+            1.0,
+            0.5
+        ]
+    }
+}

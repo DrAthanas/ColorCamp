@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "OldLace",
+    "description": null,
+    "metadata": {},
+    "red": 0.9921568627450981,
+    "green": 0.9607843137254902,
+    "blue": 0.9019607843137255,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#FDF5E6",
+        "RGB": [
+            253,
+            245,
+            230
+        ],
+        "HSL": [
+            39.130435,
+            0.851852,
+            0.947059
+        ]
+    }
+}

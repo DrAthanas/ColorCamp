@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "SeaShell",
+    "description": null,
+    "metadata": {},
+    "red": 1.0,
+    "green": 0.9607843137254902,
+    "blue": 0.9333333333333333,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#FFF5EE",
+        "RGB": [
+            255,
+            245,
+            238
+        ],
+        "HSL": [
+            24.705882,
+            1.0,
+            0.966667
+        ]
+    }
+}

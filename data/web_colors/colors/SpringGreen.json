@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "SpringGreen",
+    "description": null,
+    "metadata": {},
+    "red": 0.0,
+    "green": 1.0,
+    "blue": 0.4980392156862745,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#00FF7F",
+        "RGB": [
+            0,
+            255,
+            127
+        ],
+        "HSL": [
+            149.882353,
+            1.0,
+            0.5
+        ]
+    }
+}

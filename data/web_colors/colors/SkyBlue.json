@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "SkyBlue",
+    "description": null,
+    "metadata": {},
+    "red": 0.5294117647058824,
+    "green": 0.807843137254902,
+    "blue": 0.9215686274509803,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#87CEEB",
+        "RGB": [
+            135,
+            206,
+            235
+        ],
+        "HSL": [
+            197.4,
+            0.714286,
+            0.72549
+        ]
+    }
+}

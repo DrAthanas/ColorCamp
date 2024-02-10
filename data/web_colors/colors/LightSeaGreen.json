@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "LightSeaGreen",
+    "description": null,
+    "metadata": {},
+    "red": 0.12549019607843137,
+    "green": 0.6980392156862745,
+    "blue": 0.6666666666666666,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#20B2AA",
+        "RGB": [
+            32,
+            178,
+            170
+        ],
+        "HSL": [
+            176.712329,
+            0.695238,
+            0.411765
+        ]
+    }
+}

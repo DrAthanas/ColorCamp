@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "Orchid",
+    "description": null,
+    "metadata": {},
+    "red": 0.8549019607843137,
+    "green": 0.4392156862745098,
+    "blue": 0.8392156862745098,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#DA70D6",
+        "RGB": [
+            218,
+            112,
+            214
+        ],
+        "HSL": [
+            302.264151,
+            0.588889,
+            0.647059
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "Khaki",
+    "description": null,
+    "metadata": {},
+    "red": 0.9411764705882353,
+    "green": 0.9019607843137255,
+    "blue": 0.5490196078431373,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#F0E68C",
+        "RGB": [
+            240,
+            230,
+            140
+        ],
+        "HSL": [
+            54.0,
+            0.769231,
+            0.745098
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "PaleGreen",
+    "description": null,
+    "metadata": {},
+    "red": 0.596078431372549,
+    "green": 0.984313725490196,
+    "blue": 0.596078431372549,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#98FB98",
+        "RGB": [
+            152,
+            251,
+            152
+        ],
+        "HSL": [
+            120.0,
+            0.925234,
+            0.790196
+        ]
+    }
+}

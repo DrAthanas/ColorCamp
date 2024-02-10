@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "DarkGoldenRod",
+    "description": null,
+    "metadata": {},
+    "red": 0.7215686274509804,
+    "green": 0.5254901960784314,
+    "blue": 0.043137254901960784,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#B8860B",
+        "RGB": [
+            184,
+            134,
+            11
+        ],
+        "HSL": [
+            42.65896,
+            0.887179,
+            0.382353
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "DarkGray",
+    "description": null,
+    "metadata": {},
+    "red": 0.6627450980392157,
+    "green": 0.6627450980392157,
+    "blue": 0.6627450980392157,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#A9A9A9",
+        "RGB": [
+            169,
+            169,
+            169
+        ],
+        "HSL": [
+            0.0,
+            0.0,
+            0.662745
+        ]
+    }
+}

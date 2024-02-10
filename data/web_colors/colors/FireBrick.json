@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "FireBrick",
+    "description": null,
+    "metadata": {},
+    "red": 0.6980392156862745,
+    "green": 0.13333333333333333,
+    "blue": 0.13333333333333333,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#B22222",
+        "RGB": [
+            178,
+            34,
+            34
+        ],
+        "HSL": [
+            0.0,
+            0.679245,
+            0.415686
+        ]
+    }
+}

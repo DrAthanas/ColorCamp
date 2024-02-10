@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "RoyalBlue",
+    "description": null,
+    "metadata": {},
+    "red": 0.2549019607843137,
+    "green": 0.4117647058823529,
+    "blue": 0.8823529411764706,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#4169E1",
+        "RGB": [
+            65,
+            105,
+            225
+        ],
+        "HSL": [
+            225.0,
+            0.727273,
+            0.568627
+        ]
+    }
+}

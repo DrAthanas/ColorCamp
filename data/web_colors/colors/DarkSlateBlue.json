@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "DarkSlateBlue",
+    "description": null,
+    "metadata": {},
+    "red": 0.2823529411764706,
+    "green": 0.23921568627450981,
+    "blue": 0.5450980392156862,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#483D8B",
+        "RGB": [
+            72,
+            61,
+            139
+        ],
+        "HSL": [
+            248.461538,
+            0.39,
+            0.392157
+        ]
+    }
+}

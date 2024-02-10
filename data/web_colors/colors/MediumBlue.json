@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "MediumBlue",
+    "description": null,
+    "metadata": {},
+    "red": 0.0,
+    "green": 0.0,
+    "blue": 0.803921568627451,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#0000CD",
+        "RGB": [
+            0,
+            0,
+            205
+        ],
+        "HSL": [
+            240.0,
+            1.0,
+            0.401961
+        ]
+    }
+}

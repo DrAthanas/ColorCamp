@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "Chocolate",
+    "description": null,
+    "metadata": {},
+    "red": 0.8235294117647058,
+    "green": 0.4117647058823529,
+    "blue": 0.11764705882352941,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#D2691E",
+        "RGB": [
+            210,
+            105,
+            30
+        ],
+        "HSL": [
+            25.0,
+            0.75,
+            0.470588
+        ]
+    }
+}

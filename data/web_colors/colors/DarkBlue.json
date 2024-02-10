@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "DarkBlue",
+    "description": null,
+    "metadata": {},
+    "red": 0.0,
+    "green": 0.0,
+    "blue": 0.5450980392156862,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#00008B",
+        "RGB": [
+            0,
+            0,
+            139
+        ],
+        "HSL": [
+            240.0,
+            1.0,
+            0.272549
+        ]
+    }
+}

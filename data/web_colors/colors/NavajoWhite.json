@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "NavajoWhite",
+    "description": null,
+    "metadata": {},
+    "red": 1.0,
+    "green": 0.8705882352941177,
+    "blue": 0.6784313725490196,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#FFDEAD",
+        "RGB": [
+            255,
+            222,
+            173
+        ],
+        "HSL": [
+            35.853659,
+            1.0,
+            0.839216
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "Sienna",
+    "description": null,
+    "metadata": {},
+    "red": 0.6274509803921569,
+    "green": 0.3215686274509804,
+    "blue": 0.17647058823529413,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#A0522D",
+        "RGB": [
+            160,
+            82,
+            45
+        ],
+        "HSL": [
+            19.304348,
+            0.560976,
+            0.401961
+        ]
+    }
+}

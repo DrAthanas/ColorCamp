@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "DarkOrchid",
+    "description": null,
+    "metadata": {},
+    "red": 0.6,
+    "green": 0.19607843137254902,
+    "blue": 0.8,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#9932CC",
+        "RGB": [
+            153,
+            50,
+            204
+        ],
+        "HSL": [
+            280.12987,
+            0.606299,
+            0.498039
+        ]
+    }
+}

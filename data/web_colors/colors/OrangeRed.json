@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "OrangeRed",
+    "description": null,
+    "metadata": {},
+    "red": 1.0,
+    "green": 0.27058823529411763,
+    "blue": 0.0,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#FF4500",
+        "RGB": [
+            255,
+            69,
+            0
+        ],
+        "HSL": [
+            16.235294,
+            1.0,
+            0.5
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "LavenderBlush",
+    "description": null,
+    "metadata": {},
+    "red": 1.0,
+    "green": 0.9411764705882353,
+    "blue": 0.9607843137254902,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#FFF0F5",
+        "RGB": [
+            255,
+            240,
+            245
+        ],
+        "HSL": [
+            340.0,
+            1.0,
+            0.970588
+        ]
+    }
+}

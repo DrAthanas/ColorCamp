@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "DarkSalmon",
+    "description": null,
+    "metadata": {},
+    "red": 0.9137254901960784,
+    "green": 0.5882352941176471,
+    "blue": 0.47843137254901963,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#E9967A",
+        "RGB": [
+            233,
+            150,
+            122
+        ],
+        "HSL": [
+            15.135135,
+            0.716129,
+            0.696078
+        ]
+    }
+}

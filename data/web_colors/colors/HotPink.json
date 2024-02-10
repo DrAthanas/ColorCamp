@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "HotPink",
+    "description": null,
+    "metadata": {},
+    "red": 1.0,
+    "green": 0.4117647058823529,
+    "blue": 0.7058823529411765,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#FF69B4",
+        "RGB": [
+            255,
+            105,
+            180
+        ],
+        "HSL": [
+            330.0,
+            1.0,
+            0.705882
+        ]
+    }
+}

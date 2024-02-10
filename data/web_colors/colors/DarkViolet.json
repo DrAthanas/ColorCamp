@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "DarkViolet",
+    "description": null,
+    "metadata": {},
+    "red": 0.5803921568627451,
+    "green": 0.0,
+    "blue": 0.8274509803921568,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#9400D3",
+        "RGB": [
+            148,
+            0,
+            211
+        ],
+        "HSL": [
+            282.085308,
+            1.0,
+            0.413725
+        ]
+    }
+}

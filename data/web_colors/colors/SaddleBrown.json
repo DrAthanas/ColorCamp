@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "SaddleBrown",
+    "description": null,
+    "metadata": {},
+    "red": 0.5450980392156862,
+    "green": 0.27058823529411763,
+    "blue": 0.07450980392156863,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#8B4513",
+        "RGB": [
+            139,
+            69,
+            19
+        ],
+        "HSL": [
+            25.0,
+            0.759494,
+            0.309804
+        ]
+    }
+}

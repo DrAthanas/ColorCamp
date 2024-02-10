@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "Teal",
+    "description": null,
+    "metadata": {},
+    "red": 0.0,
+    "green": 0.5019607843137255,
+    "blue": 0.5019607843137255,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#008080",
+        "RGB": [
+            0,
+            128,
+            128
+        ],
+        "HSL": [
+            180.0,
+            1.0,
+            0.25098
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "DarkMagenta",
+    "description": null,
+    "metadata": {},
+    "red": 0.5450980392156862,
+    "green": 0.0,
+    "blue": 0.5450980392156862,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#8B008B",
+        "RGB": [
+            139,
+            0,
+            139
+        ],
+        "HSL": [
+            300.0,
+            1.0,
+            0.272549
+        ]
+    }
+}

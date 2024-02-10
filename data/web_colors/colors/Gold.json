@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "Gold",
+    "description": null,
+    "metadata": {},
+    "red": 1.0,
+    "green": 0.8431372549019608,
+    "blue": 0.0,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#FFD700",
+        "RGB": [
+            255,
+            215,
+            0
+        ],
+        "HSL": [
+            50.588235,
+            1.0,
+            0.5
+        ]
+    }
+}

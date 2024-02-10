@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "Pink",
+    "description": null,
+    "metadata": {},
+    "red": 1.0,
+    "green": 0.7529411764705882,
+    "blue": 0.796078431372549,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#FFC0CB",
+        "RGB": [
+            255,
+            192,
+            203
+        ],
+        "HSL": [
+            349.52381,
+            1.0,
+            0.876471
+        ]
+    }
+}

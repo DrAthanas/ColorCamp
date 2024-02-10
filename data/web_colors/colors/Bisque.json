@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "Bisque",
+    "description": null,
+    "metadata": {},
+    "red": 1.0,
+    "green": 0.8941176470588236,
+    "blue": 0.7686274509803922,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#FFE4C4",
+        "RGB": [
+            255,
+            228,
+            196
+        ],
+        "HSL": [
+            32.542373,
+            1.0,
+            0.884314
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "MintCream",
+    "description": null,
+    "metadata": {},
+    "red": 0.9607843137254902,
+    "green": 1.0,
+    "blue": 0.9803921568627451,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#F5FFFA",
+        "RGB": [
+            245,
+            255,
+            250
+        ],
+        "HSL": [
+            150.0,
+            1.0,
+            0.980392
+        ]
+    }
+}

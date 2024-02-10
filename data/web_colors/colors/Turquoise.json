@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "Turquoise",
+    "description": null,
+    "metadata": {},
+    "red": 0.25098039215686274,
+    "green": 0.8784313725490196,
+    "blue": 0.8156862745098039,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#40E0D0",
+        "RGB": [
+            64,
+            224,
+            208
+        ],
+        "HSL": [
+            174.0,
+            0.720721,
+            0.564706
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "DeepPink",
+    "description": null,
+    "metadata": {},
+    "red": 1.0,
+    "green": 0.0784313725490196,
+    "blue": 0.5764705882352941,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#FF1493",
+        "RGB": [
+            255,
+            20,
+            147
+        ],
+        "HSL": [
+            327.574468,
+            1.0,
+            0.539216
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "Gray",
+    "description": null,
+    "metadata": {},
+    "red": 0.5019607843137255,
+    "green": 0.5019607843137255,
+    "blue": 0.5019607843137255,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#808080",
+        "RGB": [
+            128,
+            128,
+            128
+        ],
+        "HSL": [
+            0.0,
+            0.0,
+            0.501961
+        ]
+    }
+}

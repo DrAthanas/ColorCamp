@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "LawnGreen",
+    "description": null,
+    "metadata": {},
+    "red": 0.48627450980392156,
+    "green": 0.9882352941176471,
+    "blue": 0.0,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#7CFC00",
+        "RGB": [
+            124,
+            252,
+            0
+        ],
+        "HSL": [
+            90.47619,
+            1.0,
+            0.494118
+        ]
+    }
+}

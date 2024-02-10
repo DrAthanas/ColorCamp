@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "DimGray",
+    "description": null,
+    "metadata": {},
+    "red": 0.4117647058823529,
+    "green": 0.4117647058823529,
+    "blue": 0.4117647058823529,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#696969",
+        "RGB": [
+            105,
+            105,
+            105
+        ],
+        "HSL": [
+            0.0,
+            0.0,
+            0.411765
+        ]
+    }
+}

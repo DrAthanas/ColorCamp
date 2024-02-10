@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "Linen",
+    "description": null,
+    "metadata": {},
+    "red": 0.9803921568627451,
+    "green": 0.9411764705882353,
+    "blue": 0.9019607843137255,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#FAF0E6",
+        "RGB": [
+            250,
+            240,
+            230
+        ],
+        "HSL": [
+            30.0,
+            0.666667,
+            0.941176
+        ]
+    }
+}

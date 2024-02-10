@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "IndianRed",
+    "description": null,
+    "metadata": {},
+    "red": 0.803921568627451,
+    "green": 0.3607843137254902,
+    "blue": 0.3607843137254902,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#CD5C5C",
+        "RGB": [
+            205,
+            92,
+            92
+        ],
+        "HSL": [
+            0.0,
+            0.530516,
+            0.582353
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "type": "BaseColor",
+    "name": "PowderBlue",
+    "description": null,
+    "metadata": {},
+    "red": 0.6901960784313725,
+    "green": 0.8784313725490196,
+    "blue": 0.9019607843137255,
+    "alpha": null,
+    "color_formats": {
+        "Hex": "#B0E0E6",
+        "RGB": [
+            176,
+            224,
+            230
+        ],
+        "HSL": [
+            186.666667,
+            0.519231,
+            0.796078
+        ]
+    }
+}
