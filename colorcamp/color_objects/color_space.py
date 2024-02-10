@@ -266,6 +266,12 @@ class BaseColor(MetaColor):
             dictionary with the underlying color representation
         """
 
+        def _tuple_to_list(color):
+            if isinstance(color, tuple):
+                return list(color)
+            else:
+                return color
+
         return {
             "type": "BaseColor",
             **self.info(),
@@ -273,7 +279,9 @@ class BaseColor(MetaColor):
             "green": self.fractional_rgb[1],
             "blue": self.fractional_rgb[2],
             "alpha": self.alpha,
-            "color_formats": {ct: self.to_color_type(ct) for ct in self._subclasses},  # type: ignore
+            "color_formats": {
+                ct: _tuple_to_list(self.to_color_type(ct)) for ct in self._subclasses
+            },  # type: ignore
         }
 
     @classmethod

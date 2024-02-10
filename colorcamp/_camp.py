@@ -1,6 +1,6 @@
 """Camp organizes colors into frame work for projects"""
 
-from typing import Any, Union, Optional, Dict, Sequence, List
+from typing import Any, Union, Optional, Dict, Sequence
 from pathlib import Path
 import json
 from copy import copy
@@ -13,9 +13,6 @@ from .color_objects.color_space import BaseColor
 from .color_objects import Map, Scale, Palette
 
 ColorObjectType = Union[type[BaseColor], type[Scale], type[Palette], type[Map]]
-
-# TODO:
-#   * clean up saving code
 
 
 class Bucket:
@@ -167,6 +164,24 @@ class Camp(ColorInfo):
 
         return dir_map
 
+    @staticmethod
+    def __validate_serial_obj(
+        current_dict: dict, file_path: Path, overwrite: bool
+    ) -> bool:
+        """
+        True -> no file or overwrite
+        False -> file exists, but matches current
+        """
+        if file_path.exists() and not overwrite:
+            with open(file_path, mode="r", encoding="utf-8") as fio:
+                found = json.load(fio)
+
+            if current_dict != found:
+                raise FileExistsError(f"file already exists: {file_path}")
+
+            return False
+        return True
+
     def add_objects(self, color_objects: Sequence[ColorObject], exists_ok=False):
         """Add any number of color objects to the Camp
 
@@ -240,9 +255,7 @@ class Camp(ColorInfo):
             PathValidator().validate(camp_dir)
 
         with open(camp_dir / "camp_info.json", "r", encoding="utf-8") as fio:
-            camp_info: dict = json.load(fio)
-
-        camp = cls(**camp_info)
+            camp = cls(**json.load(fio))
 
         for sub_dir, klass in cls.__directory_map().items():
             search_dir: Path = camp_dir / sub_dir
@@ -269,14 +282,9 @@ class Camp(ColorInfo):
         dest.mkdir(exist_ok=True)
 
         info_path = dest / "camp_info.json"
-        if info_path.exists() and not overwrite:
-            with open(info_path, mode="r", encoding="utf-8") as fio:
-                current = json.load(fio)
-            if current != self.info():
-                raise FileExistsError(f"file already exists: {info_path}")
-
-        with open(info_path, mode="w", encoding="utf-8") as fio:
-            json.dump(self.info(), fio, indent=4)
+        if self.__validate_serial_obj(self.info(), info_path, overwrite):
+            with open(info_path, mode="w", encoding="utf-8") as fio:
+                json.dump(self.info(), fio, indent=4)
 
         for sub_dir, _ in self.__directory_map().items():
             sub_dest_dir: Path = dest / sub_dir
@@ -285,14 +293,7 @@ class Camp(ColorInfo):
             for name, color_object in getattr(self, sub_dir).to_dict().items():
                 color_object_path = sub_dest_dir / f"{name}.json"
 
-                if color_object_path.exists() and not overwrite:
-                    current = color_object.load_json(color_object_path)
-
-                    if current != color_object:
-                        raise FileExistsError(
-                            f"file already exists: {color_object_path}"
-                        )
-
-                    continue
-
-                color_object.dump_json(color_object_path, overwrite=overwrite)
+                if self.__validate_serial_obj(
+                    color_object.to_dict(), color_object_path, overwrite
+                ):
+                    color_object.dump_json(color_object_path, overwrite=overwrite)
