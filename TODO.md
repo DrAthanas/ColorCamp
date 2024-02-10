@@ -1,7 +1,6 @@
 # TODO:
-* [] Tests
-    * RGB->HSL test
 * [] Fun stuff
+    * PDF / HTML report + tests
     * example notebook
         * better practical example
     * Internalize other color camps
@@ -9,19 +8,17 @@
         * Plotly
         * Seaborn
         * ggplot
-    * PDF / HTML report + tests
     * palette generator + tests
     * logo
-* [] Documentation
 * [] Prepare package for pypi
     * PEP 517 - remove setup tools and use poetry + pyproject TOML only
     * Write better preface and motivation
-        * acknowledge other packages
-    * Review set up and other components
+    * Review setup and other components
     * Run github workflow
     * github Wiki
         * contribution guide
         * acknowledgements
+* [] Documentation -> read the docs
 * [] Marketing
     * Medium article
     * LI Post

@@ -1,6 +1,6 @@
 """Camp organizes colors into frame work for projects"""
 
-from typing import Any, Union, Optional, Dict, Sequence
+from typing import Any, Union, Optional, Dict, Sequence, List
 from pathlib import Path
 import json
 from copy import copy
