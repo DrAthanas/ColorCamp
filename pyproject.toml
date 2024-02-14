@@ -1,21 +1,24 @@
-[project]
-name = 'colorcamp'
-version = '0.1.0'
-# dynamic = ["version"]
-description = "something cute"
+[tool.poetry]
+name = "colorcamp"
+version = "0.1.0"
+description = "A collection of colors is a Camp!"
 readme = "README.md"
-dynamic = ["classifiers", "keywords", "authors", "license", "requires-python"]
+license = "Apache-2.0"
+authors = ["Argus J Athanas <argus@athanas.org>"]
+repository = "https://github.com/DrAthanas/ColorCamp"
+keywords = ["color", "palette",""]
 
-[project.optional-dependencies]
 
-dev = [
-  'pytest==7.4.3', 
-  'pytest-cov==4.1.0', 
-  'beautifulsoup4-4.12.2'
-]
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4"
+pytest-cov = "^4.1"
+beautifulsoup4 = "^4.12"
 
 [tool.black]
-line-length = 88
+line-length = 120
 target-version = ['py310']
 include = '\.pyi?$'
 exclude = '''
@@ -39,10 +42,8 @@ pythonpath = [
 [tool.coverage.run]
 omit = [
   'colorcamp/__version__.py',
-  'common_doc.py',
   'colorcamp/tests/*',
 ]
-# branch = true
 
 [tool.coverage.report]
 # Regexes for lines to exclude from consideration
@@ -67,3 +68,7 @@ ignore_errors = true
 
 [tool.coverage.html]
 directory = "coverage_html_report"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
