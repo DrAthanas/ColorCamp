@@ -54,9 +54,7 @@ class Bucket:
         """
 
         if (name := item.name) is None:  # type: ignore
-            raise AttributeError(
-                f"Objects need to have a name to be added to a Camp {self.__class__.__name__} Bucket"
-            )
+            raise AttributeError(f"Objects need to have a name to be added to a Camp {self.__class__.__name__} Bucket")
         if hasattr(self, name):
             raise ValueError(f"name '{name}' is already in use")
         setattr(self, name, item)
@@ -165,9 +163,7 @@ class Camp(ColorInfo):
         return dir_map
 
     @staticmethod
-    def __validate_serial_obj(
-        current_dict: dict, file_path: Path, overwrite: bool
-    ) -> bool:
+    def __validate_serial_obj(current_dict: dict, file_path: Path, overwrite: bool) -> bool:
         """
         True -> no file or overwrite
         False -> file exists, but matches current
@@ -193,9 +189,7 @@ class Camp(ColorInfo):
             Ignore ValueErrors if conflicting names exist, by default False
         """
 
-        map_directory = {
-            klass.__name__: key for key, klass in self.__directory_map().items()
-        }
+        map_directory = {klass.__name__: key for key, klass in self.__directory_map().items()}
 
         for color_object in list(color_objects):
             if isinstance(color_object, BaseColor):
@@ -246,9 +240,7 @@ class Camp(ColorInfo):
                 if camp_dir.exists():
                     break
             else:
-                raise FileNotFoundError(
-                    f"No camp '{name}' found in {settings.camp_paths}"
-                )
+                raise FileNotFoundError(f"No camp '{name}' found in {settings.camp_paths}")
 
         else:
             camp_dir = Path(directory) / name
@@ -293,7 +285,5 @@ class Camp(ColorInfo):
             for name, color_object in getattr(self, sub_dir).to_dict().items():
                 color_object_path = sub_dest_dir / f"{name}.json"
 
-                if self.__validate_serial_obj(
-                    color_object.to_dict(), color_object_path, overwrite
-                ):
+                if self.__validate_serial_obj(color_object.to_dict(), color_object_path, overwrite):
                     color_object.dump_json(color_object_path, overwrite=overwrite)

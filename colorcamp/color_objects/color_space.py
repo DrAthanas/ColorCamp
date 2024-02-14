@@ -234,13 +234,9 @@ class BaseColor(MetaColor):
             # Bypass the setter to insure frgb values are exact to avoid fp errors
             new_color._fractional_rgb = self.fractional_rgb[:3]  # pylint: disable=W0212
         elif color_type == "BaseColor":
-            new_color = BaseColor(
-                *self.fractional_rgb[:3], **self.info(), alpha=self.alpha
-            )
+            new_color = BaseColor(*self.fractional_rgb[:3], **self.info(), alpha=self.alpha)
         else:
-            raise ValueError(
-                f'Color type "{color_type}" is not in {list(self._subclasses.keys())}'
-            )
+            raise ValueError(f'Color type "{color_type}" is not in {list(self._subclasses.keys())}')
 
         return new_color
 
@@ -279,15 +275,11 @@ class BaseColor(MetaColor):
             "green": self.fractional_rgb[1],
             "blue": self.fractional_rgb[2],
             "alpha": self.alpha,
-            "color_formats": {
-                ct: _tuple_to_list(self.to_color_type(ct)) for ct in self._subclasses
-            },  # type: ignore
+            "color_formats": {ct: _tuple_to_list(self.to_color_type(ct)) for ct in self._subclasses},  # type: ignore
         }
 
     @classmethod
-    def from_dict(
-        cls, color_dict: Dict[str, Any], color_type: Optional[ColorSpace] = None
-    ) -> BaseColor:
+    def from_dict(cls, color_dict: Dict[str, Any], color_type: Optional[ColorSpace] = None) -> BaseColor:
         """Create a new color object from a color dictionary
 
         Parameters
@@ -316,9 +308,7 @@ class BaseColor(MetaColor):
         if color_type is None:
             color_type = cls.__name__  # type: ignore
 
-        color_dict = {
-            key: value for key, value in color_dict.items() if key in init_args
-        }
+        color_dict = {key: value for key, value in color_dict.items() if key in init_args}
 
         return BaseColor(**color_dict).to_color_type(color_type)  # type: ignore
 
@@ -350,33 +340,21 @@ class BaseColor(MetaColor):
 
     def __add__(self, color: BaseColor) -> BaseColor:
         if not isinstance(color, BaseColor):
-            raise TypeError(
-                "addition operator is only supported between two Color objects"
-            )
+            raise TypeError("addition operator is only supported between two Color objects")
 
-        red, green, blue = map(
-            lambda x: sum(x) / 2, zip(self.fractional_rgb[:3], color.fractional_rgb[:3])
-        )
+        red, green, blue = map(lambda x: sum(x) / 2, zip(self.fractional_rgb[:3], color.fractional_rgb[:3]))
 
-        return BaseColor(red=red, green=green, blue=blue).to_color_type(
-            self.__class__.__name__  # type: ignore
-        )
+        return BaseColor(red=red, green=green, blue=blue).to_color_type(self.__class__.__name__)  # type: ignore
 
     def _repr_html_(self):
         text = "<br>".join(
             map(
                 str,
-                [
-                    val
-                    for val in [self.name, self.__class__.__name__, self.css()]
-                    if val is not None
-                ],
+                [val for val in [self.name, self.__class__.__name__, self.css()] if val is not None],
             )
         )
 
-        return HTML_REPR_TEMPLATE.format(
-            css=self.css(), width=100, height=100, text=text
-        )
+        return HTML_REPR_TEMPLATE.format(css=self.css(), width=100, height=100, text=text)
 
 
 # NOTE: Alternative is 'from collections import UserString'
@@ -489,9 +467,7 @@ class Hex(BaseColor, str):
         return str(self)
 
     ### Color manipulations
-    def _change_rgb(
-        self, red: Numeric, green: Numeric, blue: Numeric, keep_metadata: bool = False
-    ):
+    def _change_rgb(self, red: Numeric, green: Numeric, blue: Numeric, keep_metadata: bool = False):
         metadata = self.info() if keep_metadata else {}
         return Hex(rgb_to_hex((red, green, blue)), alpha=self.alpha, **metadata)  # type: ignore
 
@@ -652,9 +628,7 @@ class RGB(BaseColor, tuple):
         return f"rgb{self.rgb}"
 
     ### Color manipulations
-    def _change_rgb(
-        self, red: Numeric, green: Numeric, blue: Numeric, keep_metadata: bool = False
-    ) -> RGB:
+    def _change_rgb(self, red: Numeric, green: Numeric, blue: Numeric, keep_metadata: bool = False) -> RGB:
         metadata = self.info() if keep_metadata else {}
         return RGB((red, green, blue), alpha=self.alpha, **metadata)  # type: ignore
 
@@ -841,9 +815,7 @@ class HSL(BaseColor, tuple):
         _, saturation, lightness = self.hsl[:3]
         return self._change_hsl(hue, saturation, lightness, keep_metadata)
 
-    def change_saturation(
-        self, saturation: Numeric, keep_metadata: bool = False
-    ) -> HSL:
+    def change_saturation(self, saturation: Numeric, keep_metadata: bool = False) -> HSL:
         """create a new color by changing the saturation component
 
         Parameters

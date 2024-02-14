@@ -95,9 +95,7 @@ class Palette(MetaColor, tuple):
         }
 
     @classmethod
-    def from_dict(
-        cls, palette_dict: Dict[str, Any], color_type: Optional[ColorSpace] = None
-    ) -> Palette:
+    def from_dict(cls, palette_dict: Dict[str, Any], color_type: Optional[ColorSpace] = None) -> Palette:
         """create a new Palette object from a Palette dictionary
 
         Parameters
@@ -117,9 +115,7 @@ class Palette(MetaColor, tuple):
             color_type = settings.default_color_type  # type: ignore
 
         ## init colors
-        colors = [
-            BaseColor.from_dict(color, color_type) for color in palette_dict["colors"]
-        ]
+        colors = [BaseColor.from_dict(color, color_type) for color in palette_dict["colors"]]
 
         return cls(
             colors=colors,
@@ -132,12 +128,7 @@ class Palette(MetaColor, tuple):
         return f"Palette{super().__repr__()}"
 
     def _repr_html_(self) -> str:
-        html_string = "\n".join(
-            [
-                DIV_TEMPLATE.format(css=color.css(), height=60, width=60)
-                for color in self
-            ]
-        )
+        html_string = "\n".join([DIV_TEMPLATE.format(css=color.css(), height=60, width=60) for color in self])
 
         html_string = f'<div style="display: flex">{html_string}</div>'
 

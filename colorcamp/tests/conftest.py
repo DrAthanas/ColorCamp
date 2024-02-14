@@ -136,12 +136,8 @@ param_hex_codes = partial(
                 "000",
                 marks=pytest.mark.xfail(ValueError, reason="Doesn't start with #"),
             ),
-            pytest.param(
-                "#GGggGG", marks=pytest.mark.xfail(ValueError, reason="Invalid hex")
-            ),
-            pytest.param(
-                "#FF", marks=pytest.mark.xfail(ValueError, reason="Wrong length")
-            ),
+            pytest.param("#GGggGG", marks=pytest.mark.xfail(ValueError, reason="Invalid hex")),
+            pytest.param("#FF", marks=pytest.mark.xfail(ValueError, reason="Wrong length")),
         ],
     )
 )
@@ -154,21 +150,15 @@ param_rgb_values = partial(
             (0, 255, 123, 0.5),
             pytest.param(
                 (-1, 255, 123),
-                marks=pytest.mark.xfail(
-                    NumericIntervalError, reason="negative RGB values"
-                ),
+                marks=pytest.mark.xfail(NumericIntervalError, reason="negative RGB values"),
             ),
             pytest.param(
                 (0, 255, 256),
-                marks=pytest.mark.xfail(
-                    NumericIntervalError, reason="above max RGB value"
-                ),
+                marks=pytest.mark.xfail(NumericIntervalError, reason="above max RGB value"),
             ),
             pytest.param(
                 (0, 255, 256, 1.1),
-                marks=pytest.mark.xfail(
-                    NumericIntervalError, reason="above alpha value"
-                ),
+                marks=pytest.mark.xfail(NumericIntervalError, reason="above alpha value"),
             ),
         ],
     )
@@ -182,15 +172,11 @@ param_hsl_values = partial(
             (360, 0, 1, 0.5),
             pytest.param(
                 (361, 0.8, 0.1),
-                marks=pytest.mark.xfail(
-                    NumericIntervalError, reason="above max hue value"
-                ),
+                marks=pytest.mark.xfail(NumericIntervalError, reason="above max hue value"),
             ),
             pytest.param(
                 (360, -0.1, 1),
-                marks=pytest.mark.xfail(
-                    NumericIntervalError, reason="below min saturation value"
-                ),
+                marks=pytest.mark.xfail(NumericIntervalError, reason="below min saturation value"),
             ),
         ],
     )

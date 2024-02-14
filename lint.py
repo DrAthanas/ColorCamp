@@ -10,9 +10,7 @@ parser = argparse.ArgumentParser(prog="LINT")
 parser.add_argument(
     "-p",
     "--path",
-    help="path to directory you want to run pylint | "
-    "Default: %(default)s | "
-    "Type: %(type)s ",
+    help="path to directory you want to run pylint | " "Default: %(default)s | " "Type: %(type)s ",
     default="./src",
     type=str,
 )
@@ -20,9 +18,7 @@ parser.add_argument(
 parser.add_argument(
     "-t",
     "--threshold",
-    help="score threshold to fail pylint runner | "
-    "Default: %(default)s | "
-    "Type: %(type)s ",
+    help="score threshold to fail pylint runner | " "Default: %(default)s | " "Type: %(type)s ",
     default=7,
     type=float,
 )
@@ -31,9 +27,7 @@ args = parser.parse_args()
 path = str(args.path)
 threshold = float(args.threshold)
 
-logging.info(
-    "PyLint Starting | " "Path: {} | " "Threshold: {} ".format(path, threshold)
-)
+logging.info("PyLint Starting | " "Path: {} | " "Threshold: {} ".format(path, threshold))
 
 results = Run([path], do_exit=False)
 
@@ -41,11 +35,7 @@ final_score = results.linter.stats.global_note
 
 failed = final_score < threshold
 
-message = (
-    f"PyLint {'Failed' if failed else 'Passed'} | "
-    f"Score: {final_score:.2f} | "
-    f"Threshold: {threshold:.1f} "
-)
+message = f"PyLint {'Failed' if failed else 'Passed'} | " f"Score: {final_score:.2f} | " f"Threshold: {threshold:.1f} "
 
 if failed:
     logging.error(message)

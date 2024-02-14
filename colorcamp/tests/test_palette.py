@@ -19,7 +19,7 @@ def cls_palette(request):
         colors=[sky_hex, pink_hex, mustard_hex, lime_hex],
         name="example",
         description="A beautiful color palette",
-        metadata={"categoral": "four colors"},
+        metadata={"categorical": "four colors"},
     )
 
 
@@ -42,9 +42,7 @@ class TestPalette:
             assert self.palette[i % len(self.palette)] == self.palette.next()
 
     def test_print(self):
-        assert (
-            repr(self.palette) == "Palette('#0FB6FF', '#FF15AA', '#FFAA15', '#15FFAA')"
-        )
+        assert repr(self.palette) == "Palette('#0FB6FF', '#FF15AA', '#FFAA15', '#15FFAA')"
 
     def test_save_and_load(self):
         with TemporaryDirectory() as temp_dir:
@@ -73,5 +71,5 @@ def test_not_color_objects(request):
             colors=[sky_hex, pink_hex, mustard_hex, lime_hex],
             name="example",
             description="A beautiful color palette",
-            metadata={"categoral": "four colors"},
+            metadata={"categorical": "four colors"},
         )

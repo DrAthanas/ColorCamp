@@ -69,9 +69,7 @@ class Map(UserDict, MetaColor):
         }
 
     @classmethod
-    def from_dict(
-        cls, map_dict: Dict[str, Any], color_type: Optional[ColorSpace] = None
-    ) -> Map:
+    def from_dict(cls, map_dict: Dict[str, Any], color_type: Optional[ColorSpace] = None) -> Map:
         """create a new Map object from a Map dictionary
 
         Parameters
@@ -91,10 +89,7 @@ class Map(UserDict, MetaColor):
             color_type = settings.default_color_type  # type: ignore
 
         ## init colors
-        color_map = {
-            name: BaseColor.from_dict(color, color_type)
-            for name, color in map_dict["color_map"].items()
-        }
+        color_map = {name: BaseColor.from_dict(color, color_type) for name, color in map_dict["color_map"].items()}
 
         return cls(
             color_map=color_map,
@@ -116,10 +111,7 @@ class Map(UserDict, MetaColor):
         html_string = '<table class="table">\n'
 
         html_string += "\n".join(
-            [
-                DIV_TEMPLATE.format(text=key, css=color.css(), height=15, width=15)
-                for key, color in self.items()
-            ]
+            [DIV_TEMPLATE.format(text=key, css=color.css(), height=15, width=15) for key, color in self.items()]
         )
         html_string += "</table>"
 

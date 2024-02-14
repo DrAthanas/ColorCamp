@@ -204,9 +204,7 @@ def test_conversion_bad_type(color, request):
         (RGB((255, 0, 0)), RGB((0, 0, 255)), RGB((128, 0, 128))),
         (RGB((255, 0, 0)), Hex("#0000FF"), RGB((128, 0, 128))),
         (Hex("#0000FFFF"), RGB((255, 0, 0)), Hex("#800080")),
-        pytest.param(
-            RGB((255, 0, 0)), (0, 0, 255), RGB((128, 0, 128)), marks=[pytest.mark.xfail]
-        ),
+        pytest.param(RGB((255, 0, 0)), (0, 0, 255), RGB((128, 0, 128)), marks=[pytest.mark.xfail]),
     ),
 )
 def test_addition(color1, color2, expected):

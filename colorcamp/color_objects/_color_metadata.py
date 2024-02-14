@@ -105,9 +105,7 @@ class ColorSerializer:
         return
 
     @classmethod
-    def load_json(
-        cls, file_path: Union[str, Path], color_type: Optional[ColorSpace] = None
-    ):
+    def load_json(cls, file_path: Union[str, Path], color_type: Optional[ColorSpace] = None):
         """Load object from JSON file on disk
 
         Parameters

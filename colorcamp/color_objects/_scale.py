@@ -77,9 +77,7 @@ class Scale(MetaColor, tuple):
             n_colors = len(self.colors)
             values = [i / (n_colors - 1) for i in range(n_colors - 1)] + [1]
         elif len(values) != len(self.colors) or sorted(values) != list(values):
-            raise ValueError(
-                "stops must be sorted in ascending order and be of the same length as colors"
-            )
+            raise ValueError("stops must be sorted in ascending order and be of the same length as colors")
 
         _ = (FractionIntervalValidator().validate(val) for val in values)
 
@@ -108,9 +106,7 @@ class Scale(MetaColor, tuple):
         }
 
     @classmethod
-    def from_dict(
-        cls, scale_dict: Dict[str, Any], color_type: Optional[ColorSpace] = None
-    ) -> Scale:
+    def from_dict(cls, scale_dict: Dict[str, Any], color_type: Optional[ColorSpace] = None) -> Scale:
         """Create a new Scale object from a Scale dictionary
 
         Parameters
@@ -130,9 +126,7 @@ class Scale(MetaColor, tuple):
             color_type = settings.default_color_type  # type: ignore
 
         ## init colors
-        colors = [
-            BaseColor.from_dict(color, color_type) for color in scale_dict["colors"]
-        ]
+        colors = [BaseColor.from_dict(color, color_type) for color in scale_dict["colors"]]
 
         return cls(
             colors=colors,
@@ -146,11 +140,7 @@ class Scale(MetaColor, tuple):
         return f"Scale{tuple(zip(self, self.stops))}"
 
     def _repr_html_(self):
-        grad = ", ".join(
-            [f"{color.css()} {stop:.0%}" for color, stop in zip(self, self.stops)]
-        )
-        html_string = DIV_TEMPLATE.format(
-            grad=grad, height=60, width=max(60 * len(self), 180)
-        )
+        grad = ", ".join([f"{color.css()} {stop:.0%}" for color, stop in zip(self, self.stops)])
+        html_string = DIV_TEMPLATE.format(grad=grad, height=60, width=max(60 * len(self), 180))
 
         return html_string

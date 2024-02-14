@@ -109,9 +109,7 @@ class TestCamp:
 
     def test_adding_extra_redundant_items(self):
         camp_copy = deepcopy(self.camp)
-        camp_copy.add_objects(
-            [Hex("#000", name="a"), Hex("#000", name="a")], exists_ok=True
-        )
+        camp_copy.add_objects([Hex("#000", name="a"), Hex("#000", name="a")], exists_ok=True)
 
         with pytest.raises(ValueError):
             camp_copy.add_objects([Hex("#000", name="a")])

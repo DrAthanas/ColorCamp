@@ -25,9 +25,7 @@ class UnitIntervalValidator(IValidator):
         if not isinstance(value, (int, float)):
             raise TypeError(f"{self.name} should be a Numeric[int, float]")
         if not (self.min <= value <= self.max):
-            raise NumericIntervalError(
-                f"{self.name} ({value}) is out side of interval range [{self.min}, {self.max}]"
-            )
+            raise NumericIntervalError(f"{self.name} ({value}) is out side of interval range [{self.min}, {self.max}]")
 
 
 class FractionIntervalValidator(UnitIntervalValidator):
@@ -86,9 +84,7 @@ class HexStringValidator(RegexValidator):
     """Hex string validator"""
 
     def __init__(self):
-        regex = re.compile(
-            r"^#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{4}|[A-Fa-f0-9]{6}|[A-Fa-f0-9]{8})$"
-        )
+        regex = re.compile(r"^#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{4}|[A-Fa-f0-9]{6}|[A-Fa-f0-9]{8})$")
 
         super().__init__(regex, "hex_code")
 
