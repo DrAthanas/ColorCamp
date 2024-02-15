@@ -7,7 +7,7 @@
 
 import colorsys
 
-from .common.types import AnyRGBColorTuple, AnyGenericColorTuple
+from .common.types import AnyGenericColorTuple, AnyRGBColorTuple
 from .common.validators import HexStringValidator
 
 MAX_PRECISION = 6

@@ -1,14 +1,15 @@
 """Linear gradients of Colors"""
 
 from __future__ import annotations
-from typing import Sequence, Optional, Dict, Any
 
+from typing import Any, Dict, Optional, Sequence
 
 from colorcamp._settings import settings
 from colorcamp.common.types import ColorSpace, Numeric
 from colorcamp.common.validators import FractionIntervalValidator
-from .color_space import BaseColor
+
 from ._color_metadata import MetaColor
+from .color_space import BaseColor
 
 DIV_TEMPLATE = """
 <div style="

@@ -1,4 +1,4 @@
-from typing import Union, Tuple, Literal
+from typing import Literal, Tuple, Union
 
 Numeric = Union[int, float]
 

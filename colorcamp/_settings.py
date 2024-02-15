@@ -1,10 +1,10 @@
 """Apply package level settings"""
 
-from typing import Sequence, Union
 from pathlib import Path
+from typing import Sequence, Union
 
 from .common.types import ColorSpace
-from .common.validators import PathValidator, ColorTypeValidator
+from .common.validators import ColorTypeValidator, PathValidator
 
 PROJECT_PATHS = Path(__file__).parent.parent / "data"
 

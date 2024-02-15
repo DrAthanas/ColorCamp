@@ -1,12 +1,12 @@
-from typing import Mapping
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from typing import Mapping
 
 import pytest
 from bs4 import BeautifulSoup
 
-from colorcamp.color_objects.color_space import BaseColor
 from colorcamp.color_objects import Map
+from colorcamp.color_objects.color_space import BaseColor
 
 
 @pytest.fixture(scope="class")

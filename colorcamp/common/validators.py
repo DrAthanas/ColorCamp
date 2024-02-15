@@ -1,9 +1,9 @@
-from typing import Protocol, Union
-from pathlib import Path
-
-from .types import Numeric, ColorSpace
 import re
+from pathlib import Path
+from typing import Protocol, Union
+
 from .exceptions import NumericIntervalError
+from .types import ColorSpace, Numeric
 
 
 class IValidator(Protocol):

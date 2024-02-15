@@ -1,33 +1,30 @@
 """Color space objects"""
 
 from __future__ import annotations
-from typing import Dict, Any, Union, Optional
-from types import MethodType
+
 import colorsys
 import math
 from functools import cached_property
 from itertools import zip_longest
+from types import MethodType
+from typing import Any, Dict, Optional, Union
 
 from colorcamp.color_objects._color_metadata import MetaColor
 from colorcamp.common.types import (
-    GenericColorTuple,
     AnyGenericColorTuple,
-    RGBColorTuple,
     AnyRGBColorTuple,
-    Numeric,
     ColorSpace,
-)
-from colorcamp.conversions import (
-    hex_to_rgb,
-    rgb_to_hex,
-    rgb_to_hsl,
+    GenericColorTuple,
+    Numeric,
+    RGBColorTuple,
 )
 from colorcamp.common.validators import (
     FractionIntervalValidator,
-    HueIntervalValidator,
     HexStringValidator,
+    HueIntervalValidator,
     RGB256IntervalValidator,
 )
+from colorcamp.conversions import hex_to_rgb, rgb_to_hex, rgb_to_hsl
 
 __all__ = ["Hex", "RGB", "HSL"]
 

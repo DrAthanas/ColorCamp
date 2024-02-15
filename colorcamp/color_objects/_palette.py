@@ -1,12 +1,14 @@
 """Collections of Colors"""
 
 from __future__ import annotations
-from typing import Sequence, Optional, Dict, Any
 
-from colorcamp.common.types import ColorSpace
+from typing import Any, Dict, Optional, Sequence
+
 from colorcamp._settings import settings
-from .color_space import BaseColor
+from colorcamp.common.types import ColorSpace
+
 from ._color_metadata import MetaColor
+from .color_space import BaseColor
 
 DIV_TEMPLATE = """
 <div style="

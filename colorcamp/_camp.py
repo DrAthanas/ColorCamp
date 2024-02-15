@@ -1,16 +1,16 @@
 """Camp organizes colors into frame work for projects"""
 
-from typing import Any, Union, Optional, Dict, Sequence
-from pathlib import Path
 import json
 from copy import copy
+from pathlib import Path
+from typing import Any, Dict, Optional, Sequence, Union
 
 from ._settings import settings
+from .color_objects import Map, Palette, Scale
 from .color_objects._color_metadata import ColorInfo
+from .color_objects.color_space import BaseColor
 from .common.types import ColorObject, ColorSpace
 from .common.validators import PathValidator
-from .color_objects.color_space import BaseColor
-from .color_objects import Map, Scale, Palette
 
 ColorObjectType = Union[type[BaseColor], type[Scale], type[Palette], type[Map]]
 

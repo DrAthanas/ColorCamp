@@ -1,21 +1,21 @@
 """Tests for color module"""
-from tempfile import TemporaryDirectory
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
-from bs4 import BeautifulSoup
 import pytest
-
-from colorcamp.color_objects.color_space import BaseColor, Hex, RGB, HSL
-from colorcamp.common.validators import HexStringValidator
-from colorcamp.common.exceptions import NumericIntervalError
+from bs4 import BeautifulSoup
 from conftest import (
     param_color_init,
-    param_colors,
     param_color_types,
+    param_colors,
     param_hex_codes,
-    param_rgb_values,
     param_hsl_values,
+    param_rgb_values,
 )
+
+from colorcamp.color_objects.color_space import HSL, RGB, BaseColor, Hex
+from colorcamp.common.exceptions import NumericIntervalError
+from colorcamp.common.validators import HexStringValidator
 
 
 @param_colors

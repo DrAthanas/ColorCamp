@@ -1,14 +1,13 @@
+from copy import deepcopy
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
 import pytest
-from copy import deepcopy
 
 from colorcamp._camp import Camp
-from colorcamp.color_objects.color_space import BaseColor
-from colorcamp.color_objects import Map, Scale, Palette
-from colorcamp.color_objects import Hex
 from colorcamp._settings import settings
+from colorcamp.color_objects import Hex, Map, Palette, Scale
+from colorcamp.color_objects.color_space import BaseColor
 
 
 @pytest.fixture(scope="class")

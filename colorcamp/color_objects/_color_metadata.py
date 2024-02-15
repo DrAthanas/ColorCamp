@@ -1,16 +1,16 @@
 """Common properties for all color derivatives"""
 
-from typing import Optional, Dict, Any, Union
 import json
-from pathlib import Path
 from abc import abstractmethod
+from pathlib import Path
+from typing import Any, Dict, Optional, Union
 
+from colorcamp.common.types import ColorSpace
 from colorcamp.common.validators import (
-    NameValidator,
     DescriptionValidator,
+    NameValidator,
     PathValidator,
 )
-from colorcamp.common.types import ColorSpace
 
 
 class ColorInfo:

@@ -1,12 +1,14 @@
 """Mapping of hashes to Colors"""
 
 from __future__ import annotations
-from typing import Dict, Optional, Any, Hashable
-from collections import UserDict
 
+from collections import UserDict
+from typing import Any, Dict, Hashable, Optional
+
+from colorcamp._settings import settings
 from colorcamp.color_objects._color_metadata import MetaColor
 from colorcamp.common.types import ColorSpace
-from colorcamp._settings import settings
+
 from .color_space import BaseColor
 
 DIV_TEMPLATE = """

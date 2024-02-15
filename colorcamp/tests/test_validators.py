@@ -1,20 +1,19 @@
 from pathlib import Path
 
 import pytest
-from pytest import param, mark
+from conftest import param_color_types, param_hex_codes
+from pytest import mark, param
 
 from colorcamp.common.exceptions import NumericIntervalError
-from conftest import param_hex_codes, param_color_types
-
 from colorcamp.common.validators import (
-    FractionIntervalValidator,
-    HueIntervalValidator,
-    RGB256IntervalValidator,
-    NameValidator,
-    HexStringValidator,
-    DescriptionValidator,
-    PathValidator,
     ColorTypeValidator,
+    DescriptionValidator,
+    FractionIntervalValidator,
+    HexStringValidator,
+    HueIntervalValidator,
+    NameValidator,
+    PathValidator,
+    RGB256IntervalValidator,
 )
 
 
