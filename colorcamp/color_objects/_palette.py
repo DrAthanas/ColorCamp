@@ -10,6 +10,8 @@ from colorcamp.common.types import ColorSpace
 from ._color_metadata import MetaColor
 from .color_space import BaseColor
 
+__all__ = ["Palette"]
+
 DIV_TEMPLATE = """
 <div style="
     width: {width}px; 

@@ -11,6 +11,8 @@ from colorcamp.common.types import ColorSpace
 
 from .color_space import BaseColor
 
+__all__ = ["Map"]
+
 DIV_TEMPLATE = """
 <tr>
     <td>{text}</td>

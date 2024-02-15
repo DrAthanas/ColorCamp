@@ -6,6 +6,8 @@ from typing import Sequence, Union
 from .common.types import ColorSpace
 from .common.validators import ColorTypeValidator, PathValidator
 
+__all__ = ["settings"]
+
 PROJECT_PATHS = Path(__file__).parent.parent / "data"
 
 

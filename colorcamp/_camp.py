@@ -12,6 +12,8 @@ from .color_objects.color_space import BaseColor
 from .common.types import ColorObject, ColorSpace
 from .common.validators import PathValidator
 
+__all__ = ["Camp"]
+
 ColorObjectType = Union[type[BaseColor], type[Scale], type[Palette], type[Map]]
 
 
