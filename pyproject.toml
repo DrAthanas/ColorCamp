@@ -20,6 +20,7 @@ beautifulsoup4 = "^4.12"
 black = "^23.11"
 mypy = "^1.5"
 pylint = "^2.16"
+pre-commit = "^3.6.1"
 
 [tool.black]
 line-length = 120
