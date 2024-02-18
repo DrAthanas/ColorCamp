@@ -1,0 +1,24 @@
+fail_fast: true
+repos:
+- repo: local
+  hooks:
+    - id: black
+      name: black
+      entry: poetry run black
+      language: system
+      types: [file, python]
+    - id: isort
+      name: isort
+      entry: poetry run isort
+      language: system
+      types: [file, python]
+    - id: mypy
+      name: mypy
+      entry: poetry run mypy
+      language: system
+      types: [file, python]
+    - id: pylint
+      name: pylint
+      entry: poetry run python lint.py -p ./colorcamp/
+      language: system
+      types: [file, python]
