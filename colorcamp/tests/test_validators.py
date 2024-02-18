@@ -112,7 +112,7 @@ def test_path_validator(value):
 @pytest.mark.parametrize(
     "color_type",
     [
-        "Color",
+        "BaseColor",
         "Hex",
         "RGB",
         "HSL",

@@ -11,5 +11,5 @@ GenericColorAlphaTuple = Tuple[float, float, float, float]
 AnyGenericColorTuple = Union[GenericColorTuple, GenericColorAlphaTuple]
 
 # Literal types to avoid circular imports
-ColorSpace = Literal["Color", "Hex", "RGB", "HSL"]
-ColorObject = Literal["Color", "Scale", "Palette", "Map"]
+ColorSpace = Literal["BaseColor", "Hex", "RGB", "HSL"]
+ColorObject = Literal["BaseColor", "Scale", "Palette", "Map"]

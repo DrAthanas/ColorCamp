@@ -4,10 +4,11 @@ from __future__ import annotations
 
 from typing import Any, Dict, Optional, Sequence
 
-from colorcamp._color_metadata import MetaColor
 from colorcamp._settings import settings
 from colorcamp.color_space import BaseColor
 from colorcamp.common.types import ColorSpace
+
+from ._color_group import ColorGroup
 
 __all__ = ["Palette"]
 
@@ -24,7 +25,7 @@ DIV_TEMPLATE = """
 """
 
 
-class Palette(MetaColor, tuple):
+class Palette(ColorGroup, tuple):
     """An object to represent discrete color Palettes"""
 
     # pylint: disable=W0613
@@ -81,6 +82,13 @@ class Palette(MetaColor, tuple):
         self.__current_index = (self.__current_index + 1) % len(self)
 
         return self[index]
+    
+    def reverse(self):
+
+        return Palette(
+            colors=self.colors[::-1],
+            **self.info()
+        )
 
     def to_dict(self):
         """create a dictionary of all Palette attributes
