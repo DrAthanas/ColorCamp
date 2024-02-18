@@ -6,8 +6,8 @@ import pytest
 
 from colorcamp._camp import Camp
 from colorcamp._settings import settings
-from colorcamp.groups import Map, Palette, Scale
 from colorcamp.color_space import BaseColor, Hex
+from colorcamp.groups import Map, Palette, Scale
 
 
 @pytest.fixture(scope="class")

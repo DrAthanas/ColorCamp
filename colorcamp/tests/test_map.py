@@ -5,8 +5,8 @@ from typing import Mapping
 import pytest
 from bs4 import BeautifulSoup
 
-from colorcamp.groups import Map
 from colorcamp.color_space import BaseColor
+from colorcamp.groups import Map
 
 
 @pytest.fixture(scope="class")

@@ -4,8 +4,8 @@ from tempfile import TemporaryDirectory
 import pytest
 from bs4 import BeautifulSoup
 
-from colorcamp.groups import Scale
 from colorcamp.color_space import BaseColor
+from colorcamp.groups import Scale
 
 
 @pytest.fixture(scope="class")
