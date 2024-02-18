@@ -82,13 +82,9 @@ class Palette(ColorGroup, tuple):
         self.__current_index = (self.__current_index + 1) % len(self)
 
         return self[index]
-    
-    def reverse(self):
 
-        return Palette(
-            colors=self.colors[::-1],
-            **self.info()
-        )
+    def reverse(self):
+        return Palette(colors=self.colors[::-1], **self.info())
 
     def to_dict(self):
         """create a dictionary of all Palette attributes

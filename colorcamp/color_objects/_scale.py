@@ -91,14 +91,9 @@ class Scale(ColorGroup, tuple):
         """Sequence of Colors"""
 
         return tuple(self)
-    
-    def reverse(self):
 
-        return Scale(
-            colors=self.colors[::-1],
-            stops=self.stops,
-            **self.info()
-        )
+    def reverse(self):
+        return Scale(colors=self.colors[::-1], stops=self.stops, **self.info())
 
     def to_dict(self):
         """Create a dictionary of all Scale attributes
