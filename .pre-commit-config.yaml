@@ -1,4 +1,5 @@
 fail_fast: false
+exclude: "colorcamp/tests/"
 repos:
 - repo: local
   hooks:
