@@ -262,8 +262,8 @@ class BaseColor(MetaColor):
         def _tuple_to_list(color):
             if isinstance(color, tuple):
                 return list(color)
-            else:
-                return color
+            
+            return color
 
         return {
             "type": "BaseColor",
