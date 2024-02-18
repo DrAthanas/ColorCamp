@@ -6,7 +6,7 @@ import pytest
 
 from colorcamp._camp import Camp
 from colorcamp._settings import settings
-from colorcamp.color_objects import Map, Palette, Scale
+from colorcamp.groups import Map, Palette, Scale
 from colorcamp.color_space import BaseColor, Hex
 
 

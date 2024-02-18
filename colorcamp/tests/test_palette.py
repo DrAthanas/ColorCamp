@@ -4,7 +4,7 @@ from tempfile import TemporaryDirectory
 import pytest
 from bs4 import BeautifulSoup
 
-from colorcamp.color_objects import Palette
+from colorcamp.groups import Palette
 from colorcamp.color_space import BaseColor
 
 

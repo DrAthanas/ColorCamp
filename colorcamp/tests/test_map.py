@@ -5,7 +5,7 @@ from typing import Mapping
 import pytest
 from bs4 import BeautifulSoup
 
-from colorcamp.color_objects import Map
+from colorcamp.groups import Map
 from colorcamp.color_space import BaseColor
 
 
