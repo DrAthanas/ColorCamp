@@ -13,7 +13,7 @@ from conftest import (
     param_rgb_values,
 )
 
-from colorcamp.color_objects.color_space import HSL, RGB, BaseColor, Hex
+from colorcamp.color_space import HSL, RGB, BaseColor, Hex
 from colorcamp.common.exceptions import NumericIntervalError
 from colorcamp.common.validators import HexStringValidator
 

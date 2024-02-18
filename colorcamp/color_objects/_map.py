@@ -5,11 +5,10 @@ from __future__ import annotations
 from collections import UserDict
 from typing import Any, Dict, Hashable, Optional
 
+from colorcamp._color_metadata import MetaColor
 from colorcamp._settings import settings
-from colorcamp.color_objects._color_metadata import MetaColor
+from colorcamp.color_space import BaseColor
 from colorcamp.common.types import ColorSpace
-
-from .color_space import BaseColor
 
 __all__ = ["Map"]
 

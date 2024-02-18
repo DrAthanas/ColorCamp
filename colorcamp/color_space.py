@@ -9,7 +9,7 @@ from itertools import zip_longest
 from types import MethodType
 from typing import Any, Dict, Optional, Union
 
-from colorcamp.color_objects._color_metadata import MetaColor
+from colorcamp._color_metadata import MetaColor
 from colorcamp.common.types import (
     AnyGenericColorTuple,
     AnyRGBColorTuple,

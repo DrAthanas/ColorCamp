@@ -2,7 +2,7 @@ from functools import partial
 
 import pytest
 
-from colorcamp.color_objects.color_space import HSL, RGB, BaseColor, Hex
+from colorcamp.color_space import HSL, RGB, BaseColor, Hex
 from colorcamp.common.exceptions import NumericIntervalError
 
 # Standard test:

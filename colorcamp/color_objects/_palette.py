@@ -4,11 +4,10 @@ from __future__ import annotations
 
 from typing import Any, Dict, Optional, Sequence
 
+from colorcamp._color_metadata import MetaColor
 from colorcamp._settings import settings
+from colorcamp.color_space import BaseColor
 from colorcamp.common.types import ColorSpace
-
-from ._color_metadata import MetaColor
-from .color_space import BaseColor
 
 __all__ = ["Palette"]
 

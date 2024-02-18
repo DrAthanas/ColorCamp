@@ -5,10 +5,10 @@ from copy import copy
 from pathlib import Path
 from typing import Any, Dict, Optional, Sequence, Union
 
+from ._color_metadata import ColorInfo
 from ._settings import settings
 from .color_objects import Map, Palette, Scale
-from .color_objects._color_metadata import ColorInfo
-from .color_objects.color_space import BaseColor
+from .color_space import BaseColor
 from .common.types import ColorObject, ColorSpace
 from .common.validators import PathValidator
 
