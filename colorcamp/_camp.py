@@ -7,10 +7,10 @@ from typing import Any, Dict, Optional, Sequence, Union
 
 from ._color_metadata import ColorInfo
 from ._settings import settings
-from .groups import Map, Palette, Scale
 from .color_space import BaseColor
 from .common.types import ColorObject, ColorSpace
 from .common.validators import PathValidator
+from .groups import Map, Palette, Scale
 
 __all__ = ["Camp"]
 
