@@ -67,6 +67,7 @@ exclude_also = [
 
     # Don't complain about abstract methods, they aren't run:
     "@(abc\\.)?abstractmethod",
+    "@(abc\\.)?abstractproperty",
     ]
 
 ignore_errors = true
