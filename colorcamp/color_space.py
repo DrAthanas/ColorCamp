@@ -55,11 +55,11 @@ HTML_REPR_TEMPLATE = """<!DOCTYPE html>
 
 
 # pylint: disable=W0613
-def make_to_color_type(self: BaseColor, name):
+def make_to_color_space(self: BaseColor, name):
     """A function factory to make short cut methods to quickly convert color subtypes"""
 
     def changer(self):
-        return self.to_color_type(name)
+        return self.to_color_space(name)
 
     return changer
 
@@ -118,7 +118,7 @@ class BaseColor(MetaColor):
 
         # Dynamically add functions based on subclasses
         for subclass in self._subclasses:
-            env_setter = make_to_color_type(self, subclass)
+            env_setter = make_to_color_space(self, subclass)
 
             method = MethodType(env_setter, self)
             setattr(self, f"to_{subclass.lower()}", method)
@@ -206,12 +206,12 @@ class BaseColor(MetaColor):
         return rgb_to_hex(self.rgb)
 
     ## Conversion methods
-    def to_color_type(self, color_type: ColorSpace):
+    def to_color_space(self, color_space: ColorSpace):
         """convert current color object to a new representation
 
         Parameters
         ----------
-        color_type : Literal['BaseColor', 'Hex', 'RGB', 'HSL']
+        color_space : Literal['BaseColor', 'Hex', 'RGB', 'HSL']
             the new color representation (Color subclass)
 
         Returns
@@ -220,20 +220,20 @@ class BaseColor(MetaColor):
             a new color object with the same metadata in a new color representation
         """
 
-        if color_type is self.__class__.__name__:
+        if color_space is self.__class__.__name__:
             new_color: BaseColor = self
-        elif color_type in self._subclasses:
-            new_color: BaseColor = self._subclasses[color_type](  # type: ignore
-                getattr(self, color_type.lower()),
+        elif color_space in self._subclasses:
+            new_color: BaseColor = self._subclasses[color_space](  # type: ignore
+                getattr(self, color_space.lower()),
                 **self.info(),
                 alpha=self.alpha,
             )
             # Bypass the setter to insure frgb values are exact to avoid fp errors
             new_color._fractional_rgb = self.fractional_rgb[:3]  # pylint: disable=W0212
-        elif color_type == "BaseColor":
+        elif color_space == "BaseColor":
             new_color = BaseColor(*self.fractional_rgb[:3], **self.info(), alpha=self.alpha)
         else:
-            raise ValueError(f'Color type "{color_type}" is not in {list(self._subclasses.keys())}')
+            raise ValueError(f'Color type "{color_space}" is not in {list(self._subclasses.keys())}')
 
         return new_color
 
@@ -259,12 +259,6 @@ class BaseColor(MetaColor):
             dictionary with the underlying color representation
         """
 
-        def _tuple_to_list(color):
-            if isinstance(color, tuple):
-                return list(color)
-
-            return color
-
         return {
             "type": "BaseColor",
             **self.info(),
@@ -272,18 +266,17 @@ class BaseColor(MetaColor):
             "green": self.fractional_rgb[1],
             "blue": self.fractional_rgb[2],
             "alpha": self.alpha,
-            "color_formats": {ct: _tuple_to_list(self.to_color_type(ct)) for ct in self._subclasses},  # type: ignore
         }
 
     @classmethod
-    def from_dict(cls, color_dict: Dict[str, Any], color_type: Optional[ColorSpace] = None) -> BaseColor:
+    def from_dict(cls, color_dict: Dict[str, Any], color_space: Optional[ColorSpace] = None) -> BaseColor:
         """Create a new color object from a color dictionary
 
         Parameters
         ----------
         color_dict : Dict[str, Any]
             A Color dictionary
-        color_type : Literal['BaseColor', 'Hex', 'RGB', 'HSL']
+        color_space : Literal['BaseColor', 'Hex', 'RGB', 'HSL']
             The new color representation (Color subclass). If None is supplied the current representation is used, by default None
 
         Returns
@@ -302,12 +295,12 @@ class BaseColor(MetaColor):
             "alpha",
         }
 
-        if color_type is None:
-            color_type = cls.__name__  # type: ignore
+        if color_space is None:
+            color_space = cls.__name__  # type: ignore
 
         color_dict = {key: value for key, value in color_dict.items() if key in init_args}
 
-        return BaseColor(**color_dict).to_color_type(color_type)  # type: ignore
+        return BaseColor(**color_dict).to_color_space(color_space)  # type: ignore
 
     ## dunders
     def __eq__(self, color):
@@ -341,7 +334,7 @@ class BaseColor(MetaColor):
 
         red, green, blue = map(lambda x: sum(x) / 2, zip(self.fractional_rgb[:3], color.fractional_rgb[:3]))
 
-        return BaseColor(red=red, green=green, blue=blue).to_color_type(self.__class__.__name__)  # type: ignore
+        return BaseColor(red=red, green=green, blue=blue).to_color_space(self.__class__.__name__)  # type: ignore
 
     def _repr_html_(self):
         text = "<br>".join(

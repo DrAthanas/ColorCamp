@@ -51,12 +51,12 @@ class ColorGroup(MetaColor):
     def to_map(self, names=None):
         return self.__to_type("Map", names=names)
 
-    def to_color_type(self, color_type: ColorSpace):
+    def to_color_space(self, color_space: ColorSpace):
         """convert current color object to a new representation
 
         Parameters
         ----------
-        color_type : Literal['BaseColor', 'Hex', 'RGB', 'HSL']
+        color_space : Literal['BaseColor', 'Hex', 'RGB', 'HSL']
             the new color representation (Color subclass)
 
         Returns
@@ -65,4 +65,4 @@ class ColorGroup(MetaColor):
             a new color object with the same metadata in a new color representation
         """
 
-        return self.from_dict(self.to_dict(), color_type=color_type)
+        return self.from_dict(self.to_dict(), color_space=color_space)

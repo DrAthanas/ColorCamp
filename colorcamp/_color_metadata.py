@@ -111,14 +111,14 @@ class ColorSerializer:
         return
 
     @classmethod
-    def load_json(cls, file_path: Union[str, Path], color_type: Optional[ColorSpace] = None):
+    def load_json(cls, file_path: Union[str, Path], color_space: Optional[ColorSpace] = None):
         """Load object from JSON file on disk
 
         Parameters
         ----------
         file_path : Union[str, Path]
             Source file path to load data from
-        color_type : Optional[ColorSpace], optional
+        color_space : Optional[ColorSpace], optional
             _description_, by default None
 
         Returns
@@ -132,7 +132,7 @@ class ColorSerializer:
         with open(file_path, "r", encoding="utf-8") as fio:
             color_dict: dict = json.load(fio)
 
-        return cls.from_dict(color_dict, color_type)
+        return cls.from_dict(color_dict, color_space)
 
     @abstractmethod
     def to_dict(self):
@@ -194,3 +194,37 @@ class MetaColor(ColorInfo, ColorSerializer):
         )
 
     # pylint: enable=W0613, enable=W0223
+
+    def change_info(
+        self,
+        **kwargs,
+    ):
+        """Change metadata for a Color Object, this will return a new object
+
+        Accepted Parameters
+        ----------
+        name : Optional[str], optional
+            descriptive name, cannot contain special characters, by default None
+        description : Optional[str], optional
+            short descriptive text to provide additional context (max 255 char), by default None
+        metadata : Optional[Dict[str, Any]], optional
+            unstructured metadata used for querying and additional context, by default None
+        """
+
+        accepted_values = ["name", "description", "metadata"]
+
+        new_info = {val: kwargs.pop(val) for val in accepted_values if val in kwargs}
+
+        if not new_info:
+            raise ValueError("No metadata arguments to change")
+        if kwargs:
+            raise ValueError(f".change_info got an unexpected keyword argument(s) {', '.join(kwargs.keys())}")
+
+        orig: dict = self.to_dict()
+
+        return self.from_dict(
+            {
+                **orig,
+                **new_info,
+            }
+        )

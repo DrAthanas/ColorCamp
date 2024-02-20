@@ -112,14 +112,14 @@ class Scale(ColorGroup, tuple):
         }
 
     @classmethod
-    def from_dict(cls, scale_dict: Dict[str, Any], color_type: Optional[ColorSpace] = None) -> Scale:
+    def from_dict(cls, scale_dict: Dict[str, Any], color_space: Optional[ColorSpace] = None) -> Scale:
         """Create a new Scale object from a Scale dictionary
 
         Parameters
         ----------
         scale_dict : Dict[str, Any]
             A Scale dictionary
-        color_type : Literal['BaseColor', 'Hex', 'RGB', 'HSL']
+        color_space : Literal['BaseColor', 'Hex', 'RGB', 'HSL']
             The new color representation (Color subclass). If None is supplied the default representation is used, by default None
 
         Returns
@@ -128,11 +128,11 @@ class Scale(ColorGroup, tuple):
             A new Scale object
         """
 
-        if color_type is None:
-            color_type = settings.default_color_type  # type: ignore
+        if color_space is None:
+            color_space = settings.default_color_space  # type: ignore
 
         ## init colors
-        colors = [BaseColor.from_dict(color, color_type) for color in scale_dict["colors"]]
+        colors = [BaseColor.from_dict(color, color_space) for color in scale_dict["colors"]]
 
         return cls(
             colors=colors,

@@ -78,14 +78,14 @@ class Map(UserDict, ColorGroup):
         }
 
     @classmethod
-    def from_dict(cls, map_dict: Dict[str, Any], color_type: Optional[ColorSpace] = None) -> Map:
+    def from_dict(cls, map_dict: Dict[str, Any], color_space: Optional[ColorSpace] = None) -> Map:
         """create a new Map object from a Map dictionary
 
         Parameters
         ----------
         map_dict : Dict[str, Any]
             a Map dictionary
-        color_type : Literal['BaseColor', 'Hex', 'RGB', 'HSL']
+        color_space : Literal['BaseColor', 'Hex', 'RGB', 'HSL']
             the new color representation (Color subclass). If None is supplied the default representation is used, by default None
 
         Returns
@@ -94,11 +94,11 @@ class Map(UserDict, ColorGroup):
             A new Map object
         """
 
-        if color_type is None:
-            color_type = settings.default_color_type  # type: ignore
+        if color_space is None:
+            color_space = settings.default_color_space  # type: ignore
 
         ## init colors
-        color_map = {name: BaseColor.from_dict(color, color_type) for name, color in map_dict["color_map"].items()}
+        color_map = {name: BaseColor.from_dict(color, color_space) for name, color in map_dict["color_map"].items()}
 
         return cls(
             color_map=color_map,

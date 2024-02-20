@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import pytest
-from conftest import param_color_types, param_hex_codes
+from conftest import param_color_spaces, param_hex_codes
 from pytest import mark, param
 
 from colorcamp.common.exceptions import NumericIntervalError
@@ -110,7 +110,7 @@ def test_path_validator(value):
 
 
 @pytest.mark.parametrize(
-    "color_type",
+    "color_space",
     [
         "BaseColor",
         "Hex",
@@ -120,5 +120,5 @@ def test_path_validator(value):
         param(1234, marks=mark.xfail(TypeError, reason="Not a color literal")),
     ],
 )
-def test_color_type_validator(color_type):
-    ColorTypeValidator().validate(color_type)
+def test_color_space_validator(color_space):
+    ColorTypeValidator().validate(color_space)

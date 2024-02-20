@@ -16,21 +16,21 @@ class Settings:
 
     def __init__(
         self,
-        default_color_type: ColorSpace = "Hex",
+        default_color_space: ColorSpace = "Hex",
         camp_paths: Sequence[Union[Path, str]] = (PROJECT_PATHS,),
     ):
-        self.default_color_type = default_color_type
+        self.default_color_space = default_color_space
         self.camp_paths = camp_paths
 
     @property
-    def default_color_type(self) -> str:
+    def default_color_space(self) -> str:
         """Default color type that will used when loading new colors"""
-        return self._default_color_type
+        return self._default_color_space
 
-    @default_color_type.setter
-    def default_color_type(self, value: ColorSpace):
+    @default_color_space.setter
+    def default_color_space(self, value: ColorSpace):
         ColorTypeValidator().validate(value)
-        self._default_color_type = value
+        self._default_color_space = value
 
     @property
     def camp_paths(self):

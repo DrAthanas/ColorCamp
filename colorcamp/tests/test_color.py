@@ -6,7 +6,7 @@ import pytest
 from bs4 import BeautifulSoup
 from conftest import (
     param_color_init,
-    param_color_types,
+    param_color_spaces,
     param_colors,
     param_hex_codes,
     param_hsl_values,
@@ -181,11 +181,11 @@ class TestHSL(TestColor):
 
 
 @param_colors
-@param_color_types
-def test_conversion(color_type, color, request):
+@param_color_spaces
+def test_conversion(color_space, color, request):
     color_obj: BaseColor = request.getfixturevalue(color)
-    new_color = color_obj.to_color_type(color_type)
-    assert new_color.__class__.__name__ == color_type
+    new_color = color_obj.to_color_space(color_space)
+    assert new_color.__class__.__name__ == color_space
     assert new_color == color_obj
 
 
@@ -193,7 +193,7 @@ def test_conversion(color_type, color, request):
 def test_conversion_bad_type(color, request):
     color_obj: BaseColor = request.getfixturevalue(color)
     with pytest.raises(ValueError):
-        color_obj.to_color_type("guyton")
+        color_obj.to_color_space("guyton")
 
 
 # use some standard Web conversion tools to validate

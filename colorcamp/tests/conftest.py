@@ -111,9 +111,9 @@ param_colors = partial(
     )
 )
 
-param_color_types = partial(
+param_color_spaces = partial(
     pytest.mark.parametrize(
-        "color_type",
+        "color_space",
         [
             "BaseColor",
             "Hex",

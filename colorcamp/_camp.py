@@ -211,7 +211,7 @@ class Camp(ColorInfo):
         cls,
         name: str,
         directory: Optional[Union[str, Path]] = None,
-        color_type: Optional[ColorSpace] = None,
+        color_space: Optional[ColorSpace] = None,
     ):
         """Load a saved camp
 
@@ -221,7 +221,7 @@ class Camp(ColorInfo):
             Name of the saved camp. This must match a subdirectory within `directory`
         directory : Optional[Union[str, Path]], optional
             Absolute or relative path to where camp is saved, by default None
-        color_type : ColorSpace, optional
+        color_space : ColorSpace, optional
             The new color representation (Color subclass). If None is supplied the default representation is used, by default None
 
         Returns
@@ -230,8 +230,8 @@ class Camp(ColorInfo):
             A collection of colors and color objects
 
         """
-        if color_type is None:
-            color_type = settings.default_color_type  # type: ignore
+        if color_space is None:
+            color_space = settings.default_color_space  # type: ignore
 
         # Search for matching directory in source locations
         if directory is None:
@@ -256,7 +256,7 @@ class Camp(ColorInfo):
             files = search_dir.glob("*.json") if search_dir.exists() else []
             for file in files:
                 bucket: Bucket = getattr(camp, sub_dir)
-                bucket.add(klass.load_json(file, color_type=color_type))
+                bucket.add(klass.load_json(file, color_space=color_space))
 
         return camp
 

@@ -1,5 +1,5 @@
 import pytest
-from conftest import param_color_types
+from conftest import param_color_spaces
 
 from colorcamp.color_space import HSL, RGB, BaseColor, Hex
 from colorcamp.groups import Map, Palette, Scale
@@ -38,8 +38,8 @@ class TestScale:
     def test_to_different_group(self, group_type: str, kw_args):
         assert isinstance(getattr(self.pal, f"to_{group_type.lower()}")(**kw_args), eval(group_type))
 
-    @param_color_types
-    def test_cast_color_space(self, color_type):
-        new_pal = self.pal.to_color_type(color_type)
+    @param_color_spaces
+    def test_cast_color_space(self, color_space):
+        new_pal = self.pal.to_color_space(color_space)
 
-        assert all((isinstance(color, eval(color_type)) for color in new_pal))
+        assert all((isinstance(color, eval(color_space)) for color in new_pal))

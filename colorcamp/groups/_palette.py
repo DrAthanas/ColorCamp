@@ -102,14 +102,14 @@ class Palette(ColorGroup, tuple):
         }
 
     @classmethod
-    def from_dict(cls, palette_dict: Dict[str, Any], color_type: Optional[ColorSpace] = None) -> Palette:
+    def from_dict(cls, palette_dict: Dict[str, Any], color_space: Optional[ColorSpace] = None) -> Palette:
         """create a new Palette object from a Palette dictionary
 
         Parameters
         ----------
         palette_dict : Dict[str, Any]
             a Palette dictionary
-        color_type : Literal['BaseColor', 'Hex', 'RGB', 'HSL']
+        color_space : Literal['BaseColor', 'Hex', 'RGB', 'HSL']
             the new color representation (Color subclass). If None is supplied the default representation is used, by default None
 
         Returns
@@ -118,11 +118,11 @@ class Palette(ColorGroup, tuple):
             A new Palette object
         """
 
-        if color_type is None:
-            color_type = settings.default_color_type  # type: ignore
+        if color_space is None:
+            color_space = settings.default_color_space  # type: ignore
 
         ## init colors
-        colors = [BaseColor.from_dict(color, color_type) for color in palette_dict["colors"]]
+        colors = [BaseColor.from_dict(color, color_space) for color in palette_dict["colors"]]
 
         return cls(
             colors=colors,
