@@ -69,7 +69,7 @@ def test_hue_interval_validator(value):
         "Cyan_000",
         "345",
         None,
-        param(345, marks=mark.xfail(TypeError, reason="empty strings are not valid")),
+        param(345, marks=mark.xfail(TypeError, reason="not a string")),
         param("", marks=mark.xfail(ValueError, reason="empty strings are not valid")),
         param(".hidden", marks=mark.xfail(ValueError, reason="contains '.' ")),
         param("inva/id", marks=mark.xfail(ValueError, reason="contains '/'")),

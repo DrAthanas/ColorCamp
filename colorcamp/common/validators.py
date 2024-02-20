@@ -71,7 +71,7 @@ class NameValidator(RegexValidator):
     """Name string validator"""
 
     def __init__(self):
-        regex = re.compile(r"^[a-zA-Z0-9_]+$")
+        regex = re.compile(r"^[a-zA-Z0-9_ ]+$")
         super().__init__(regex, "name")
 
     def validate(self, string: Union[str, None]) -> None:

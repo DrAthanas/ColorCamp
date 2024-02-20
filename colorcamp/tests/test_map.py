@@ -53,6 +53,9 @@ class TestMap:
 
         assert self.map == reloaded_map
 
+    def test_colors_attr(self):
+        assert self.map.colors == tuple(self.map.values())
+
 
 def test_not_color_objects(request):
     sky_hex: BaseColor = request.getfixturevalue("sky_Color").to_hex()

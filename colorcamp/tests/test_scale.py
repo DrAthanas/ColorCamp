@@ -46,6 +46,12 @@ class TestScale:
 
         assert self.scale == reloaded_scale
 
+    def test_reverse(self):
+        reversed_scale = self.scale.reverse()
+
+        assert self.scale.info() == reversed_scale.info()
+        assert self.scale.colors[::-1] == reversed_scale.colors
+
 
 def test_not_color_objects(request):
     sky_hex: BaseColor = request.getfixturevalue("sky_Color").to_hex()

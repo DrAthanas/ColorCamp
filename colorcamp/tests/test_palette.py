@@ -59,6 +59,12 @@ class TestPalette:
         # Check that it is no longer a Palette
         assert isinstance(colors, tuple) and not isinstance(colors, Palette)
 
+    def test_reverse(self):
+        reversed_pal = self.palette.reverse()
+
+        assert self.palette.info() == reversed_pal.info()
+        assert self.palette.colors[::-1] == reversed_pal.colors
+
 
 def test_not_color_objects(request):
     sky_hex: BaseColor = request.getfixturevalue("sky_Color").to_hex()
