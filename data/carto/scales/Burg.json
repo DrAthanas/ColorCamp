@@ -1,0 +1,87 @@
+{
+    "type": "Scale",
+    "name": "Burg",
+    "description": "sequential",
+    "metadata": {},
+    "colors": [
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 1.0,
+            "green": 0.7764705882352941,
+            "blue": 0.7686274509803922,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.9568627450980393,
+            "green": 0.6392156862745098,
+            "blue": 0.6588235294117647,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.8901960784313725,
+            "green": 0.5058823529411764,
+            "blue": 0.5686274509803921,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.8,
+            "green": 0.3764705882352941,
+            "blue": 0.49019607843137253,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.6784313725490196,
+            "green": 0.27450980392156865,
+            "blue": 0.4235294117647059,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.5450980392156862,
+            "green": 0.18823529411764706,
+            "blue": 0.34509803921568627,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.403921568627451,
+            "green": 0.12549019607843137,
+            "blue": 0.26666666666666666,
+            "alpha": null
+        }
+    ],
+    "stops": [
+        0.0,
+        0.16666666666666666,
+        0.3333333333333333,
+        0.5,
+        0.6666666666666666,
+        0.8333333333333334,
+        1
+    ]
+}

@@ -1,0 +1,10 @@
+{
+    "type": "BaseColor",
+    "name": "TabRed",
+    "description": null,
+    "metadata": {},
+    "red": 0.8392156862745098,
+    "green": 0.15294117647058825,
+    "blue": 0.1568627450980392,
+    "alpha": null
+}

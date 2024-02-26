@@ -8,7 +8,10 @@ from .common.validators import ColorTypeValidator, PathValidator
 
 __all__ = ["settings"]
 
-PROJECT_PATHS = Path(__file__).parent.parent / "data"
+PROJECT_PATHS = (
+    Path(__file__).parent.parent / "data",
+    Path.cwd(),
+)
 
 
 class Settings:
@@ -17,7 +20,7 @@ class Settings:
     def __init__(
         self,
         default_color_space: ColorSpace = "Hex",
-        camp_paths: Sequence[Union[Path, str]] = (PROJECT_PATHS,),
+        camp_paths: Sequence[Union[Path, str]] = PROJECT_PATHS,
     ):
         self.default_color_space = default_color_space
         self.camp_paths = camp_paths

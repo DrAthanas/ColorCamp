@@ -1,0 +1,98 @@
+{
+    "type": "Palette",
+    "name": "Oranges",
+    "description": "sequential",
+    "metadata": {},
+    "colors": [
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 1.0,
+            "green": 0.9607843137254902,
+            "blue": 0.9215686274509803,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.996078431372549,
+            "green": 0.9019607843137255,
+            "blue": 0.807843137254902,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.9921568627450981,
+            "green": 0.8156862745098039,
+            "blue": 0.6352941176470588,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.9921568627450981,
+            "green": 0.6823529411764706,
+            "blue": 0.4196078431372549,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.9921568627450981,
+            "green": 0.5529411764705883,
+            "blue": 0.23529411764705882,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.9450980392156862,
+            "green": 0.4117647058823529,
+            "blue": 0.07450980392156863,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.8509803921568627,
+            "green": 0.2823529411764706,
+            "blue": 0.00392156862745098,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.6509803921568628,
+            "green": 0.21176470588235294,
+            "blue": 0.011764705882352941,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.4980392156862745,
+            "green": 0.15294117647058825,
+            "blue": 0.01568627450980392,
+            "alpha": null
+        }
+    ]
+}

@@ -3,7 +3,10 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 
 import pytest
+from pytest import mark, param
+from bs4 import BeautifulSoup
 
+from colorcamp._report import report, camp_to_html
 from colorcamp._camp import Camp
 from colorcamp._settings import settings
 from colorcamp.color_space import BaseColor, Hex
@@ -113,11 +116,69 @@ class TestCamp:
         with pytest.raises(ValueError):
             camp_copy.add_objects([Hex("#000", name="a")])
 
+    @pytest.mark.parametrize(
+        ('color_space'),
+        [
+            None,
+            (('HSL','Hex')),
+            (['RGB']),
+            param(('XYZ'), marks=mark.xfail(ValueError, reason="Not supported color space"))
+        ]
+    )
+    @pytest.mark.parametrize(
+        ('sections'),
+        [
+            None,
+            (('colors','maps')),
+            (('palettes', 'colors')),
+            param(('gaggle'), marks=mark.xfail(ValueError, reason="Not valid section")),
+        ]
+    )
+    def test_html_report(self, color_space, sections):
+        html_report = camp_to_html(
+            self.camp,
+            color_spaces=color_space,
+            sections=sections,
+        )
 
-def test_load_predefined_camp():
-    web_colors = Camp.load("web_colors")
+        assert bool(BeautifulSoup(html_report, "html.parser").find())
 
-    assert len(web_colors.colors.names) == 141
+    def test_report(self, tmp_path):
+        camp: Camp = self.camp
 
-    with pytest.raises(FileNotFoundError):
-        web_colors2 = Camp.load("web_colors2")
+        assert report(camp) is None
+
+@pytest.mark.parametrize(
+    ('camp_name'),
+    [
+        ('web_colors'),
+        ('carto'),
+        ('colorbrewer'),
+        ('seaborn'),
+        #('XKCD'),
+        #('plotly'),
+        param("web_colors2", marks=mark.xfail(FileNotFoundError, reason="No named color camp")),
+    ]
+)
+def test_load_predefined_camps(camp_name):
+    assert Camp.load(camp_name)
+
+    
+
+@pytest.mark.parametrize(
+    ('directory', 'exp1', 'exp2'),
+    [
+        (None,len(settings.camp_paths), 4),
+        (Path().cwd(), 1, 0),
+    ]
+)
+def test_find_predefined_camps(directory, exp1, exp2):
+    found_camps = Camp.find(directory)
+    camp_names = []
+    for _, names in found_camps.items():
+        camp_names.extend(names)
+
+    # length should be the same as the number of default paths
+    assert len(found_camps) == exp1
+    assert len(camp_names) == exp2
+    

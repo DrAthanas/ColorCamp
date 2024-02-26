@@ -6,6 +6,7 @@ from pytest import mark, param
 
 from colorcamp.common.exceptions import NumericIntervalError
 from colorcamp.common.validators import (
+    ColorGroupValidator,
     ColorTypeValidator,
     DescriptionValidator,
     FractionIntervalValidator,
@@ -122,3 +123,16 @@ def test_path_validator(value):
 )
 def test_color_space_validator(color_space):
     ColorTypeValidator().validate(color_space)
+
+@pytest.mark.parametrize(
+    "color_group",
+    [
+        "Palette",
+        "Scale",
+        "Map",
+        param("Argus", marks=mark.xfail(TypeError, reason="Not a color group literal")),
+        param(1234, marks=mark.xfail(TypeError, reason="Not a color literal")),
+    ],
+)
+def test_color_group_validator(color_group):
+    ColorGroupValidator().validate(color_group)

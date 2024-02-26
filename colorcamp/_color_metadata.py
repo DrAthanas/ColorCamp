@@ -163,11 +163,11 @@ class ColorSerializer:
         with open(file_path, mode="w", encoding="utf-8") as fio:
             json.dump(self.to_dict(), fio, indent=4)
 
-
+# Unused argument, abstract method not overwritten
+# pylint: disable=W0613, disable=W0223
 class MetaColor(ColorInfo, ColorSerializer):
     """All Colors and Color container objects will have some common metadata and functionality"""
 
-    # pylint: disable=W0613, disable=W0223
     def __init__(
         self,
         *args,
@@ -192,8 +192,6 @@ class MetaColor(ColorInfo, ColorSerializer):
             description=description,
             metadata=metadata,
         )
-
-    # pylint: enable=W0613, enable=W0223
 
     def change_info(
         self,
@@ -220,11 +218,11 @@ class MetaColor(ColorInfo, ColorSerializer):
         if kwargs:
             raise ValueError(f".change_info got an unexpected keyword argument(s) {', '.join(kwargs.keys())}")
 
-        orig: dict = self.to_dict()
-
         return self.from_dict(
             {
-                **orig,
+                **self.to_dict(),
                 **new_info,
             }
         )
+
+# pylint: enable=W0613, enable=W0223

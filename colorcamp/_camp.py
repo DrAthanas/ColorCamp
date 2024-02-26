@@ -3,7 +3,7 @@
 import json
 from copy import copy
 from pathlib import Path
-from typing import Any, Dict, Optional, Sequence, Union
+from typing import Any, Dict, List, Optional, Sequence, Union
 
 from ._color_metadata import ColorInfo
 from ._settings import settings
@@ -205,6 +205,39 @@ class Camp(ColorInfo):
             except ValueError as value_error:
                 if not exists_ok:
                     raise value_error
+
+    @staticmethod
+    def find(directory: Optional[Union[str, Path]] = None) -> Dict[str, List[str]]:
+        """Find all valid camps in default directories or a provided one
+
+        Parameters
+        ----------
+        directory : Optional[Union[str, Path]], optional
+            An optional search directory, by default None
+
+        Returns
+        -------
+        Dict[str, List[str]]
+            All found camps within input directories. They key is the root director, and the key is a list of camp names found
+
+        """
+        found_camps = {}
+
+        if directory is None:
+            camp_paths = [Path(cpath) for cpath in settings.camp_paths]
+        else:
+            PathValidator().validate(directory)
+            camp_paths = [Path(directory)]
+
+        def only_valid_camp(check_paths: List[Path]):
+            for cpath in check_paths:
+                if cpath.is_dir() and (cpath / "camp_info.json").exists():
+                    yield cpath.name
+
+        for camp_path in camp_paths:
+            found_camps[str(camp_path)] = list(only_valid_camp(camp_path.glob("*")))  # type: ignore
+
+        return found_camps
 
     @classmethod
     def load(

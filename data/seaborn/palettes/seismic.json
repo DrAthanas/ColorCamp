@@ -1,0 +1,68 @@
+{
+    "type": "Palette",
+    "name": "seismic",
+    "description": "diverging",
+    "metadata": {},
+    "colors": [
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.0,
+            "green": 0.0,
+            "blue": 0.6952941176470588,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.1450980392156863,
+            "green": 0.1450980392156863,
+            "blue": 1.0,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.7098039215686275,
+            "green": 0.7098039215686275,
+            "blue": 1.0,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 1.0,
+            "green": 0.7098039215686274,
+            "blue": 0.7098039215686274,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 1.0,
+            "green": 0.14509803921568631,
+            "blue": 0.14509803921568631,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.7823529411764706,
+            "green": 0.0,
+            "blue": 0.0,
+            "alpha": null
+        }
+    ]
+}

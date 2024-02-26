@@ -1,12 +1,24 @@
 [tool.poetry]
 name = "colorcamp"
-version = "0.1.0"
+version = "0.2.0"
 description = "A collection of colors is a Camp!"
 readme = "README.md"
 license = "Apache-2.0"
 authors = ["Argus J Athanas <argus@athanas.org>"]
 repository = "https://github.com/DrAthanas/ColorCamp"
 keywords = ["color", "palette",""]
+classifiers = [
+  'Development Status :: 4 - Beta',
+  'Intended Audience :: Developers',
+  'Intended Audience :: Science/Research',
+  'Framework :: Jupyter',
+  'Framework :: Pytest',
+  'Natural Language :: English',
+  'Topic :: Artistic Software',
+  'Topic :: Scientific/Engineering',
+  'Typing :: Typed',
+  'Topic :: Multimedia :: Graphics',
+]
 
 
 [tool.poetry.dependencies]

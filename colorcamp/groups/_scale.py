@@ -92,7 +92,13 @@ class Scale(ColorGroup, tuple):
 
         return tuple(self)
 
-    def reverse(self):
+    def reverse(self) -> Scale:
+        """Return a new scale with the order of the colors reversed
+
+        Returns
+        -------
+        Scale
+        """
         return Scale(colors=self.colors[::-1], stops=self.stops, **self.info())
 
     def to_dict(self):
