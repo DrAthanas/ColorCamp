@@ -3,11 +3,11 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 
 import pytest
-from pytest import mark, param
 from bs4 import BeautifulSoup
+from pytest import mark, param
 
-from colorcamp._report import report, camp_to_html
 from colorcamp._camp import Camp
+from colorcamp._report import camp_to_html, report
 from colorcamp._settings import settings
 from colorcamp.color_space import BaseColor, Hex
 from colorcamp.groups import Map, Palette, Scale
@@ -117,22 +117,22 @@ class TestCamp:
             camp_copy.add_objects([Hex("#000", name="a")])
 
     @pytest.mark.parametrize(
-        ('color_space'),
+        ("color_space"),
         [
             None,
-            (('HSL','Hex')),
-            (['RGB']),
-            param(('XYZ'), marks=mark.xfail(ValueError, reason="Not supported color space"))
-        ]
+            (("HSL", "Hex")),
+            (["RGB"]),
+            param(("XYZ"), marks=mark.xfail(ValueError, reason="Not supported color space")),
+        ],
     )
     @pytest.mark.parametrize(
-        ('sections'),
+        ("sections"),
         [
             None,
-            (('colors','maps')),
-            (('palettes', 'colors')),
-            param(('gaggle'), marks=mark.xfail(ValueError, reason="Not valid section")),
-        ]
+            (("colors", "maps")),
+            (("palettes", "colors")),
+            param(("gaggle"), marks=mark.xfail(ValueError, reason="Not valid section")),
+        ],
     )
     def test_html_report(self, color_space, sections):
         html_report = camp_to_html(
@@ -148,29 +148,29 @@ class TestCamp:
 
         assert report(camp) is None
 
+
 @pytest.mark.parametrize(
-    ('camp_name'),
+    ("camp_name"),
     [
-        ('web_colors'),
-        ('carto'),
-        ('colorbrewer'),
-        ('seaborn'),
-        #('XKCD'),
-        #('plotly'),
+        ("web_colors"),
+        ("carto"),
+        ("colorbrewer"),
+        ("seaborn"),
+        # ('XKCD'),
+        # ('plotly'),
         param("web_colors2", marks=mark.xfail(FileNotFoundError, reason="No named color camp")),
-    ]
+    ],
 )
 def test_load_predefined_camps(camp_name):
     assert Camp.load(camp_name)
 
-    
 
 @pytest.mark.parametrize(
-    ('directory', 'exp1', 'exp2'),
+    ("directory", "exp1", "exp2"),
     [
-        (None,len(settings.camp_paths), 4),
+        (None, len(settings.camp_paths), 4),
         (Path().cwd(), 1, 0),
-    ]
+    ],
 )
 def test_find_predefined_camps(directory, exp1, exp2):
     found_camps = Camp.find(directory)
@@ -181,4 +181,3 @@ def test_find_predefined_camps(directory, exp1, exp2):
     # length should be the same as the number of default paths
     assert len(found_camps) == exp1
     assert len(camp_names) == exp2
-    

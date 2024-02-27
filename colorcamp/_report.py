@@ -177,7 +177,7 @@ def camp_to_html(
     camp: Camp,
     color_spaces: Optional[List[ColorSpace]] = None,
     sections: Optional[List[str]] = None,
-    )->str:
+) -> str:
     """Generate an HTML report of all your colors and color groups that can be easily shipped or shared with any analysis
 
     Parameters
@@ -194,7 +194,7 @@ def camp_to_html(
     str
         HTML string containing camp report document
     """
-       
+
     valid_sections = ("colors", "palettes", "scales", "maps")
     valid_color_spaces = tuple(ColorSpace.__args__[1:])  # type: ignore
 
@@ -214,7 +214,7 @@ def camp_to_html(
         color_spaces = valid_color_spaces
     else:
         if any((space not in valid_color_spaces for space in color_spaces)):
-            raise ValueError(f'color space must be one of: {valid_color_spaces}')
+            raise ValueError(f"color space must be one of: {valid_color_spaces}")
 
     table_formatters = {
         "colors": partial(_format_color_spaces_table, color_spaces=color_spaces),
@@ -247,6 +247,7 @@ def camp_to_html(
 
     return html_report
 
+
 def report(
     camp: Camp,
     report_path: Optional[Union[Path, str]] = None,
@@ -278,5 +279,5 @@ def report(
 
     html_report = camp_to_html(camp, color_spaces, sections)
 
-    with open(report_path, "w", encoding = 'UTF-8') as file:
+    with open(report_path, "w", encoding="UTF-8") as file:
         file.write(html_report)

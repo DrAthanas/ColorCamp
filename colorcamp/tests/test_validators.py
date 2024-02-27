@@ -124,6 +124,7 @@ def test_path_validator(value):
 def test_color_space_validator(color_space):
     ColorTypeValidator().validate(color_space)
 
+
 @pytest.mark.parametrize(
     "color_group",
     [

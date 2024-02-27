@@ -163,6 +163,7 @@ class ColorSerializer:
         with open(file_path, mode="w", encoding="utf-8") as fio:
             json.dump(self.to_dict(), fio, indent=4)
 
+
 # Unused argument, abstract method not overwritten
 # pylint: disable=W0613, disable=W0223
 class MetaColor(ColorInfo, ColorSerializer):
@@ -224,5 +225,6 @@ class MetaColor(ColorInfo, ColorSerializer):
                 **new_info,
             }
         )
+
 
 # pylint: enable=W0613, enable=W0223

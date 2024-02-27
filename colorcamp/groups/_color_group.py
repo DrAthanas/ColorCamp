@@ -5,8 +5,8 @@ from __future__ import annotations
 from abc import abstractmethod
 from typing import Dict, Hashable, Optional, Sequence, Tuple
 
-from colorcamp.color_space import BaseColor
 from colorcamp._color_metadata import MetaColor
+from colorcamp.color_space import BaseColor
 from colorcamp.common.types import ColorSpace, Numeric
 from colorcamp.common.validators import ColorGroupValidator
 
@@ -18,7 +18,7 @@ class ColorGroup(MetaColor):
 
     @property
     @abstractmethod
-    def colors(self)->Tuple[BaseColor]:
+    def colors(self) -> Tuple[BaseColor]:
         """Sequence of colors"""
         return
 
@@ -27,7 +27,7 @@ class ColorGroup(MetaColor):
         name = cls.__name__
         cls._subclasses[name] = cls
 
-    def __to_type(self, color_group_type:str, **kwargs):
+    def __to_type(self, color_group_type: str, **kwargs):
         ColorGroupValidator().validate(color_group_type)
 
         if color_group_type is self.__class__.__name__:
@@ -74,7 +74,7 @@ class ColorGroup(MetaColor):
         """
         return self.__to_type("Scale", stops=stops)
 
-    def to_map(self, names:Sequence[Hashable]=None) -> "Map":
+    def to_map(self, names: Optional[Sequence[Hashable]] = None) -> "Map":
         """Convert the current color group into a color scale object
 
         Parameters

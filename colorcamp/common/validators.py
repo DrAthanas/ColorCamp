@@ -120,11 +120,11 @@ class ColorTypeValidator(IValidator):
         if not obj in ColorSpace.__args__:  # type: ignore
             raise TypeError(f"incorrect literal type. must be one of {ColorSpace}")
 
+
 class ColorGroupValidator(IValidator):
     "Color Group Validator"
-    VALID_COLOR_GROUPS =('Palette', 'Scale', 'Map')
+    VALID_COLOR_GROUPS = ("Palette", "Scale", "Map")
 
-    def validate(self, color_group:str) -> None:
+    def validate(self, color_group: str) -> None:
         if not color_group in self.VALID_COLOR_GROUPS:
-            raise ValueError(f'color group should be one of: {self.VALID_COLOR_GROUPS}')
-        
+            raise ValueError(f"color group should be one of: {self.VALID_COLOR_GROUPS}")
