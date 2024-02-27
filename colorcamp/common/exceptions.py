@@ -3,5 +3,3 @@
 
 class NumericIntervalError(Exception):
     """Invalid interval error"""
-
-    pass
