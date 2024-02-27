@@ -10,6 +10,7 @@ from .types import ColorSpace, Numeric
 # Too few public methods
 # pylint: disable=R0903
 
+
 class IValidator(Protocol):
     """Generic validator"""
 
