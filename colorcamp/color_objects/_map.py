@@ -1,13 +1,17 @@
 """Mapping of hashes to Colors"""
 
 from __future__ import annotations
-from typing import Dict, Optional, Any, Hashable
-from collections import UserDict
 
-from colorcamp.color_objects._color_metadata import MetaColor
-from colorcamp.common.types import ColorSpace
+from collections import UserDict
+from typing import Any, Dict, Hashable, Optional
+
 from colorcamp._settings import settings
-from .color_space import BaseColor
+from colorcamp.color_space import BaseColor
+from colorcamp.common.types import ColorSpace
+
+from ._color_group import ColorGroup
+
+__all__ = ["Map"]
 
 DIV_TEMPLATE = """
 <tr>
@@ -23,7 +27,8 @@ DIV_TEMPLATE = """
 """
 
 
-class Map(UserDict, MetaColor):
+# ? Should UserDict be first?
+class Map(UserDict, ColorGroup):
     """A color object to represent color Mappings"""
 
     def __init__(
@@ -52,6 +57,10 @@ class Map(UserDict, MetaColor):
         self.metadata = metadata  # type: ignore
 
         super().__init__(color_map)
+
+    @property
+    def colors(self):
+        return tuple(self.values())
 
     def to_dict(self) -> dict:
         """create a dictionary of all Map attributes

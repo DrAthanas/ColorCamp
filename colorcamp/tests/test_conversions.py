@@ -1,5 +1,6 @@
 import pytest
-from colorcamp.conversions import hex_to_rgb, rgb_to_hex, rgb_to_hsl, MAX_PRECISION
+
+from colorcamp.conversions import MAX_PRECISION, hex_to_rgb, rgb_to_hex, rgb_to_hsl
 
 
 # ? Add expected failure cases

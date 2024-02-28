@@ -1,30 +1,36 @@
-from typing import Protocol, Union
-from pathlib import Path
+"""Input validators for ColorCamp package"""
 
-from .types import Numeric, ColorSpace
 import re
+from pathlib import Path
+from typing import Protocol, Union
+
 from .exceptions import NumericIntervalError
+from .types import ColorSpace, Numeric
+
+# Too few public methods
+# pylint: disable=R0903
 
 
 class IValidator(Protocol):
     """Generic validator"""
 
     def validate(self, *args, **kwargs) -> None:
+        """Generic validator"""
         raise NotImplementedError("validate not implemented")
 
 
 class UnitIntervalValidator(IValidator):
     """Unit interval validator"""
 
-    def __init__(self, min: Numeric, max: Numeric, name: str = "value"):
-        self.min = min
-        self.max = max
+    def __init__(self, _min: Numeric, _max: Numeric, name: str = "value"):
+        self.min = _min
+        self.max = _max
         self.name = name
 
     def validate(self, value: Union[int, float]) -> None:
         if not isinstance(value, (int, float)):
             raise TypeError(f"{self.name} should be a Numeric[int, float]")
-        if not (self.min <= value <= self.max):
+        if not self.min <= value <= self.max:
             raise NumericIntervalError(f"{self.name} ({value}) is out side of interval range [{self.min}, {self.max}]")
 
 
@@ -32,7 +38,7 @@ class FractionIntervalValidator(UnitIntervalValidator):
     """Fraction interval validator [0,1]"""
 
     def __init__(self, name="value"):
-        super().__init__(min=0, max=1, name=name)
+        super().__init__(_min=0, _max=1, name=name)
 
 
 class HueIntervalValidator(UnitIntervalValidator):
@@ -40,14 +46,14 @@ class HueIntervalValidator(UnitIntervalValidator):
 
     def __init__(self):
         self.name = "hue"
-        super().__init__(min=0, max=360)
+        super().__init__(_min=0, _max=360)
 
 
 class RGB256IntervalValidator(UnitIntervalValidator):
     """RGB interval validator [0,255]"""
 
     def __init__(self, name: str = "256 RGB"):
-        super().__init__(min=0, max=255, name=name)
+        super().__init__(_min=0, _max=255, name=name)
 
 
 class RegexValidator(IValidator):
@@ -60,9 +66,9 @@ class RegexValidator(IValidator):
     def validate(self, string: str) -> None:
         if not isinstance(string, str):
             raise TypeError(f"{self.name} should be a string")
-        elif len(string) == 0:
+        if len(string) == 0:
             raise ValueError("can not use empty strings")
-        elif not self.regex.match(string):
+        if not self.regex.match(string):
             # ? more descriptive error
             raise ValueError(f"invalid {self.name}: {string}")
 
@@ -75,9 +81,8 @@ class NameValidator(RegexValidator):
         super().__init__(regex, "name")
 
     def validate(self, string: Union[str, None]) -> None:
-        if string is None:
-            return
-        return super().validate(string)
+        if string is not None:
+            super().validate(string)
 
 
 class HexStringValidator(RegexValidator):
@@ -119,3 +124,12 @@ class ColorTypeValidator(IValidator):
     def validate(self, obj) -> None:
         if not obj in ColorSpace.__args__:  # type: ignore
             raise TypeError(f"incorrect literal type. must be one of {ColorSpace}")
+
+
+class ColorGroupValidator(IValidator):
+    "Color Group Validator"
+    VALID_COLOR_GROUPS = ("Palette", "Scale", "Map")
+
+    def validate(self, color_group: str) -> None:
+        if not color_group in self.VALID_COLOR_GROUPS:
+            raise ValueError(f"color group should be one of: {self.VALID_COLOR_GROUPS}")

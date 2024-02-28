@@ -1,16 +1,18 @@
 """Camp organizes colors into frame work for projects"""
 
-from typing import Any, Union, Optional, Dict, Sequence
-from pathlib import Path
 import json
 from copy import copy
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Sequence, Union
 
+from ._color_metadata import ColorInfo
 from ._settings import settings
-from .color_objects._color_metadata import ColorInfo
+from .color_space import BaseColor
 from .common.types import ColorObject, ColorSpace
 from .common.validators import PathValidator
-from .color_objects.color_space import BaseColor
-from .color_objects import Map, Scale, Palette
+from .groups import Map, Palette, Scale
+
+__all__ = ["Camp"]
 
 ColorObjectType = Union[type[BaseColor], type[Scale], type[Palette], type[Map]]
 
@@ -204,12 +206,45 @@ class Camp(ColorInfo):
                 if not exists_ok:
                     raise value_error
 
+    @staticmethod
+    def find(directory: Optional[Union[str, Path]] = None) -> Dict[str, List[str]]:
+        """Find all valid camps in default directories or a provided one
+
+        Parameters
+        ----------
+        directory : Optional[Union[str, Path]], optional
+            An optional search directory, by default None
+
+        Returns
+        -------
+        Dict[str, List[str]]
+            All found camps within input directories. They key is the root director, and the key is a list of camp names found
+
+        """
+        found_camps = {}
+
+        if directory is None:
+            camp_paths = [Path(cpath) for cpath in settings.camp_paths]
+        else:
+            PathValidator().validate(directory)
+            camp_paths = [Path(directory)]
+
+        def only_valid_camp(check_paths: List[Path]):
+            for cpath in check_paths:
+                if cpath.is_dir() and (cpath / "camp_info.json").exists():
+                    yield cpath.name
+
+        for camp_path in camp_paths:
+            found_camps[str(camp_path)] = list(only_valid_camp(camp_path.glob("*")))  # type: ignore
+
+        return found_camps
+
     @classmethod
     def load(
         cls,
         name: str,
         directory: Optional[Union[str, Path]] = None,
-        color_type: Optional[ColorSpace] = None,
+        color_space: Optional[ColorSpace] = None,
     ):
         """Load a saved camp
 
@@ -219,7 +254,7 @@ class Camp(ColorInfo):
             Name of the saved camp. This must match a subdirectory within `directory`
         directory : Optional[Union[str, Path]], optional
             Absolute or relative path to where camp is saved, by default None
-        color_type : ColorSpace, optional
+        color_space : ColorSpace, optional
             The new color representation (Color subclass). If None is supplied the default representation is used, by default None
 
         Returns
@@ -228,8 +263,8 @@ class Camp(ColorInfo):
             A collection of colors and color objects
 
         """
-        if color_type is None:
-            color_type = settings.default_color_type  # type: ignore
+        if color_space is None:
+            color_space = settings.default_color_space  # type: ignore
 
         # Search for matching directory in source locations
         if directory is None:
@@ -254,7 +289,7 @@ class Camp(ColorInfo):
             files = search_dir.glob("*.json") if search_dir.exists() else []
             for file in files:
                 bucket: Bucket = getattr(camp, sub_dir)
-                bucket.add(klass.load_json(file, color_type=color_type))
+                bucket.add(klass.load_json(file, color_space=color_space))
 
         return camp
 

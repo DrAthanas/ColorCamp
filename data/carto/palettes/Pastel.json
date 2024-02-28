@@ -1,0 +1,118 @@
+{
+    "type": "Palette",
+    "name": "Pastel",
+    "description": "qualitative",
+    "metadata": {},
+    "colors": [
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.4,
+            "green": 0.7725490196078432,
+            "blue": 0.8,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.9647058823529412,
+            "green": 0.8117647058823529,
+            "blue": 0.44313725490196076,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.9725490196078431,
+            "green": 0.611764705882353,
+            "blue": 0.4549019607843137,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.8627450980392157,
+            "green": 0.6901960784313725,
+            "blue": 0.9490196078431372,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.5294117647058824,
+            "green": 0.7725490196078432,
+            "blue": 0.37254901960784315,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.6196078431372549,
+            "green": 0.7254901960784313,
+            "blue": 0.9529411764705882,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.996078431372549,
+            "green": 0.5333333333333333,
+            "blue": 0.6941176470588235,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.788235294117647,
+            "green": 0.8588235294117647,
+            "blue": 0.4549019607843137,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.5450980392156862,
+            "green": 0.8784313725490196,
+            "blue": 0.6431372549019608,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.7058823529411765,
+            "green": 0.592156862745098,
+            "blue": 0.9058823529411765,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.7019607843137254,
+            "green": 0.7019607843137254,
+            "blue": 0.7019607843137254,
+            "alpha": null
+        }
+    ]
+}

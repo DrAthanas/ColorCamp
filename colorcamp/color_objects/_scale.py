@@ -1,14 +1,17 @@
 """Linear gradients of Colors"""
 
 from __future__ import annotations
-from typing import Sequence, Optional, Dict, Any
 
+from typing import Any, Dict, Optional, Sequence
 
 from colorcamp._settings import settings
+from colorcamp.color_space import BaseColor
 from colorcamp.common.types import ColorSpace, Numeric
 from colorcamp.common.validators import FractionIntervalValidator
-from .color_space import BaseColor
-from ._color_metadata import MetaColor
+
+from ._color_group import ColorGroup
+
+__all__ = ["Scale"]
 
 DIV_TEMPLATE = """
 <div style="
@@ -23,7 +26,7 @@ DIV_TEMPLATE = """
 """
 
 
-class Scale(MetaColor, tuple):
+class Scale(ColorGroup, tuple):
     """An object to represent continuous color Scales"""
 
     # pylint: disable=W0613
@@ -88,6 +91,9 @@ class Scale(MetaColor, tuple):
         """Sequence of Colors"""
 
         return tuple(self)
+
+    def reverse(self):
+        return Scale(colors=self.colors[::-1], stops=self.stops, **self.info())
 
     def to_dict(self):
         """Create a dictionary of all Scale attributes

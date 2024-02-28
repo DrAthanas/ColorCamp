@@ -2,7 +2,8 @@ from tempfile import NamedTemporaryFile
 
 import pytest
 
-from colorcamp.color_objects._color_metadata import MetaColor
+from colorcamp._color_metadata import MetaColor
+from colorcamp.color_space import BaseColor
 
 
 @pytest.fixture(scope="class")
@@ -37,6 +38,27 @@ class TestColorMetadata:
                 self.color_metadata.dump_json(tempfile.name)
 
 
+@pytest.mark.parametrize(
+    ["new_info", "new_name"],
+    [
+        ({"name": "happy_new_name"}, "happy_new_name"),
+        pytest.param({}, "", marks=pytest.mark.xfail(raises=ValueError)),
+        pytest.param({"x": 123, "name": "happy_new_name"}, "", marks=pytest.mark.xfail(raises=ValueError)),
+    ],
+)
+def test_change_info(new_info, new_name):
+    bc = BaseColor(
+        0.5,
+        0.2,
+        0.9,
+        name="test_color",
+        description="I love my dog",
+        metadata={"value": 123, "sub_desc": "blue"},
+    )
+
+    assert bc.change_info(**new_info).name == new_name
+
+
 ### Fail Cases ###
 # ? Move these to test_validators
 @pytest.mark.parametrize(
@@ -61,6 +83,6 @@ def test_bad_names(name, exception):
         (1234, TypeError),
     ],
 )
-def test_bad_names(description, exception):
+def test_bad_descriptions(description, exception):
     with pytest.raises(exception):
         MetaColor(name="name", description=description)

@@ -1,12 +1,12 @@
-from typing import Mapping
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from typing import Mapping
 
 import pytest
 from bs4 import BeautifulSoup
 
-from colorcamp.color_objects.color_space import BaseColor
-from colorcamp.color_objects import Map
+from colorcamp.color_space import BaseColor
+from colorcamp.groups import Map
 
 
 @pytest.fixture(scope="class")
@@ -52,6 +52,9 @@ class TestMap:
             reloaded_map = Map.load_json(color_path)
 
         assert self.map == reloaded_map
+
+    def test_colors_attr(self):
+        assert self.map.colors == tuple(self.map.values())
 
 
 def test_not_color_objects(request):

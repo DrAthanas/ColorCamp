@@ -1,20 +1,20 @@
 from pathlib import Path
 
 import pytest
-from pytest import param, mark
+from conftest import param_color_spaces, param_hex_codes
+from pytest import mark, param
 
 from colorcamp.common.exceptions import NumericIntervalError
-from conftest import param_hex_codes, param_color_types
-
 from colorcamp.common.validators import (
-    FractionIntervalValidator,
-    HueIntervalValidator,
-    RGB256IntervalValidator,
-    NameValidator,
-    HexStringValidator,
-    DescriptionValidator,
-    PathValidator,
+    ColorGroupValidator,
     ColorTypeValidator,
+    DescriptionValidator,
+    FractionIntervalValidator,
+    HexStringValidator,
+    HueIntervalValidator,
+    NameValidator,
+    PathValidator,
+    RGB256IntervalValidator,
 )
 
 
@@ -70,7 +70,7 @@ def test_hue_interval_validator(value):
         "Cyan_000",
         "345",
         None,
-        param(345, marks=mark.xfail(TypeError, reason="empty strings are not valid")),
+        param(345, marks=mark.xfail(TypeError, reason="not a string")),
         param("", marks=mark.xfail(ValueError, reason="empty strings are not valid")),
         param(".hidden", marks=mark.xfail(ValueError, reason="contains '.' ")),
         param("inva/id", marks=mark.xfail(ValueError, reason="contains '/'")),
@@ -111,9 +111,9 @@ def test_path_validator(value):
 
 
 @pytest.mark.parametrize(
-    "color_type",
+    "color_space",
     [
-        "Color",
+        "BaseColor",
         "Hex",
         "RGB",
         "HSL",
@@ -121,5 +121,19 @@ def test_path_validator(value):
         param(1234, marks=mark.xfail(TypeError, reason="Not a color literal")),
     ],
 )
-def test_color_type_validator(color_type):
-    ColorTypeValidator().validate(color_type)
+def test_color_space_validator(color_space):
+    ColorTypeValidator().validate(color_space)
+
+
+@pytest.mark.parametrize(
+    "color_group",
+    [
+        "Palette",
+        "Scale",
+        "Map",
+        param("Argus", marks=mark.xfail(TypeError, reason="Not a color group literal")),
+        param(1234, marks=mark.xfail(TypeError, reason="Not a color literal")),
+    ],
+)
+def test_color_group_validator(color_group):
+    ColorGroupValidator().validate(color_group)

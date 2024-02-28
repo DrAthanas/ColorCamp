@@ -6,18 +6,5 @@
     "red": 0.8784313725490196,
     "green": 1.0,
     "blue": 1.0,
-    "alpha": null,
-    "color_formats": {
-        "Hex": "#E0FFFF",
-        "RGB": [
-            224,
-            255,
-            255
-        ],
-        "HSL": [
-            180.0,
-            1.0,
-            0.939216
-        ]
-    }
+    "alpha": null
 }

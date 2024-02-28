@@ -1,12 +1,24 @@
 [tool.poetry]
 name = "colorcamp"
-version = "0.1.0"
+version = "0.2.0"
 description = "A collection of colors is a Camp!"
 readme = "README.md"
 license = "Apache-2.0"
 authors = ["Argus J Athanas <argus@athanas.org>"]
 repository = "https://github.com/DrAthanas/ColorCamp"
 keywords = ["color", "palette",""]
+classifiers = [
+  'Development Status :: 4 - Beta',
+  'Intended Audience :: Developers',
+  'Intended Audience :: Science/Research',
+  'Framework :: Jupyter',
+  'Framework :: Pytest',
+  'Natural Language :: English',
+  'Topic :: Artistic Software',
+  'Topic :: Scientific/Engineering',
+  'Typing :: Typed',
+  'Topic :: Multimedia :: Graphics',
+]
 
 
 [tool.poetry.dependencies]
@@ -15,7 +27,12 @@ python = "^3.9"
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4"
 pytest-cov = "^4.1"
+isort = "^5.0"
 beautifulsoup4 = "^4.12"
+black = "^23.11"
+mypy = "^1.5"
+pylint = "^2.16"
+pre-commit = "^3.6.1"
 
 [tool.black]
 line-length = 120
@@ -62,12 +79,16 @@ exclude_also = [
 
     # Don't complain about abstract methods, they aren't run:
     "@(abc\\.)?abstractmethod",
+    "@(abc\\.)?abstractproperty",
     ]
 
 ignore_errors = true
 
 [tool.coverage.html]
 directory = "coverage_html_report"
+
+[tool.isort]
+profile = "black"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

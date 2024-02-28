@@ -1,11 +1,11 @@
-from tempfile import TemporaryDirectory
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import pytest
 from bs4 import BeautifulSoup
 
-from colorcamp.color_objects.color_space import BaseColor
-from colorcamp.color_objects import Palette
+from colorcamp.color_space import BaseColor
+from colorcamp.groups import Palette
 
 
 @pytest.fixture(scope="class")
@@ -58,6 +58,12 @@ class TestPalette:
         assert self.palette == colors
         # Check that it is no longer a Palette
         assert isinstance(colors, tuple) and not isinstance(colors, Palette)
+
+    def test_reverse(self):
+        reversed_pal = self.palette.reverse()
+
+        assert self.palette.info() == reversed_pal.info()
+        assert self.palette.colors[::-1] == reversed_pal.colors
 
 
 def test_not_color_objects(request):

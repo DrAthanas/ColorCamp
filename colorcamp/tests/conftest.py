@@ -2,7 +2,7 @@ from functools import partial
 
 import pytest
 
-from colorcamp.color_objects.color_space import BaseColor, Hex, RGB, HSL
+from colorcamp.color_space import HSL, RGB, BaseColor, Hex
 from colorcamp.common.exceptions import NumericIntervalError
 
 # Standard test:
@@ -111,9 +111,9 @@ param_colors = partial(
     )
 )
 
-param_color_types = partial(
+param_color_spaces = partial(
     pytest.mark.parametrize(
-        "color_type",
+        "color_space",
         [
             "BaseColor",
             "Hex",

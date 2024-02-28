@@ -4,8 +4,8 @@ from tempfile import TemporaryDirectory
 import pytest
 from bs4 import BeautifulSoup
 
-from colorcamp.color_objects.color_space import BaseColor
-from colorcamp.color_objects import Scale
+from colorcamp.color_space import BaseColor
+from colorcamp.groups import Scale
 
 
 @pytest.fixture(scope="class")
@@ -45,6 +45,12 @@ class TestScale:
             reloaded_scale = Scale.load_json(scale_path)
 
         assert self.scale == reloaded_scale
+
+    def test_reverse(self):
+        reversed_scale = self.scale.reverse()
+
+        assert self.scale.info() == reversed_scale.info()
+        assert self.scale.colors[::-1] == reversed_scale.colors
 
 
 def test_not_color_objects(request):
