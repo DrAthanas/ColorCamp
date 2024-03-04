@@ -1,0 +1,76 @@
+{
+    "type": "Scale",
+    "name": "twilight_shifted",
+    "description": "cyclic",
+    "metadata": {},
+    "colors": [
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.36002681809096376,
+            "green": 0.20694122817889948,
+            "blue": 0.6029284543191687,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.4113541469730457,
+            "green": 0.5368485776500593,
+            "blue": 0.7466971285506578,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.7387377170049494,
+            "green": 0.7959766573503101,
+            "blue": 0.8214292278043301,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.8398783988412087,
+            "green": 0.7603990719977968,
+            "blue": 0.7136714781112923,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.7387914002459927,
+            "green": 0.4205367299231533,
+            "blue": 0.34913260148542435,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.4981443546207415,
+            "green": 0.13569380302451714,
+            "blue": 0.314135190862664,
+            "alpha": null
+        }
+    ],
+    "stops": [
+        0.0,
+        0.2,
+        0.4,
+        0.6,
+        0.8,
+        1
+    ]
+}

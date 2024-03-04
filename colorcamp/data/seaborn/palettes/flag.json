@@ -1,0 +1,68 @@
+{
+    "type": "Palette",
+    "name": "flag",
+    "description": "miscellaneous",
+    "metadata": {},
+    "colors": [
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 1.0,
+            "green": 0.9862007473534027,
+            "blue": 0.9352137256724868,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.0,
+            "green": 0.0,
+            "blue": 1.0,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.0,
+            "green": 0.0,
+            "blue": 0.031609044859326973,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 1.0,
+            "green": 0.11065268189150011,
+            "blue": 0.031609044859322644,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 1.0,
+            "green": 0.9984636039674343,
+            "blue": 1.0,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.0,
+            "green": 0.0,
+            "blue": 0.9352137256724924,
+            "alpha": null
+        }
+    ]
+}

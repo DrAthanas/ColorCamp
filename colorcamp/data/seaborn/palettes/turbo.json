@@ -1,0 +1,68 @@
+{
+    "type": "Palette",
+    "name": "turbo",
+    "description": "miscellaneous",
+    "metadata": {},
+    "colors": [
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.27698,
+            "green": 0.46153,
+            "blue": 0.93309,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.10738,
+            "green": 0.81381,
+            "blue": 0.83484,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.38127,
+            "green": 0.98909,
+            "blue": 0.42386,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.82333,
+            "green": 0.91253,
+            "blue": 0.20663,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.99672,
+            "green": 0.60977,
+            "blue": 0.17842,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.8538,
+            "green": 0.2217,
+            "blue": 0.02677,
+            "alpha": null
+        }
+    ]
+}
