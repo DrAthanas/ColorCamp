@@ -9,7 +9,7 @@ from .common.validators import ColorTypeValidator, PathValidator
 __all__ = ["settings"]
 
 PROJECT_PATHS = (
-    Path(__file__).parent.parent / "data",
+    Path(__file__).parent / "data",
     Path.cwd(),
 )
 

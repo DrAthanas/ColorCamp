@@ -1,0 +1,10 @@
+{
+    "type": "BaseColor",
+    "name": "RedOrange",
+    "description": null,
+    "metadata": {},
+    "red": 1.0,
+    "green": 0.3254901960784314,
+    "blue": 0.28627450980392155,
+    "alpha": null
+}
