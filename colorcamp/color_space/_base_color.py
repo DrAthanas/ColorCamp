@@ -21,28 +21,26 @@ from colorcamp.conversions import rgb_to_hex, rgb_to_hsl
 __all__ = ["BaseColor"]
 
 
-HTML_REPR_TEMPLATE = """<!DOCTYPE html>
-<html>
-<body>
+HTML_REPR_TEMPLATE = """
+<div style="width: {width}px;">
+    {name}
     <div style="
-        width: {width}px; 
-        height: {height}px; 
-        background-color: {css}; 
-        display: flex; 
-        align-items: center; 
-        justify-content: center;
-    ">
-        <p style="
+            height: {height}px; 
+            background-color: {css}; 
+            border: 1px solid gray; 
+            border-radius: 5px; 
+            padding: 5px;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
             text-align: center;
             color: white;
-            font-size: 12px; /* Adjust the font size as needed */
+            font-size: 12px;
             text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
         ">
-            {text}
-        </p>
+        {css}
     </div>
-</body>
-</html>
+</div>
 """
 
 
@@ -329,11 +327,21 @@ class BaseColor(MetaColor):
         return BaseColor(red=red, green=green, blue=blue).to_color_space(self.__class__.__name__)  # type: ignore
 
     def _repr_html_(self):
-        text = "<br>".join(
-            map(
-                str,
-                [val for val in [self.name, self.__class__.__name__, self.css()] if val is not None],
-            )
-        )
+        if self.name is None:
+            name = ""
+        else:
+            name = f"""<h4 style="
+            text-align: center;
+            color: white;
+            margin: 5px;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+            ">{self.name}</h4>
+            """
 
-        return HTML_REPR_TEMPLATE.format(css=self.css(), width=100, height=100, text=text)
+        return HTML_REPR_TEMPLATE.format(
+            type=self.__class__.__name__,
+            name=name,
+            css=self.css(),
+            width=220,
+            height=25,
+        )

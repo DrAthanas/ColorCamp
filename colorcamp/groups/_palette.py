@@ -13,14 +13,19 @@ from ._color_group import ColorGroup
 __all__ = ["Palette"]
 
 DIV_TEMPLATE = """
-<div style="
-    width: {width}px; 
-    height: {height}px; 
-    background-color: {css}; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-">
+<div style="width: {width}px;">
+    {name}
+    <div style="
+        width: {width}px; 
+        height: {height}px; 
+        background-image: linear-gradient(to right, {grad});
+        border: 1px solid gray; 
+        border-radius: 5px; 
+        padding: 5px;
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+    ">
 </div>
 """
 
@@ -140,9 +145,26 @@ class Palette(ColorGroup, tuple):
     def __repr__(self) -> str:
         return f"Palette{super().__repr__()}"
 
-    def _repr_html_(self) -> str:
-        html_string = "\n".join([DIV_TEMPLATE.format(css=color.css(), height=60, width=60) for color in self])
+    def _repr_html_(self):
+        if self.name is None:
+            name = ""
+        else:
+            name = f"""<h4 style="
+            text-align: center;
+            color: white;
+            margin: 5px;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+            ">{self.name}</h4>
+            """
 
-        html_string = f'<div style="display: flex">{html_string}</div>'
+        n_colors = len(self)
+        stops = [idx / n_colors for idx in range(n_colors + 1)]
+        grad = ", ".join(
+            [
+                f"{color.hex} {stop:.0%}, {color.hex} {stops[idx+1]:.0%}"
+                for idx, (color, stop) in enumerate(zip(self, stops))
+            ]
+        )
+        html_string = DIV_TEMPLATE.format(name=name, grad=grad, height=30, width=max(min(30 * len(self), 600), 220))
 
         return html_string

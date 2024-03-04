@@ -14,14 +14,19 @@ from ._color_group import ColorGroup
 __all__ = ["Scale"]
 
 DIV_TEMPLATE = """
-<div style="
-    width: {width}px; 
-    height: {height}px; 
-    background-image: linear-gradient(to right, {grad}); 
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-">
+<div style="width: {width}px;">
+    {name}
+    <div style="
+        width: {width}px; 
+        height: {height}px; 
+        background-image: linear-gradient(to right, {grad});
+        border: 1px solid gray; 
+        border-radius: 5px; 
+        padding: 5px;
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+    ">
 </div>
 """
 
@@ -152,7 +157,17 @@ class Scale(ColorGroup, tuple):
         return f"Scale{tuple(zip(self, self.stops))}"
 
     def _repr_html_(self):
+        if self.name is None:
+            name = ""
+        else:
+            name = f"""<h4 style="
+            text-align: center;
+            color: white;
+            margin: 5px;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+            ">{self.name}</h4>
+            """
         grad = ", ".join([f"{color.css()} {stop:.0%}" for color, stop in zip(self, self.stops)])
-        html_string = DIV_TEMPLATE.format(grad=grad, height=60, width=max(60 * len(self), 180))
+        html_string = DIV_TEMPLATE.format(name=name, grad=grad, height=30, width=max(min(30 * len(self), 600), 220))
 
         return html_string
