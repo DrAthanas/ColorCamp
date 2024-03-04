@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "colorcamp"
-version = "0.2.0"
+version = "0.2.1"
 description = "A collection of colors is a Camp!"
 readme = "README.md"
 license = "Apache-2.0"
