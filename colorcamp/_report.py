@@ -5,6 +5,14 @@ from functools import partial
 from pathlib import Path
 from typing import Any, List, Optional, Sequence, Union
 
+from colorcamp.static.html_templates import (
+    COLOR_OBJECT_HTML,
+    REPORT_TEMPLATE,
+    SECTION_HTML,
+    SPACE_HTML,
+    VALUE_HTML,
+)
+
 from ._camp import Bucket, Camp
 from .color_space import RGB, BaseColor
 from .common.types import ColorSpace
@@ -12,58 +20,6 @@ from .common.validators import PathValidator
 from .groups import Map, Palette, Scale
 
 __all__ = ["report"]
-
-REPORT_TEMPLATE = """<!DOCTYPE html>
-<style>
-{css}
-</style>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>{camp_name}</title>
-        <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <meta name="description" content="{description}">
-        <meta name="author" content="colorcamp">
-        <meta http-equiv="content-language" content="ll-cc">
-    </head>
-    <body>
-        <div class="container">
-            <section id="descriptionSection">
-                <h1>{camp_name}</h1>
-                <p>{description}</p>
-            </section>
-        </div>
-        {sections_html}
-    </body>
-</html>
-"""
-
-SECTION_HTML = """<div class="container">
-    <section id="colorNameSection">
-        <ul class="colorNameList">
-            <h2>{section_name}</h2>
-            {content}
-        </ul>
-        <div class="clearfix"></div>
-    </section>
-</div>
-"""
-
-COLOR_OBJECT_HTML = """<li>
-    {header}
-    {color_bar}
-    {spaces}
-</li>
-"""
-
-SPACE_HTML = """
-<div class="space">
-    <div class="name">{name}</div>
-    {values}
-</div>
-"""
-
-VALUE_HTML = '<div class="value">{value}</div>'
 
 
 def _search_buckets(sections: Sequence[str], camp: Camp):

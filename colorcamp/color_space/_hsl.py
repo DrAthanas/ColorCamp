@@ -110,7 +110,7 @@ class HSL(BaseColor, tuple):
             inline css for color representation
         """
 
-        return f"hsl({self.hue:.0f} {self.saturation:.2%} {self.lightness:.2%}{'' if self.alpha is None else ' / '+str(self.alpha)})"
+        return f"hsl({self.hue:.0f} {self.saturation:.0%} {self.lightness:.0%}{'' if self.alpha is None else ' / '+str(self.alpha)})"
 
     ### Color manipulations
     def _change_hsl(

@@ -8,6 +8,12 @@ from colorcamp._settings import settings
 from colorcamp.color_space import BaseColor
 from colorcamp.common.types import ColorSpace, Numeric
 from colorcamp.common.validators import FractionIntervalValidator
+from colorcamp.static.html_templates import (
+    HTML_NAME_TEMPLATE,
+    HTML_REPR_TEMPLATE,
+    MIN_HEIGHT,
+    MIN_WIDTH,
+)
 
 from ._color_group import ColorGroup
 
@@ -157,17 +163,17 @@ class Scale(ColorGroup, tuple):
         return f"Scale{tuple(zip(self, self.stops))}"
 
     def _repr_html_(self):
-        if self.name is None:
-            name = ""
-        else:
-            name = f"""<h4 style="
-            text-align: center;
-            color: white;
-            margin: 5px;
-            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-            ">{self.name}</h4>
-            """
+        name = "" if self.name is None else HTML_NAME_TEMPLATE.format(name=self.name)
+
         grad = ", ".join([f"{color.css()} {stop:.0%}" for color, stop in zip(self, self.stops)])
-        html_string = DIV_TEMPLATE.format(name=name, grad=grad, height=30, width=max(min(30 * len(self), 600), 220))
+
+        html_string = HTML_REPR_TEMPLATE.format(
+            name=name,
+            grad=grad,
+            color=f"background-image: linear-gradient(to right, {grad});",
+            height=MIN_HEIGHT,
+            width=max(min(MIN_HEIGHT * len(self), 450), MIN_WIDTH),
+            text="",
+        )
 
         return html_string

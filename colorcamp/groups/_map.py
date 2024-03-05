@@ -8,26 +8,14 @@ from typing import Any, Dict, Hashable, Optional
 from colorcamp._settings import settings
 from colorcamp.color_space import BaseColor
 from colorcamp.common.types import ColorSpace
+from colorcamp.static.html_templates import MAP_TABLE_ROW
 
 from ._color_group import ColorGroup
 
 __all__ = ["Map"]
 
-DIV_TEMPLATE = """
-<tr>
-    <td>{text}</td>
-    <td style="
-        width: {width}px; 
-        height: {height}px; 
-        background-color: {css};
-        align-items: center; 
-        justify-content: center;
-    "></td>
-</tr>
-"""
 
-
-# ? Should UserDict be first?
+# UserDict needs to be first
 class Map(UserDict, ColorGroup):
     """A color object to represent color Mappings"""
 
@@ -120,7 +108,7 @@ class Map(UserDict, ColorGroup):
         html_string = '<table class="table">\n'
 
         html_string += "\n".join(
-            [DIV_TEMPLATE.format(text=key, css=color.css(), height=15, width=15) for key, color in self.items()]
+            [MAP_TABLE_ROW.format(text=key, css=color.css(), height=15, width=15) for key, color in self.items()]
         )
         html_string += "</table>"
 

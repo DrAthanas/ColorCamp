@@ -6,7 +6,7 @@ readme = "README.md"
 license = "Apache-2.0"
 authors = ["Argus J Athanas <argus@athanas.org>"]
 repository = "https://github.com/DrAthanas/ColorCamp"
-keywords = ["color", "palette",""]
+keywords = ["color","palette","colormap","camp","plotting"]
 classifiers = [
   'Development Status :: 4 - Beta',
   'Intended Audience :: Developers',

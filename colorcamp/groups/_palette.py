@@ -7,27 +7,16 @@ from typing import Any, Dict, Optional, Sequence
 from colorcamp._settings import settings
 from colorcamp.color_space import BaseColor
 from colorcamp.common.types import ColorSpace
+from colorcamp.static.html_templates import (
+    HTML_NAME_TEMPLATE,
+    HTML_REPR_TEMPLATE,
+    MIN_HEIGHT,
+    MIN_WIDTH,
+)
 
 from ._color_group import ColorGroup
 
 __all__ = ["Palette"]
-
-DIV_TEMPLATE = """
-<div style="width: {width}px;">
-    {name}
-    <div style="
-        width: {width}px; 
-        height: {height}px; 
-        background-image: linear-gradient(to right, {grad});
-        border: 1px solid gray; 
-        border-radius: 5px; 
-        padding: 5px;
-        display: flex; 
-        align-items: center; 
-        justify-content: center;
-    ">
-</div>
-"""
 
 
 class Palette(ColorGroup, tuple):
@@ -146,16 +135,7 @@ class Palette(ColorGroup, tuple):
         return f"Palette{super().__repr__()}"
 
     def _repr_html_(self):
-        if self.name is None:
-            name = ""
-        else:
-            name = f"""<h4 style="
-            text-align: center;
-            color: white;
-            margin: 5px;
-            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-            ">{self.name}</h4>
-            """
+        name = "" if self.name is None else HTML_NAME_TEMPLATE.format(name=self.name)
 
         n_colors = len(self)
         stops = [idx / n_colors for idx in range(n_colors + 1)]
@@ -165,6 +145,13 @@ class Palette(ColorGroup, tuple):
                 for idx, (color, stop) in enumerate(zip(self, stops))
             ]
         )
-        html_string = DIV_TEMPLATE.format(name=name, grad=grad, height=30, width=max(min(30 * len(self), 600), 220))
+        html_string = HTML_REPR_TEMPLATE.format(
+            name=name,
+            grad=grad,
+            color=f"background-image: linear-gradient(to right, {grad});",
+            height=MIN_HEIGHT,
+            width=max(min(MIN_HEIGHT * len(self), 450), MIN_WIDTH),
+            text="",
+        )
 
         return html_string
