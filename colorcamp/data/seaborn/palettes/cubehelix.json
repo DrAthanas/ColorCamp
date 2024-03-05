@@ -1,0 +1,68 @@
+{
+    "type": "Palette",
+    "name": "cubehelix",
+    "description": "miscellaneous",
+    "metadata": {},
+    "colors": [
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.10231025194333628,
+            "green": 0.13952898866828906,
+            "blue": 0.2560120319409181,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.10594361078604106,
+            "green": 0.3809739011595331,
+            "blue": 0.27015111282899046,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.4106130272672762,
+            "green": 0.48044780541672255,
+            "blue": 0.1891154277778484,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.7829183382530567,
+            "green": 0.48158303462490826,
+            "blue": 0.48672451968362596,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.8046168329276406,
+            "green": 0.6365733569301846,
+            "blue": 0.8796578402926125,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.7775608374378459,
+            "green": 0.8840392521212448,
+            "blue": 0.9452007992345052,
+            "alpha": null
+        }
+    ]
+}

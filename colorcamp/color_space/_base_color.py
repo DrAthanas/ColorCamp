@@ -17,33 +17,14 @@ from colorcamp.common.types import (
 )
 from colorcamp.common.validators import FractionIntervalValidator
 from colorcamp.conversions import rgb_to_hex, rgb_to_hsl
+from colorcamp.static.html_templates import (
+    HTML_NAME_TEMPLATE,
+    HTML_REPR_TEMPLATE,
+    MIN_HEIGHT,
+    MIN_WIDTH,
+)
 
 __all__ = ["BaseColor"]
-
-
-HTML_REPR_TEMPLATE = """<!DOCTYPE html>
-<html>
-<body>
-    <div style="
-        width: {width}px; 
-        height: {height}px; 
-        background-color: {css}; 
-        display: flex; 
-        align-items: center; 
-        justify-content: center;
-    ">
-        <p style="
-            text-align: center;
-            color: white;
-            font-size: 12px; /* Adjust the font size as needed */
-            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-        ">
-            {text}
-        </p>
-    </div>
-</body>
-</html>
-"""
 
 
 # pylint: disable=W0613
@@ -329,11 +310,13 @@ class BaseColor(MetaColor):
         return BaseColor(red=red, green=green, blue=blue).to_color_space(self.__class__.__name__)  # type: ignore
 
     def _repr_html_(self):
-        text = "<br>".join(
-            map(
-                str,
-                [val for val in [self.name, self.__class__.__name__, self.css()] if val is not None],
-            )
-        )
+        name = "" if self.name is None else HTML_NAME_TEMPLATE.format(name=self.name)
+        css = self.css()
 
-        return HTML_REPR_TEMPLATE.format(css=self.css(), width=100, height=100, text=text)
+        return HTML_REPR_TEMPLATE.format(
+            name=name,
+            color=f"background-color: {css};",
+            text=css,
+            width=MIN_WIDTH,
+            height=MIN_HEIGHT,
+        )

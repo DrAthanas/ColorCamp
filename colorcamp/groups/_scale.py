@@ -8,20 +8,31 @@ from colorcamp._settings import settings
 from colorcamp.color_space import BaseColor
 from colorcamp.common.types import ColorSpace, Numeric
 from colorcamp.common.validators import FractionIntervalValidator
+from colorcamp.static.html_templates import (
+    HTML_NAME_TEMPLATE,
+    HTML_REPR_TEMPLATE,
+    MIN_HEIGHT,
+    MIN_WIDTH,
+)
 
 from ._color_group import ColorGroup
 
 __all__ = ["Scale"]
 
 DIV_TEMPLATE = """
-<div style="
-    width: {width}px; 
-    height: {height}px; 
-    background-image: linear-gradient(to right, {grad}); 
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-">
+<div style="width: {width}px;">
+    {name}
+    <div style="
+        width: {width}px; 
+        height: {height}px; 
+        background-image: linear-gradient(to right, {grad});
+        border: 1px solid gray; 
+        border-radius: 5px; 
+        padding: 5px;
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+    ">
 </div>
 """
 
@@ -152,7 +163,17 @@ class Scale(ColorGroup, tuple):
         return f"Scale{tuple(zip(self, self.stops))}"
 
     def _repr_html_(self):
+        name = "" if self.name is None else HTML_NAME_TEMPLATE.format(name=self.name)
+
         grad = ", ".join([f"{color.css()} {stop:.0%}" for color, stop in zip(self, self.stops)])
-        html_string = DIV_TEMPLATE.format(grad=grad, height=60, width=max(60 * len(self), 180))
+
+        html_string = HTML_REPR_TEMPLATE.format(
+            name=name,
+            grad=grad,
+            color=f"background-image: linear-gradient(to right, {grad});",
+            height=MIN_HEIGHT,
+            width=max(min(MIN_HEIGHT * len(self), 450), MIN_WIDTH),
+            text="",
+        )
 
         return html_string

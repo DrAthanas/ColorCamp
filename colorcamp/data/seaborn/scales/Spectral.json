@@ -1,0 +1,76 @@
+{
+    "type": "Scale",
+    "name": "Spectral",
+    "description": "diverging",
+    "metadata": {},
+    "colors": [
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.8853517877739331,
+            "green": 0.3190311418685121,
+            "blue": 0.29042675893886966,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.9873125720876587,
+            "green": 0.6473663975394078,
+            "blue": 0.3642445213379469,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.9971549404075356,
+            "green": 0.9118031526336025,
+            "blue": 0.6010765090349866,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.9288735101883892,
+            "green": 0.9715494040753557,
+            "blue": 0.6380622837370243,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.6334486735870821,
+            "green": 0.8521337946943485,
+            "blue": 0.6436755094194541,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.2800461361014994,
+            "green": 0.6269896193771626,
+            "blue": 0.7024221453287197,
+            "alpha": null
+        }
+    ],
+    "stops": [
+        0.0,
+        0.2,
+        0.4,
+        0.6,
+        0.8,
+        1
+    ]
+}

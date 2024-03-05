@@ -1,0 +1,76 @@
+{
+    "type": "Scale",
+    "name": "gnuplot",
+    "description": "miscellaneous",
+    "metadata": {},
+    "colors": [
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.37573457465108967,
+            "green": 0.002813759413800122,
+            "blue": 0.7752039761111298,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.5350462688440333,
+            "green": 0.023461082087583202,
+            "blue": 0.9741386021045102,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.6537973542254181,
+            "green": 0.07810142403751195,
+            "blue": 0.44021574083098747,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.7566696898963531,
+            "green": 0.18768865670066562,
+            "blue": 0.0,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.8448227566750782,
+            "green": 0.36357467339107885,
+            "blue": 0.0,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.9267273220380225,
+            "green": 0.6334492163647465,
+            "blue": 0.0,
+            "alpha": null
+        }
+    ],
+    "stops": [
+        0.0,
+        0.2,
+        0.4,
+        0.6,
+        0.8,
+        1
+    ]
+}

@@ -1,0 +1,10 @@
+{
+    "type": "BaseColor",
+    "name": "GreenYellow",
+    "description": null,
+    "metadata": {},
+    "red": 0.9411764705882353,
+    "green": 0.9098039215686274,
+    "blue": 0.5686274509803921,
+    "alpha": null
+}

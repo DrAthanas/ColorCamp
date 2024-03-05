@@ -1,0 +1,10 @@
+{
+    "type": "BaseColor",
+    "name": "Canary",
+    "description": null,
+    "metadata": {},
+    "red": 1.0,
+    "green": 1.0,
+    "blue": 0.6,
+    "alpha": null
+}

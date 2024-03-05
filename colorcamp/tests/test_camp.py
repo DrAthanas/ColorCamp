@@ -156,6 +156,7 @@ class TestCamp:
         ("carto"),
         ("colorbrewer"),
         ("seaborn"),
+        ("crayons"),
         # ('XKCD'),
         # ('plotly'),
         param("web_colors2", marks=mark.xfail(FileNotFoundError, reason="No named color camp")),
@@ -168,7 +169,7 @@ def test_load_predefined_camps(camp_name):
 @pytest.mark.parametrize(
     ("directory", "exp1", "exp2"),
     [
-        (None, len(settings.camp_paths), 4),
+        (None, len(settings.camp_paths), 5),
         (Path().cwd(), 1, 0),
     ],
 )

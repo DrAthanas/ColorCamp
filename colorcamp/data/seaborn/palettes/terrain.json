@@ -1,0 +1,68 @@
+{
+    "type": "Palette",
+    "name": "terrain",
+    "description": "miscellaneous",
+    "metadata": {},
+    "colors": [
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.011764705882352955,
+            "green": 0.5764705882352941,
+            "blue": 0.9764705882352941,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.1450980392156863,
+            "green": 0.8290196078431373,
+            "blue": 0.42901960784313725,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.7098039215686275,
+            "green": 0.9419607843137255,
+            "blue": 0.5419607843137255,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.8549019607843137,
+            "green": 0.8142745098039216,
+            "blue": 0.5216470588235294,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.5725490196078431,
+            "green": 0.45286274509803925,
+            "blue": 0.36917647058823533,
+            "alpha": null
+        },
+        {
+            "type": "BaseColor",
+            "name": null,
+            "description": null,
+            "metadata": {},
+            "red": 0.7176470588235294,
+            "green": 0.6385882352941177,
+            "blue": 0.6216470588235294,
+            "alpha": null
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+{
+    "type": "BaseColor",
+    "name": "Shadow",
+    "description": null,
+    "metadata": {},
+    "red": 0.5411764705882353,
+    "green": 0.4745098039215686,
+    "blue": 0.36470588235294116,
+    "alpha": null
+}

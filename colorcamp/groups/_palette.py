@@ -7,22 +7,16 @@ from typing import Any, Dict, Optional, Sequence
 from colorcamp._settings import settings
 from colorcamp.color_space import BaseColor
 from colorcamp.common.types import ColorSpace
+from colorcamp.static.html_templates import (
+    HTML_NAME_TEMPLATE,
+    HTML_REPR_TEMPLATE,
+    MIN_HEIGHT,
+    MIN_WIDTH,
+)
 
 from ._color_group import ColorGroup
 
 __all__ = ["Palette"]
-
-DIV_TEMPLATE = """
-<div style="
-    width: {width}px; 
-    height: {height}px; 
-    background-color: {css}; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-">
-</div>
-"""
 
 
 class Palette(ColorGroup, tuple):
@@ -140,9 +134,24 @@ class Palette(ColorGroup, tuple):
     def __repr__(self) -> str:
         return f"Palette{super().__repr__()}"
 
-    def _repr_html_(self) -> str:
-        html_string = "\n".join([DIV_TEMPLATE.format(css=color.css(), height=60, width=60) for color in self])
+    def _repr_html_(self):
+        name = "" if self.name is None else HTML_NAME_TEMPLATE.format(name=self.name)
 
-        html_string = f'<div style="display: flex">{html_string}</div>'
+        n_colors = len(self)
+        stops = [idx / n_colors for idx in range(n_colors + 1)]
+        grad = ", ".join(
+            [
+                f"{color.hex} {stop:.0%}, {color.hex} {stops[idx+1]:.0%}"
+                for idx, (color, stop) in enumerate(zip(self, stops))
+            ]
+        )
+        html_string = HTML_REPR_TEMPLATE.format(
+            name=name,
+            grad=grad,
+            color=f"background-image: linear-gradient(to right, {grad});",
+            height=MIN_HEIGHT,
+            width=max(min(MIN_HEIGHT * len(self), 450), MIN_WIDTH),
+            text="",
+        )
 
         return html_string
