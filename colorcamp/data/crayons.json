@@ -1,0 +1,851 @@
+{
+    "type": "Camp",
+    "name": "crayons",
+    "description": "Colors named from Crayola crayons found here: https://en.wikipedia.org/wiki/List_of_Crayola_crayon_colors",
+    "metadata": {},
+    "colors": [
+        {
+            "type": "Hex",
+            "name": "Almond",
+            "description": null,
+            "metadata": {},
+            "value": "#EFDECD"
+        },
+        {
+            "type": "Hex",
+            "name": "AntiqueBrass",
+            "description": null,
+            "metadata": {},
+            "value": "#CD9575"
+        },
+        {
+            "type": "Hex",
+            "name": "Apricot",
+            "description": null,
+            "metadata": {},
+            "value": "#FDD9B5"
+        },
+        {
+            "type": "Hex",
+            "name": "Aquamarine",
+            "description": null,
+            "metadata": {},
+            "value": "#78DBE2"
+        },
+        {
+            "type": "Hex",
+            "name": "Asparagus",
+            "description": null,
+            "metadata": {},
+            "value": "#87A96B"
+        },
+        {
+            "type": "Hex",
+            "name": "AtomicTangerine",
+            "description": null,
+            "metadata": {},
+            "value": "#FFA474"
+        },
+        {
+            "type": "Hex",
+            "name": "BananaMania",
+            "description": null,
+            "metadata": {},
+            "value": "#FAE7B5"
+        },
+        {
+            "type": "Hex",
+            "name": "Beaver",
+            "description": null,
+            "metadata": {},
+            "value": "#9F8170"
+        },
+        {
+            "type": "Hex",
+            "name": "Bittersweet",
+            "description": null,
+            "metadata": {},
+            "value": "#FD7C6E"
+        },
+        {
+            "type": "Hex",
+            "name": "Black",
+            "description": null,
+            "metadata": {},
+            "value": "#000000"
+        },
+        {
+            "type": "Hex",
+            "name": "Blue",
+            "description": null,
+            "metadata": {},
+            "value": "#1F75FE"
+        },
+        {
+            "type": "Hex",
+            "name": "BlueBell",
+            "description": null,
+            "metadata": {},
+            "value": "#A2A2D0"
+        },
+        {
+            "type": "Hex",
+            "name": "BlueGreen",
+            "description": null,
+            "metadata": {},
+            "value": "#0D98BA"
+        },
+        {
+            "type": "Hex",
+            "name": "BlueViolet",
+            "description": null,
+            "metadata": {},
+            "value": "#7366BD"
+        },
+        {
+            "type": "Hex",
+            "name": "Blush",
+            "description": null,
+            "metadata": {},
+            "value": "#DE5D83"
+        },
+        {
+            "type": "Hex",
+            "name": "BrickRed",
+            "description": null,
+            "metadata": {},
+            "value": "#CB4154"
+        },
+        {
+            "type": "Hex",
+            "name": "Brown",
+            "description": null,
+            "metadata": {},
+            "value": "#B4674D"
+        },
+        {
+            "type": "Hex",
+            "name": "BurntOrange",
+            "description": null,
+            "metadata": {},
+            "value": "#FF7F49"
+        },
+        {
+            "type": "Hex",
+            "name": "BurntSienna",
+            "description": null,
+            "metadata": {},
+            "value": "#EA7E5D"
+        },
+        {
+            "type": "Hex",
+            "name": "CadetBlue",
+            "description": null,
+            "metadata": {},
+            "value": "#B0B7C6"
+        },
+        {
+            "type": "Hex",
+            "name": "Canary",
+            "description": null,
+            "metadata": {},
+            "value": "#FFFF99"
+        },
+        {
+            "type": "Hex",
+            "name": "CaribbeanGreen",
+            "description": null,
+            "metadata": {},
+            "value": "#00CC99"
+        },
+        {
+            "type": "Hex",
+            "name": "CarnationPink",
+            "description": null,
+            "metadata": {},
+            "value": "#FFAACC"
+        },
+        {
+            "type": "Hex",
+            "name": "Cerise",
+            "description": null,
+            "metadata": {},
+            "value": "#DD4492"
+        },
+        {
+            "type": "Hex",
+            "name": "Cerulean",
+            "description": null,
+            "metadata": {},
+            "value": "#1DACD6"
+        },
+        {
+            "type": "Hex",
+            "name": "Chestnut",
+            "description": null,
+            "metadata": {},
+            "value": "#BC5D58"
+        },
+        {
+            "type": "Hex",
+            "name": "Copper",
+            "description": null,
+            "metadata": {},
+            "value": "#DD9475"
+        },
+        {
+            "type": "Hex",
+            "name": "Cornflower",
+            "description": null,
+            "metadata": {},
+            "value": "#9ACEEB"
+        },
+        {
+            "type": "Hex",
+            "name": "CottonCandy",
+            "description": null,
+            "metadata": {},
+            "value": "#FFBCD9"
+        },
+        {
+            "type": "Hex",
+            "name": "Dandelion",
+            "description": null,
+            "metadata": {},
+            "value": "#FDDB6D"
+        },
+        {
+            "type": "Hex",
+            "name": "Denim",
+            "description": null,
+            "metadata": {},
+            "value": "#2B6CC4"
+        },
+        {
+            "type": "Hex",
+            "name": "DesertSand",
+            "description": null,
+            "metadata": {},
+            "value": "#EFCDB8"
+        },
+        {
+            "type": "Hex",
+            "name": "Eggplant",
+            "description": null,
+            "metadata": {},
+            "value": "#6E5160"
+        },
+        {
+            "type": "Hex",
+            "name": "ElectricLime",
+            "description": null,
+            "metadata": {},
+            "value": "#CEFF1D"
+        },
+        {
+            "type": "Hex",
+            "name": "Fern",
+            "description": null,
+            "metadata": {},
+            "value": "#71BC78"
+        },
+        {
+            "type": "Hex",
+            "name": "ForestGreen",
+            "description": null,
+            "metadata": {},
+            "value": "#6DAE81"
+        },
+        {
+            "type": "Hex",
+            "name": "Fuchsia",
+            "description": null,
+            "metadata": {},
+            "value": "#C364C5"
+        },
+        {
+            "type": "Hex",
+            "name": "FuzzyWuzzy",
+            "description": null,
+            "metadata": {},
+            "value": "#CC6666"
+        },
+        {
+            "type": "Hex",
+            "name": "Gold",
+            "description": null,
+            "metadata": {},
+            "value": "#E7C697"
+        },
+        {
+            "type": "Hex",
+            "name": "Goldenrod",
+            "description": null,
+            "metadata": {},
+            "value": "#FCD975"
+        },
+        {
+            "type": "Hex",
+            "name": "GrannySmithApple",
+            "description": null,
+            "metadata": {},
+            "value": "#A8E4A0"
+        },
+        {
+            "type": "Hex",
+            "name": "Gray",
+            "description": null,
+            "metadata": {},
+            "value": "#95918C"
+        },
+        {
+            "type": "Hex",
+            "name": "Green",
+            "description": null,
+            "metadata": {},
+            "value": "#1CAC78"
+        },
+        {
+            "type": "Hex",
+            "name": "GreenYellow",
+            "description": null,
+            "metadata": {},
+            "value": "#F0E891"
+        },
+        {
+            "type": "Hex",
+            "name": "HotMagenta",
+            "description": null,
+            "metadata": {},
+            "value": "#FF1DCE"
+        },
+        {
+            "type": "Hex",
+            "name": "Inchworm",
+            "description": null,
+            "metadata": {},
+            "value": "#B2EC5D"
+        },
+        {
+            "type": "Hex",
+            "name": "Indigo",
+            "description": null,
+            "metadata": {},
+            "value": "#5D76CB"
+        },
+        {
+            "type": "Hex",
+            "name": "JazzberryJam",
+            "description": null,
+            "metadata": {},
+            "value": "#CA3767"
+        },
+        {
+            "type": "Hex",
+            "name": "JungleGreen",
+            "description": null,
+            "metadata": {},
+            "value": "#3BB08F"
+        },
+        {
+            "type": "Hex",
+            "name": "LaserLemon",
+            "description": null,
+            "metadata": {},
+            "value": "#FEFE22"
+        },
+        {
+            "type": "Hex",
+            "name": "Lavender",
+            "description": null,
+            "metadata": {},
+            "value": "#FCB4D5"
+        },
+        {
+            "type": "Hex",
+            "name": "MacaroniandCheese",
+            "description": null,
+            "metadata": {},
+            "value": "#FFBD88"
+        },
+        {
+            "type": "Hex",
+            "name": "Magenta",
+            "description": null,
+            "metadata": {},
+            "value": "#F664AF"
+        },
+        {
+            "type": "Hex",
+            "name": "Mahogany",
+            "description": null,
+            "metadata": {},
+            "value": "#CD4A4C"
+        },
+        {
+            "type": "Hex",
+            "name": "Manatee",
+            "description": null,
+            "metadata": {},
+            "value": "#979AAA"
+        },
+        {
+            "type": "Hex",
+            "name": "MangoTango",
+            "description": null,
+            "metadata": {},
+            "value": "#FF8243"
+        },
+        {
+            "type": "Hex",
+            "name": "Maroon",
+            "description": null,
+            "metadata": {},
+            "value": "#C8385A"
+        },
+        {
+            "type": "Hex",
+            "name": "Mauvelous",
+            "description": null,
+            "metadata": {},
+            "value": "#EF98AA"
+        },
+        {
+            "type": "Hex",
+            "name": "Melon",
+            "description": null,
+            "metadata": {},
+            "value": "#FDBCB4"
+        },
+        {
+            "type": "Hex",
+            "name": "MidnightBlue",
+            "description": null,
+            "metadata": {},
+            "value": "#1A4876"
+        },
+        {
+            "type": "Hex",
+            "name": "MountainMeadow",
+            "description": null,
+            "metadata": {},
+            "value": "#30BA8F"
+        },
+        {
+            "type": "Hex",
+            "name": "NavyBlue",
+            "description": null,
+            "metadata": {},
+            "value": "#1974D2"
+        },
+        {
+            "type": "Hex",
+            "name": "NeonCarrot",
+            "description": null,
+            "metadata": {},
+            "value": "#FFA343"
+        },
+        {
+            "type": "Hex",
+            "name": "OliveGreen",
+            "description": null,
+            "metadata": {},
+            "value": "#BAB86C"
+        },
+        {
+            "type": "Hex",
+            "name": "Orange",
+            "description": null,
+            "metadata": {},
+            "value": "#FF7538"
+        },
+        {
+            "type": "Hex",
+            "name": "Orchid",
+            "description": null,
+            "metadata": {},
+            "value": "#E6A8D7"
+        },
+        {
+            "type": "Hex",
+            "name": "OuterSpace",
+            "description": null,
+            "metadata": {},
+            "value": "#414A4C"
+        },
+        {
+            "type": "Hex",
+            "name": "OutrageousOrange",
+            "description": null,
+            "metadata": {},
+            "value": "#FF6E4A"
+        },
+        {
+            "type": "Hex",
+            "name": "PacificBlue",
+            "description": null,
+            "metadata": {},
+            "value": "#1CA9C9"
+        },
+        {
+            "type": "Hex",
+            "name": "Peach",
+            "description": null,
+            "metadata": {},
+            "value": "#FFCFAB"
+        },
+        {
+            "type": "Hex",
+            "name": "Periwinkle",
+            "description": null,
+            "metadata": {},
+            "value": "#C5D0E6"
+        },
+        {
+            "type": "Hex",
+            "name": "PiggyPink",
+            "description": null,
+            "metadata": {},
+            "value": "#FDDDE6"
+        },
+        {
+            "type": "Hex",
+            "name": "PineGreen",
+            "description": null,
+            "metadata": {},
+            "value": "#158078"
+        },
+        {
+            "type": "Hex",
+            "name": "PinkFlamingo",
+            "description": null,
+            "metadata": {},
+            "value": "#FC74FD"
+        },
+        {
+            "type": "Hex",
+            "name": "PinkSherbert",
+            "description": null,
+            "metadata": {},
+            "value": "#F78FA7"
+        },
+        {
+            "type": "Hex",
+            "name": "Plum",
+            "description": null,
+            "metadata": {},
+            "value": "#8E4585"
+        },
+        {
+            "type": "Hex",
+            "name": "PurpleHeart",
+            "description": null,
+            "metadata": {},
+            "value": "#7442C8"
+        },
+        {
+            "type": "Hex",
+            "name": "PurpleMountainsMajesty",
+            "description": null,
+            "metadata": {},
+            "value": "#9D81BA"
+        },
+        {
+            "type": "Hex",
+            "name": "PurplePizzazz",
+            "description": null,
+            "metadata": {},
+            "value": "#FE4EDA"
+        },
+        {
+            "type": "Hex",
+            "name": "RadicalRed",
+            "description": null,
+            "metadata": {},
+            "value": "#FF496C"
+        },
+        {
+            "type": "Hex",
+            "name": "RawSienna",
+            "description": null,
+            "metadata": {},
+            "value": "#D68A59"
+        },
+        {
+            "type": "Hex",
+            "name": "RazzleDazzleRose",
+            "description": null,
+            "metadata": {},
+            "value": "#FF48D0"
+        },
+        {
+            "type": "Hex",
+            "name": "Razzmatazz",
+            "description": null,
+            "metadata": {},
+            "value": "#E3256B"
+        },
+        {
+            "type": "Hex",
+            "name": "Red",
+            "description": null,
+            "metadata": {},
+            "value": "#EE204D"
+        },
+        {
+            "type": "Hex",
+            "name": "RedOrange",
+            "description": null,
+            "metadata": {},
+            "value": "#FF5349"
+        },
+        {
+            "type": "Hex",
+            "name": "RedViolet",
+            "description": null,
+            "metadata": {},
+            "value": "#C0448F"
+        },
+        {
+            "type": "Hex",
+            "name": "RobinsEggBlue",
+            "description": null,
+            "metadata": {},
+            "value": "#1FCECB"
+        },
+        {
+            "type": "Hex",
+            "name": "RoyalPurple",
+            "description": null,
+            "metadata": {},
+            "value": "#7851A9"
+        },
+        {
+            "type": "Hex",
+            "name": "Salmon",
+            "description": null,
+            "metadata": {},
+            "value": "#FF9BAA"
+        },
+        {
+            "type": "Hex",
+            "name": "Scarlet",
+            "description": null,
+            "metadata": {},
+            "value": "#FC2847"
+        },
+        {
+            "type": "Hex",
+            "name": "ScreaminGreen",
+            "description": null,
+            "metadata": {},
+            "value": "#76FF7A"
+        },
+        {
+            "type": "Hex",
+            "name": "SeaGreen",
+            "description": null,
+            "metadata": {},
+            "value": "#93DFB8"
+        },
+        {
+            "type": "Hex",
+            "name": "Sepia",
+            "description": null,
+            "metadata": {},
+            "value": "#A5694F"
+        },
+        {
+            "type": "Hex",
+            "name": "Shadow",
+            "description": null,
+            "metadata": {},
+            "value": "#8A795D"
+        },
+        {
+            "type": "Hex",
+            "name": "Shamrock",
+            "description": null,
+            "metadata": {},
+            "value": "#45CEA2"
+        },
+        {
+            "type": "Hex",
+            "name": "ShockingPink",
+            "description": null,
+            "metadata": {},
+            "value": "#FB7EFD"
+        },
+        {
+            "type": "Hex",
+            "name": "Silver",
+            "description": null,
+            "metadata": {},
+            "value": "#CDC5C2"
+        },
+        {
+            "type": "Hex",
+            "name": "SkyBlue",
+            "description": null,
+            "metadata": {},
+            "value": "#80DAEB"
+        },
+        {
+            "type": "Hex",
+            "name": "SpringGreen",
+            "description": null,
+            "metadata": {},
+            "value": "#ECEABE"
+        },
+        {
+            "type": "Hex",
+            "name": "Sunglow",
+            "description": null,
+            "metadata": {},
+            "value": "#FFCF48"
+        },
+        {
+            "type": "Hex",
+            "name": "SunsetOrange",
+            "description": null,
+            "metadata": {},
+            "value": "#FD5E53"
+        },
+        {
+            "type": "Hex",
+            "name": "Tan",
+            "description": null,
+            "metadata": {},
+            "value": "#FAA76C"
+        },
+        {
+            "type": "Hex",
+            "name": "TickleMePink",
+            "description": null,
+            "metadata": {},
+            "value": "#FC89AC"
+        },
+        {
+            "type": "Hex",
+            "name": "Timberwolf",
+            "description": null,
+            "metadata": {},
+            "value": "#DBD7D2"
+        },
+        {
+            "type": "Hex",
+            "name": "TropicalRainForest",
+            "description": null,
+            "metadata": {},
+            "value": "#17806D"
+        },
+        {
+            "type": "Hex",
+            "name": "Tumbleweed",
+            "description": null,
+            "metadata": {},
+            "value": "#DEAA88"
+        },
+        {
+            "type": "Hex",
+            "name": "TurquoiseBlue",
+            "description": null,
+            "metadata": {},
+            "value": "#77DDE7"
+        },
+        {
+            "type": "Hex",
+            "name": "UnmellowYellow",
+            "description": null,
+            "metadata": {},
+            "value": "#FFFF66"
+        },
+        {
+            "type": "Hex",
+            "name": "VioletPurple",
+            "description": null,
+            "metadata": {},
+            "value": "#926EAE"
+        },
+        {
+            "type": "Hex",
+            "name": "VioletRed",
+            "description": null,
+            "metadata": {},
+            "value": "#F75394"
+        },
+        {
+            "type": "Hex",
+            "name": "VividTangerine",
+            "description": null,
+            "metadata": {},
+            "value": "#FFA089"
+        },
+        {
+            "type": "Hex",
+            "name": "VividViolet",
+            "description": null,
+            "metadata": {},
+            "value": "#8F509D"
+        },
+        {
+            "type": "Hex",
+            "name": "White",
+            "description": null,
+            "metadata": {},
+            "value": "#FFFFFF"
+        },
+        {
+            "type": "Hex",
+            "name": "WildBlueYonder",
+            "description": null,
+            "metadata": {},
+            "value": "#A2ADD0"
+        },
+        {
+            "type": "Hex",
+            "name": "WildStrawberry",
+            "description": null,
+            "metadata": {},
+            "value": "#FF43A4"
+        },
+        {
+            "type": "Hex",
+            "name": "WildWatermelon",
+            "description": null,
+            "metadata": {},
+            "value": "#FC6C85"
+        },
+        {
+            "type": "Hex",
+            "name": "Wisteria",
+            "description": null,
+            "metadata": {},
+            "value": "#CDA4DE"
+        },
+        {
+            "type": "Hex",
+            "name": "Yellow",
+            "description": null,
+            "metadata": {},
+            "value": "#FCE883"
+        },
+        {
+            "type": "Hex",
+            "name": "YellowGreen",
+            "description": null,
+            "metadata": {},
+            "value": "#C5E384"
+        },
+        {
+            "type": "Hex",
+            "name": "YellowOrange",
+            "description": null,
+            "metadata": {},
+            "value": "#FFAE42"
+        }
+    ],
+    "palettes": [],
+    "scales": [],
+    "maps": []
+}
