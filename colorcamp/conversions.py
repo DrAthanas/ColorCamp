@@ -7,6 +7,7 @@
 
 import colorsys
 
+from ._settings import settings
 from .common.types import AnyGenericColorTuple, AnyRGBColorTuple
 from .common.validators import HexStringValidator
 
@@ -15,8 +16,6 @@ __all__ = [
     "rgb_to_hex",
     "rgb_to_hsl",
 ]
-
-MAX_PRECISION = 6
 
 
 def hex_to_rgb(hex_str: str) -> AnyRGBColorTuple:
@@ -84,9 +83,9 @@ def rgb_to_hsl(rgb: AnyGenericColorTuple) -> AnyGenericColorTuple:
 
     hue, lightness, saturation = colorsys.rgb_to_hls(*rgb[:3])
     ## remove floating point errors
-    hue = round(hue * 360, MAX_PRECISION)
-    lightness = round(lightness, MAX_PRECISION)
-    saturation = round(saturation, MAX_PRECISION)
+    hue = round(hue * 360, settings.max_precision)
+    lightness = round(lightness, settings.max_precision)
+    saturation = round(saturation, settings.max_precision)
 
     if len(rgb) == 4:
         return (hue, saturation, lightness, rgb[3])

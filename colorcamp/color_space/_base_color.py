@@ -36,6 +36,7 @@ def make_to_color_space(self: BaseColor, name):
 
     return changer
 
+
 # pylint: enable=W0613
 
 
@@ -289,7 +290,7 @@ class BaseColor(MetaColor):
 
         return new_color.to_color_space(color_space)  # type: ignore
 
-    def equivalence(self, color:Any)->bool:
+    def equivalence(self, color: Any) -> bool:
         """Check if two colors are essentially the same. This allows for comparisons
         across color spaces and some reasonable rounding errors.
 
@@ -359,7 +360,7 @@ class BaseColor(MetaColor):
             height=MIN_HEIGHT,
         )
 
-    def __get_default_rep(self)->str:
+    def __get_default_rep(self) -> str:
         """Get the default representation of this color object
 
         Returns

@@ -24,6 +24,7 @@ class Settings:
     ):
         self.default_color_space = default_color_space
         self.camp_paths = camp_paths
+        self._max_precision = 6
 
     @property
     def default_color_space(self) -> str:
@@ -45,6 +46,16 @@ class Settings:
         for path in list(value):
             PathValidator().validate(path)
         self._camp_paths = value
+
+    @property
+    def max_precision(self):
+        """Maximum number of decimal places to use for precision calculations"""
+        return self._max_precision
+
+    @max_precision.setter
+    def max_precision(self, value: int):
+        # TODO: add validator
+        self._max_precision = value
 
 
 settings = Settings()

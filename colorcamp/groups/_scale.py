@@ -159,6 +159,9 @@ class Scale(ColorGroup, tuple):
             metadata=scale_dict.get("metadata"),
         )
 
+    def to_native(self):
+        return tuple([(stop, color.native) for stop, color in zip(self.stops, self)])
+
     def __repr__(self):
         return f"Scale{tuple(zip(self, self.stops))}"
 

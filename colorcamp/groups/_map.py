@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from collections import UserDict
 from typing import Any, Dict, Hashable, Optional
 
 from colorcamp._settings import settings
@@ -15,8 +14,8 @@ from ._color_group import ColorGroup
 __all__ = ["Map"]
 
 
-# UserDict needs to be first
-class Map(UserDict, ColorGroup):
+# TODO: implement other dict setter methods, update ... etc.
+class Map(dict, ColorGroup):
     """A color object to represent color Mappings"""
 
     def __init__(
@@ -39,6 +38,9 @@ class Map(UserDict, ColorGroup):
         metadata : Optional[Dict[str, Any]], optional
             unstructured metadata used for querying and additional context, by default None
         """
+
+        if not all(isinstance(color, BaseColor) for color in color_map.values()):
+            raise TypeError("color_map values need to be a Color object")
 
         self.name = name
         self.description = description
@@ -94,6 +96,9 @@ class Map(UserDict, ColorGroup):
             description=map_dict.get("description"),
             metadata=map_dict.get("metadata"),
         )
+
+    def to_native(self):
+        return {key: color.native for key, color in self.items()}
 
     def __setitem__(self, key, value):
         if not isinstance(value, BaseColor):

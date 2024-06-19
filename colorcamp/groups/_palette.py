@@ -131,6 +131,9 @@ class Palette(ColorGroup, tuple):
             metadata=palette_dict.get("metadata"),
         )
 
+    def to_native(self):
+        return tuple([color.native for color in self])
+
     def __repr__(self) -> str:
         return f"Palette{super().__repr__()}"
 

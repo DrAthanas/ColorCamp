@@ -22,6 +22,12 @@ class ColorGroup(MetaColor):
         """Sequence of colors"""
         return
 
+    @abstractmethod
+    def to_native(self):
+        """Return the native type of the color group (tuple | dict)"""
+
+        return
+
     def __init_subclass__(cls, **kwargs):
         super().__init_subclass__(**kwargs)
         name = cls.__name__

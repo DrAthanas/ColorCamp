@@ -1,11 +1,13 @@
 """Camp organizes colors into frame work for projects"""
 
+from __future__ import annotations
+
 import json
 from copy import copy
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Union
 
-from ._color_metadata import ColorInfo
+from ._color_metadata import MetaColor
 from ._settings import settings
 from .color_space import BaseColor
 from .common.types import ColorObject, ColorSpace
@@ -101,7 +103,7 @@ class Bucket:
         return f"{bucket_type}s{self.names}"
 
 
-class Camp(ColorInfo):
+class Camp(MetaColor):
     """A camp of colors!"""
 
     def __init__(
@@ -164,22 +166,6 @@ class Camp(ColorInfo):
 
         return dir_map
 
-    @staticmethod
-    def __validate_serial_obj(current_dict: dict, file_path: Path, overwrite: bool) -> bool:
-        """
-        True -> no file or overwrite
-        False -> file exists, but matches current
-        """
-        if file_path.exists() and not overwrite:
-            with open(file_path, mode="r", encoding="utf-8") as fio:
-                found = json.load(fio)
-
-            if current_dict != found:
-                raise FileExistsError(f"file already exists: {file_path}")
-
-            return False
-        return True
-
     def add_objects(self, color_objects: Sequence[ColorObject], exists_ok=False):
         """Add any number of color objects to the Camp
 
@@ -231,13 +217,71 @@ class Camp(ColorInfo):
 
         def only_valid_camp(check_paths: List[Path]):
             for cpath in check_paths:
-                if cpath.is_dir() and (cpath / "camp_info.json").exists():
-                    yield cpath.name
+                with open(cpath, "r", encoding="utf-8") as fio:
+                    camp_dict: dict = json.load(fio)
+
+                if camp_dict.get("type", None) == "Camp":
+                    yield cpath.stem
 
         for camp_path in camp_paths:
-            found_camps[str(camp_path)] = list(only_valid_camp(camp_path.glob("*")))  # type: ignore
+            found_camps[str(camp_path)] = list(only_valid_camp(camp_path.glob("*.json")))  # type: ignore
 
         return found_camps
+
+    def to_dict(self):
+        """Create a dictionary of all Camp attributes
+
+        Returns
+        -------
+        Dict[str, Any]
+            dictionary with the underlying Camp representation
+        """
+
+        return {
+            "type": "Camp",
+            **self.info(),
+            "colors": [color.to_dict() for color in self.colors.to_dict().values()],
+            "palettes": [palette.to_dict() for palette in self.palettes.to_dict().values()],
+            "scales": [scale.to_dict() for scale in self.scales.to_dict().values()],
+            "maps": [_map.to_dict() for _map in self.maps.to_dict().values()],
+        }
+
+    @classmethod
+    def from_dict(cls, camp_dict: Dict[str, Any], color_space: Optional[ColorSpace] = None) -> Camp:
+        """create a new Camp object from a Camp dictionary
+
+        Parameters
+        ----------
+        camp_dict : Dict[str, Any]
+            a Camp dictionary
+        color_space : Literal['BaseColor', 'Hex', 'RGB', 'HSL']
+            the new color representation (Color subclass). If None is supplied the default representation is used, by default None
+
+        Returns
+        -------
+        Camp
+            A new Camp object
+        """
+
+        if color_space is None:
+            color_space = settings.default_color_space  # type: ignore
+
+        color_objects = (
+            [BaseColor.from_dict(color, color_space) for color in camp_dict.get("colors", [])]
+            + [Palette.from_dict(palette, color_space) for palette in camp_dict.get("palettes", [])]
+            + [Scale.from_dict(scale, color_space) for scale in camp_dict.get("scales", [])]
+            + [Map.from_dict(_map, color_space) for _map in camp_dict.get("maps", [])]
+        )
+
+        new_camp: Camp = cls(
+            name=camp_dict.get("name"),
+            description=camp_dict.get("description"),
+            metadata=camp_dict.get("metadata"),
+        )
+
+        new_camp.add_objects(color_objects=color_objects)
+
+        return new_camp
 
     @classmethod
     def load(
@@ -269,29 +313,18 @@ class Camp(ColorInfo):
         # Search for matching directory in source locations
         if directory is None:
             # use config to find if name is in any sources
-            camp_paths = list(settings.camp_paths)
-            for camp_path in camp_paths:
-                camp_dir = Path(camp_path) / name
+            for camp_path in list(settings.camp_paths):
+                camp_dir = Path(camp_path) / f"{name}.json"
                 if camp_dir.exists():
                     break
             else:
                 raise FileNotFoundError(f"No camp '{name}' found in {settings.camp_paths}")
 
         else:
-            camp_dir = Path(directory) / name
+            camp_dir = Path(directory) / f"{name}.json"
             PathValidator().validate(camp_dir)
 
-        with open(camp_dir / "camp_info.json", "r", encoding="utf-8") as fio:
-            camp = cls(**json.load(fio))
-
-        for sub_dir, klass in cls.__directory_map().items():
-            search_dir: Path = camp_dir / sub_dir
-            files = search_dir.glob("*.json") if search_dir.exists() else []
-            for file in files:
-                bucket: Bucket = getattr(camp, sub_dir)
-                bucket.add(klass.load_json(file, color_space=color_space))
-
-        return camp
+        return Camp.load_json(camp_dir)
 
     def save(self, directory: Union[str, Path], overwrite=False):
         """Save a camp
@@ -305,20 +338,6 @@ class Camp(ColorInfo):
         """
 
         PathValidator().validate(directory)
-        dest: Path = Path(directory) / self.name  # type: ignore
-        dest.mkdir(exist_ok=True)
+        dest: Path = Path(directory) / f"{self.name}.json"  # type: ignore
 
-        info_path = dest / "camp_info.json"
-        if self.__validate_serial_obj(self.info(), info_path, overwrite):
-            with open(info_path, mode="w", encoding="utf-8") as fio:
-                json.dump(self.info(), fio, indent=4)
-
-        for sub_dir, _ in self.__directory_map().items():
-            sub_dest_dir: Path = dest / sub_dir
-            sub_dest_dir.mkdir(exist_ok=True)
-
-            for name, color_object in getattr(self, sub_dir).to_dict().items():
-                color_object_path = sub_dest_dir / f"{name}.json"
-
-                if self.__validate_serial_obj(color_object.to_dict(), color_object_path, overwrite):
-                    color_object.dump_json(color_object_path, overwrite=overwrite)
+        self.dump_json(dest, overwrite)
