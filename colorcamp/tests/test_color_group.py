@@ -43,3 +43,16 @@ class TestScale:
         new_pal = self.pal.to_color_space(color_space)
 
         assert all((isinstance(color, eval(color_space)) for color in new_pal))
+
+    @pytest.mark.parametrize(
+        ["group_type", "kw_args"],
+        [
+            ("Map", {}),
+            ("Scale", {}),
+            ("Palette", {}),
+        ],
+    )
+    def test_to_native(self, group_type: str, kw_args):
+        group = getattr(self.pal, f"to_{group_type.lower()}")(**kw_args)
+
+        assert group.to_native()

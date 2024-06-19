@@ -35,7 +35,7 @@ class TestMap:
 
     def test_mapping(self):
         assert isinstance(self.map, Mapping)
-        assert self.map["pink"] == "#FF15AA"
+        assert self.map["pink"].equivalence("#FF15AA")
         assert "pink" in self.map
         assert "#FF15AA" in self.map.values()
         with pytest.raises(TypeError) as e_info:

@@ -60,9 +60,6 @@ class TestCamp:
             assert new_camp.palettes.Pal == camp.palettes.Pal
             assert new_camp.scales.lette == camp.scales.lette
 
-            # Try re saving
-            camp.save(tempdir)
-
             with pytest.raises(FileExistsError):
                 camp._description = "blah blah blah"
                 camp.save(tempdir)

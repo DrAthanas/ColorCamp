@@ -29,7 +29,7 @@ class TestScale:
 
     def test_tupliness(self):
         assert isinstance(self.scale, tuple)
-        assert self.scale[1] == "#FF15AA"
+        assert self.scale[1].equivalence("#FF15AA")
         assert "#FF15AA" in self.scale
         with pytest.raises(TypeError) as e_info:
             self.scale[2] = 123

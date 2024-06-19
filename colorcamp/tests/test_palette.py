@@ -29,7 +29,7 @@ class TestPalette:
 
     def test_tupliness(self):
         assert isinstance(self.palette, tuple)
-        assert self.palette[1] == "#FF15AA"
+        assert self.palette[1].equivalence("#FF15AA")
         assert "#FF15AA" in self.palette
         with pytest.raises(TypeError) as e_info:
             self.palette[2] = 123

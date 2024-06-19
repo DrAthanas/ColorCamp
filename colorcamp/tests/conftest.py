@@ -2,6 +2,7 @@ from functools import partial
 
 import pytest
 
+from colorcamp import settings
 from colorcamp.color_space import HSL, RGB, BaseColor, Hex
 from colorcamp.common.exceptions import NumericIntervalError
 
@@ -9,6 +10,8 @@ from colorcamp.common.exceptions import NumericIntervalError
 # python -m pytest colorcamp/tests/
 # Test w/ coverage:
 # python -m pytest --cov=colorcamp colorcamp/tests/
+
+settings.max_precision = 6
 
 
 @pytest.fixture(scope="session")
@@ -67,7 +70,7 @@ def cls_mustard_rgb(request):
 @pytest.fixture(scope="session")
 def lime_hsl():
     lime = HSL(
-        (158.2051282051282, 0.9999999999999999, 0.5411764705882353),
+        (158.2051282051282, 1, 0.5411764705882353),
         name="lime_hsl",
         description="limes and avocado!",
         metadata={"sentiment": "healthy"},
