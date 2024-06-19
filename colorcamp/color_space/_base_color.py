@@ -36,7 +36,6 @@ def make_to_color_space(self: BaseColor, name):
 
     return changer
 
-
 # pylint: enable=W0613
 
 
@@ -178,6 +177,17 @@ class BaseColor(MetaColor):
 
         return rgb_to_hex(self.rgb)
 
+    @property
+    def native(self):
+        """Get the native color representation stripped of all BaseColor extensions
+
+        Returns
+        -------
+        Union[str, tuple]
+            The base type representation of the color
+        """
+        return getattr(self, self.__get_default_rep())
+
     ## Conversion methods
     def to_color_space(self, color_space: ColorSpace):
         """convert current color object to a new representation
@@ -233,12 +243,13 @@ class BaseColor(MetaColor):
         """
 
         return {
-            "type": "BaseColor",
+            "type": self.__class__.__name__,
             **self.info(),
-            "red": self.fractional_rgb[0],
-            "green": self.fractional_rgb[1],
-            "blue": self.fractional_rgb[2],
-            "alpha": self.alpha,
+            "value": self.native,
+            # "red": self.fractional_rgb[0],
+            # "green": self.fractional_rgb[1],
+            # "blue": self.fractional_rgb[2],
+            # "alpha": self.alpha,
         }
 
     @classmethod
@@ -259,9 +270,6 @@ class BaseColor(MetaColor):
         """
 
         init_args = {
-            "red",
-            "green",
-            "blue",
             "name",
             "description",
             "metadata",
@@ -271,19 +279,37 @@ class BaseColor(MetaColor):
         if color_space is None:
             color_space = cls.__name__  # type: ignore
 
-        color_dict = {key: value for key, value in color_dict.items() if key in init_args}
+        value = color_dict.pop("value")
+        _type = color_dict.pop("type")
+        init_dict = {key: value for key, value in color_dict.items() if key in init_args}
+        if _type == "BaseColor":
+            new_color = cls(*value, **init_dict)
+        else:
+            new_color = cls._subclasses[_type](value, **init_dict)
 
-        return BaseColor(**color_dict).to_color_space(color_space)  # type: ignore
+        return new_color.to_color_space(color_space)  # type: ignore
 
-    ## dunders
-    def __eq__(self, color):
-        # Tolerance is relative based on the left type
-        tolerances = {
-            "Hex": 1 / (255 * 2),
-            "RGB": 1 / (255 * 2),
-        }
+    def equivalence(self, color:Any)->bool:
+        """Check if two colors are essentially the same. This allows for comparisons
+        across color spaces and some reasonable rounding errors.
+
+        Parameters
+        ----------
+        color : Any
+            The other color
+
+        Returns
+        -------
+        bool
+            The equivalence of two colors
+        """
+
         if isinstance(color, BaseColor):
             # Determine relative precision
+            tolerances = {
+                "Hex": 1 / (255 * 2),
+                "RGB": 1 / (255 * 2),
+            }
 
             return all(
                 map(
@@ -295,11 +321,20 @@ class BaseColor(MetaColor):
                     zip_longest(self.fractional_rgb, color.fractional_rgb, fillvalue=1),
                 )
             )
+
         if isinstance(self, type(color)):
             # This converts the Color to the base type of the other object
             return type(color)(self) == color
 
         return False
+
+    ## dunders
+    def __eq__(self, color):
+        if isinstance(color, BaseColor):
+            return self.native == color.native
+
+        # This allows for directly comparing strings / tuples
+        return self.native == color
 
     def __add__(self, color: BaseColor) -> BaseColor:
         if not isinstance(color, BaseColor):
@@ -308,6 +343,9 @@ class BaseColor(MetaColor):
         red, green, blue = map(lambda x: sum(x) / 2, zip(self.fractional_rgb[:3], color.fractional_rgb[:3]))
 
         return BaseColor(red=red, green=green, blue=blue).to_color_space(self.__class__.__name__)  # type: ignore
+
+    def __hash__(self):
+        return hash(self.native)
 
     def _repr_html_(self):
         name = "" if self.name is None else HTML_NAME_TEMPLATE.format(name=self.name)
@@ -320,3 +358,17 @@ class BaseColor(MetaColor):
             width=MIN_WIDTH,
             height=MIN_HEIGHT,
         )
+
+    def __get_default_rep(self)->str:
+        """Get the default representation of this color object
+
+        Returns
+        -------
+        str
+            lowercase name of color representation
+        """
+
+        rep = self.__class__.__name__.lower()
+        rep = "fractional_rgb" if rep == "basecolor" else rep
+
+        return rep

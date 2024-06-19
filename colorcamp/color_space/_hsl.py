@@ -19,9 +19,9 @@ class HSL(BaseColor, tuple):
     # pylint: disable=W0613
     def __new__(cls, hsl, *args, alpha=None, **kwargs):
         if alpha is not None:
-            hsl = tuple(list(hsl[:3]) + [alpha])
+            hsl = list(hsl[:3]) + [alpha]
 
-        return super().__new__(cls, hsl)
+        return super().__new__(cls, tuple(hsl))
 
     # pylint: enable=W0613
 
@@ -50,6 +50,7 @@ class HSL(BaseColor, tuple):
         """
 
         # NOTE: order is funky b/c hsl <> hls
+        hsl = tuple(hsl)
         red, green, blue = colorsys.hls_to_rgb(hsl[0] / 360, hsl[2], hsl[1])
         self.hsl = hsl[:3]
 
@@ -72,7 +73,10 @@ class HSL(BaseColor, tuple):
 
         if self.alpha is None:
             return self._hsl  # type: ignore
-        return (*self._hsl, self.alpha)
+        return (
+            *self._hsl,
+            self.alpha,
+        )
 
     @hsl.setter
     def hsl(self, value: GenericColorTuple):

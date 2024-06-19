@@ -18,8 +18,8 @@ class RGB(BaseColor, tuple):
     # pylint: disable=W0613
     def __new__(cls, rgb, *args, alpha=None, **kwargs):
         if alpha is not None:
-            rgb = tuple(list(rgb[:3]) + [alpha])
-        return super().__new__(cls, rgb)
+            rgb = list(rgb[:3]) + [alpha]
+        return super().__new__(cls, tuple(rgb))
 
     # pylint: enable=W0613
 
@@ -46,6 +46,7 @@ class RGB(BaseColor, tuple):
         metadata : Optional[Dict[str, Any]], optional
             unstructured metadata used for querying and additional context, by default None
         """
+        rgb = tuple(rgb)
         red, green, blue = map(lambda v: v / 255, rgb[:3])
         self.rgb = rgb[:3]
 
@@ -68,7 +69,10 @@ class RGB(BaseColor, tuple):
 
         if self.alpha is None:
             return self._rgb  # type: ignore
-        return (*self._rgb, self.alpha)
+        return (
+            *self._rgb,
+            self.alpha,
+        )
 
     @rgb.setter
     def rgb(self, value: RGBColorTuple):
