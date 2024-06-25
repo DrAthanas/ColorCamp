@@ -1,6 +1,9 @@
 # visual studio code
 .vscode/
 
+# scratch pad
+untracked/
+
 # python
 venv/
 virtualenv/
