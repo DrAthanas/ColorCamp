@@ -274,7 +274,7 @@ class Camp(MetaColor):
         )
 
         new_camp: Camp = cls(
-            name=camp_dict.get("name"),
+            name=camp_dict["name"],
             description=camp_dict.get("description"),
             metadata=camp_dict.get("metadata"),
         )

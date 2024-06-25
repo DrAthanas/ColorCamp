@@ -19,23 +19,6 @@ from ._color_group import ColorGroup
 
 __all__ = ["Scale"]
 
-DIV_TEMPLATE = """
-<div style="width: {width}px;">
-    {name}
-    <div style="
-        width: {width}px; 
-        height: {height}px; 
-        background-image: linear-gradient(to right, {grad});
-        border: 1px solid gray; 
-        border-radius: 5px; 
-        padding: 5px;
-        display: flex; 
-        align-items: center; 
-        justify-content: center;
-    ">
-</div>
-"""
-
 
 class Scale(ColorGroup, tuple):
     """An object to represent continuous color Scales"""

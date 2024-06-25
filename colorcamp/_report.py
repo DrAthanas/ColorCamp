@@ -22,7 +22,7 @@ from .groups import Map, Palette, Scale
 __all__ = ["report"]
 
 
-def _search_buckets(sections: Sequence[str], camp: Camp):
+def _search_buckets(sections: List[str], camp: Camp):
     for section in sections:
         bucket: Bucket = getattr(camp, section)
         if len(bucket.names) > 0:
@@ -186,7 +186,7 @@ def camp_to_html(
                 COLOR_OBJECT_HTML.format(
                     header=_format_header(name, color),
                     color_bar=_format_color_bar(color),
-                    spaces=table_formatters[sec_name](color),
+                    spaces=table_formatters[sec_name](color),  # type: ignore
                 )
                 for name, color in section.items()
             ]

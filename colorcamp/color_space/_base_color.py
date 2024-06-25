@@ -286,7 +286,7 @@ class BaseColor(MetaColor):
         if _type == "BaseColor":
             new_color = cls(*value, **init_dict)
         else:
-            new_color = cls._subclasses[_type](value, **init_dict)
+            new_color = cls._subclasses[_type](value, **init_dict)  # type: ignore
 
         return new_color.to_color_space(color_space)  # type: ignore
 

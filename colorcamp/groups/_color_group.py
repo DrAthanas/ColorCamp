@@ -57,7 +57,7 @@ class ColorGroup(MetaColor):
 
         return new_group
 
-    def to_palette(self) -> "Palette":
+    def to_palette(self) -> "Palette":  # type: ignore
         """Convert the current color group into a color palette object
 
         Returns
@@ -66,7 +66,7 @@ class ColorGroup(MetaColor):
         """
         return self.__to_type("Palette")
 
-    def to_scale(self, stops: Optional[Sequence[Numeric]] = None) -> "Scale":
+    def to_scale(self, stops: Optional[Sequence[Numeric]] = None) -> "Scale":  # type: ignore
         """Convert the current color group into a color scale object
 
         Parameters
@@ -80,7 +80,7 @@ class ColorGroup(MetaColor):
         """
         return self.__to_type("Scale", stops=stops)
 
-    def to_map(self, names: Optional[Sequence[Hashable]] = None) -> "Map":
+    def to_map(self, names: Optional[Sequence[Hashable]] = None) -> "Map":  # type: ignore
         """Convert the current color group into a color scale object
 
         Parameters
