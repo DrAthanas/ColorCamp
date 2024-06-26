@@ -157,7 +157,7 @@ class TestRGB(TestColor):
 class TestHSL(TestColor):
     def test_channels(self):
         assert self.color.hue == 158.2051282051282
-        assert self.color.saturation == 0.9999999999999999
+        assert self.color.saturation == 1
         assert self.color.lightness == 0.5411764705882353
 
     def test_change_channel(self):
@@ -186,7 +186,7 @@ def test_conversion(color_space, color, request):
     color_obj: BaseColor = request.getfixturevalue(color)
     new_color = color_obj.to_color_space(color_space)
     assert new_color.__class__.__name__ == color_space
-    assert new_color == color_obj
+    assert new_color.equivalence(color_obj)
 
 
 @param_colors
@@ -217,6 +217,27 @@ def test_addition(color1, color2, expected):
 @pytest.mark.parametrize(
     ['color', 'other_color'],
     [
+        ('sky_Color', BaseColor(*(15/255,182/255,255/255), name = 'anything')),
+        pytest.param('pink_hex', RGB((255,21,170)), marks = [pytest.mark.xfail]),
+        ('pink_hex', Hex("#FF15AA")),
+        ('pink_hex', "#FF15AA"),
+        pytest.param('pink_hex', (255,21,170), marks = [pytest.mark.xfail]),
+        ('mustard_rgb', RGB((255,170,21))),
+        ('mustard_rgb', (255,170,21)),
+        pytest.param('mustard_rgb', Hex("#FFAA15"), marks = [pytest.mark.xfail]),
+        ('lime_hsl', HSL((158.2051282051282, 1, 0.5411764705882353))),
+        pytest.param('lime_hsl', Hex("#15FFAA"), marks = [pytest.mark.xfail]),
+        ('lime_hsl', (158.2051282051282, 1, 0.5411764705882353)),
+    ]
+) # fmt: on
+def test_equality(color, other_color, request):
+    color_obj: BaseColor = request.getfixturevalue(color) 
+    assert color_obj == other_color    
+
+# fmt: off
+@pytest.mark.parametrize(
+    ['color', 'other_color'],
+    [
         ('sky_Color', RGB((15,182,255), name = 'anything')),
         ('pink_hex', RGB((255,21,170))),
         ('pink_hex', Hex("#FF15AA")),
@@ -227,12 +248,25 @@ def test_addition(color1, color2, expected):
         ('mustard_rgb', (255,170,21)),
         ('lime_hsl', HSL((158.2051282051282, 0.9999999999999999, 0.5411764705882353))),
         ('lime_hsl', Hex("#15FFAA")),
-        ('lime_hsl', (158.2051282051282, 0.9999999999999999, 0.5411764705882353))
+        ('lime_hsl', (158.2051282051282, 1, 0.5411764705882353)),
     ]
 ) # fmt: on
-def test_equality(color, other_color, request):
+def test_equivalence(color, other_color, request):
     color_obj: BaseColor = request.getfixturevalue(color) 
-    assert color_obj == other_color    
+    assert color_obj.equivalence(other_color)
+
+# fmt: off
+@pytest.mark.parametrize(
+    ['color', 'other_color'],
+    [
+        ('pink_hex', "#FF15AA"),
+        ('mustard_rgb', (255,170,21)),
+        ('lime_hsl', (158.2051282051282, 1, 0.5411764705882353))
+    ]
+) # fmt: on
+def test_hash(color, other_color, request):
+    color_obj: BaseColor = request.getfixturevalue(color) 
+    assert hash(color_obj) == hash(other_color)
 
 @param_colors
 def test_save_and_load(color, request):
