@@ -2,7 +2,7 @@
 ___________
 |  |  | 
 | --- | --- |
-| Testing | [![CI - Test](https://github.com/DrAthanas/ColorCamp/actions/workflows/python-package.yml/badge.svg)](https://github.com/pandas-dev/pandas/actions/workflows/unit-tests.yml) [![codecov](https://codecov.io/gh/DrAthanas/ColorCamp/coverage.svg?branch=main)](https://codecov.io/gh/DrAthanas/ColorCamp) |
+| Testing | [![CI - Test](https://github.com/DrAthanas/ColorCamp/actions/workflows/python-package.yml/badge.svg)](https://github.com/DrAthanas/ColorCamp/actions/workflows/python-package.yml) [![codecov](https://codecov.io/gh/DrAthanas/ColorCamp/coverage.svg?branch=main)](https://codecov.io/gh/DrAthanas/ColorCamp) |
 | Package | [![PyPI Latest Release](https://img.shields.io/pypi/v/colorcamp.svg)](https://pypi.org/project/colorcamp/) |
 | Meta | [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/DrAthanas/ColorCamp/blob/main/LICENSE)|
 
